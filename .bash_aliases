@@ -2,9 +2,11 @@
 if [ $(uname) = 'Linux' ]; then
 	alias 'ls'='ls --color=auto -F'
 	alias 'l'='ls --color=auto -lAF'
+	alias 'la'='ls --color=auto -aF'
 elif [ $(uname) = 'Darwin' ]; then
 	alias 'ls'='ls -FG'
 	alias 'l'='ls -lAFG'
+	alias 'la'='ls -aFG'
 fi
 
 alias '~'='cd ~'
