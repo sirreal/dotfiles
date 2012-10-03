@@ -1,0 +1,16 @@
+[user]
+	name = SirReal
+	email = jon.surrell@gmail.com
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = auto
+    grep = auto
+[core]
+    editor = vim
+[github]
+    user = SirReal
+[push]
+    default = current
