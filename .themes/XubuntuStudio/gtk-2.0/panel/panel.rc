@@ -1,0 +1,13 @@
+style "panelbg"
+{
+  xthickness        = 0
+  ythickness        = 0
+  bg_pixmap[NORMAL] = "panel/panel.png"
+}
+
+class "*Panel*" style "panelbg"
+class "*panel*" style "panelbg"
+class "*notif*" style "panelbg"
+class "*Notif*" style "panelbg"
+class "*Tray*"  style "panelbg"
+class "*tray*"  style "panelbg"
