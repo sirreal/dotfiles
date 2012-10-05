@@ -19,3 +19,7 @@ alias '....'='cd ../../..'
 alias '.....'='cd ../../../..'
 alias '......'='cd ../../../../..'
 alias '.......'='cd ../../../../../..'
+
+if [ ! -x wget ]; then
+	alias 'wget'='curl -OL'
+fi
