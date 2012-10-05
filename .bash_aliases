@@ -19,3 +19,6 @@ alias '....'='cd ../../..'
 alias '.....'='cd ../../../..'
 alias '......'='cd ../../../../..'
 alias '.......'='cd ../../../../../..'
+
+#SVN
+alias 'svn st'='svn status'
