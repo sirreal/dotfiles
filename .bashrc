@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Set UTF-8 and English
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+
+# Add home directory bin
 if [ -d ~/bin ]; then
     export PATH=$PATH:~/bin
 fi
