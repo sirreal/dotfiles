@@ -3,10 +3,12 @@ if [ $(uname) = 'Linux' ]; then
 	alias 'ls'='ls --color=auto -F'
 	alias 'l'='ls --color=auto -lAF'
 	alias 'la'='ls --color=auto -aF'
+	alias 'ld'='ls --color=auto -lA | grep ^d'
 elif [ $(uname) = 'Darwin' ]; then
 	alias 'ls'='ls -FG'
 	alias 'l'='ls -lAFG'
 	alias 'la'='ls -aFG'
+	alias 'ld'='ls -lAG | grep ^d'
 fi
 
 alias '~'='cd ~'
