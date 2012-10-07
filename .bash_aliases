@@ -22,6 +22,14 @@ alias '.....'='cd ../../../..'
 alias '......'='cd ../../../../..'
 alias '.......'='cd ../../../../../..'
 
-if [ ! -x wget ]; then
-	alias 'wget'='curl -OL'
+# Replace wget with "curl -OL" when not installed (Mac)
+type -P wget &> /dev/null
+if [ $? -eq 1 ]; then
+    type -P curl &> /dev/null
+    if [ $? -ne 1 ]; then
+        alias wget="curl -OL";
+        echo "wget not available, setting wget=curl -OL"
+    else
+        echo "wget and curl not installed."
+    fi
 fi
