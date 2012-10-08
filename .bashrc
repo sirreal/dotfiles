@@ -104,8 +104,10 @@ export GREP_OPTIONS='--color=auto --exclude-dir=.svn'
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-if [ -f ~/.bash_aliases_specific ]; then
-    . ~/.bash_aliases_specific
+if [ -f ~/.bash_private ]; then
+    . ~/.bash_private
+else
+    echo "You may create a private (no git) settings/alias file at ~/.bash_private"
 fi
 
 # enable programmable completion features (you don't need to enable
