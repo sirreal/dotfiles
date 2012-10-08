@@ -6,6 +6,9 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
+# Set vi as editor
+export EDITOR=vi
+
 # Add home directory bin
 if [ -d ~/bin ]; then
     export PATH=$PATH:~/bin
