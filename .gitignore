@@ -2,7 +2,6 @@
 .DS_Store
 *.cache
 Colorized-*-Jonokai.tmTheme
-Livecss.sublime-settings
 .vim/undo
 .vim/swaps
 .vim/backups
