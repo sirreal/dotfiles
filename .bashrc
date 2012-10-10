@@ -95,10 +95,6 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-# Show everything in COLOR!
-# Ignore .svn dirs in grep
-export GREP_OPTIONS='--color=auto --exclude-dir=.svn'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.

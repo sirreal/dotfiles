@@ -4,11 +4,13 @@ if [ $(uname) = 'Linux' ]; then
 	alias 'l'='ls --color=auto -lAF'
 	alias 'la'='ls --color=auto -aF'
 	alias 'ld'='ls --color=auto -lA | grep ^d'
+    export GREP_OPTIONS='--color=auto --exclude-dir=.svn'
 elif [ $(uname) = 'Darwin' ]; then
 	alias 'ls'='ls -FG'
 	alias 'l'='ls -lAFG'
 	alias 'la'='ls -aFG'
 	alias 'ld'='ls -lAG | grep ^d'
+    export GREP_OPTIONS='--color=auto'
 fi
 
 alias '~'='cd ~'
