@@ -1,7 +1,6 @@
 *.pyc
 .DS_Store
 *.cache
-Colorized-*-*.tmTheme
 .vim/undo
 .vim/swaps
 .vim/backups
