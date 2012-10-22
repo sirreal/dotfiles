@@ -9,7 +9,7 @@ elif [ $(uname) = 'Darwin' ]; then
 	alias 'ls'='ls -FG'
 	alias 'l'='ls -lAFG'
 	alias 'la'='ls -aFG'
-	alias 'ld'='ls -lAG | grep ^d'
+	alias 'lsd'='ls -lAG | grep ^d'
     export GREP_OPTIONS='--color=auto'
 fi
 
