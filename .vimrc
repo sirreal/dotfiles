@@ -27,19 +27,37 @@ set autoread
 "set so=7
 
 " Turn on the WiLd menu
-"set wildmenu
+set wildmenu
+
+" Tab complete to longest common string, like bash
+set wildmode=list:longest
+
+" Start scrolling the file 5 lines before the end of the window
+set scrolloff=5
+
+" Don't create annoying *.swp files
+set noswapfile
+
+" Wrap whole words
+set linebreak
 
 " Ignore compiled files
-"set wildignore=*.o,*~,*.pyc
+set wildignore=*.o,*~,*.pyc
 
 "Always show current position
 set ruler
+
+" Always show line numbers
+set number
 
 " Height of the command bar
 set cmdheight=2
 
 " A buffer becomes hidden when it is abandoned
 set hid
+
+" Change the invisible characters
+set listchars=trail:.,tab:>-,eol:¬
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -48,7 +66,7 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
@@ -106,7 +124,6 @@ set ffs=unix,dos,mac
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 "set nobackup
 "set nowb
-"set noswapfile
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -179,7 +196,7 @@ map <c-space> ?
 " Switch CWD to the directory of the open buffer
 "map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 "try
 "  set switchbuf=useopen,usetab,newtab
 "  set stal=2
@@ -200,6 +217,11 @@ set viminfo^=%
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
+
+" Display an incomplete command in the lower right corner
+set showcmd
+" Show current mode down the bottom
+set showmode
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
