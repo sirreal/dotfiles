@@ -42,3 +42,4 @@ ColorSelectionUseDefault=FALSE
 TitleInitial=%D
 ScrollingOnOutput=FALSE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
+
