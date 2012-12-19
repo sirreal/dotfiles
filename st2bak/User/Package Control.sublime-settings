@@ -1,0 +1,24 @@
+{
+	"auto_upgrade_last_run": null,
+	"installed_packages":
+	[
+		"AAAPackageDev",
+		"Alignment",
+		"AndyPython",
+		"ApacheConf.tmLanguage",
+		"BracketHighlighter",
+		"CTags",
+		"DobDark Color Scheme",
+		"DocBlockr",
+		"Goto Documentation",
+		"HTML5",
+		"jQuery",
+		"Package Control",
+		"Prefixr",
+		"SublimeLinter",
+		"Theme - Soda"
+	],
+	"repositories":
+	[
+	]
+}

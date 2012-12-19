@@ -1,0 +1,17 @@
+{
+	"installed_packages":
+	[
+		"Alignment",
+		"BracketHighlighter",
+		"CTags",
+		"eZ-Publish-Syntax",
+		"Goto Documentation",
+		"Package Control",
+		"SublimeLinter",
+		"Theme - Soda"
+	],
+	"repositories":
+	[
+		"https://github.com/SirReal/eZ-Publish-Syntax"
+	]
+}

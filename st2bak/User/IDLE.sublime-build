@@ -1,0 +1,4 @@
+{
+	"cmd": ["idle", "-r", "$file"],
+	"selector": "source.python"
+}
