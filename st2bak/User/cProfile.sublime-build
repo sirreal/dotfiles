@@ -1,6 +1,0 @@
-{
-    "cmd": ["python -m cProfile $file"],
-    "selector": "source.python",
-    "working_dir": "$file_path",
-    "shell":true
-}
