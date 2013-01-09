@@ -5,14 +5,10 @@
 		"BracketHighlighter",
 		"CTags",
 		"DocBlockr",
-		"eZ-Publish-Syntax",
+		"eZ Publish Syntax",
 		"Goto Documentation",
 		"Package Control",
 		"SublimeLinter",
 		"Theme - Soda"
-	],
-	"repositories":
-	[
-		"https://github.com/SirReal/eZ-Publish-Syntax"
 	]
 }
