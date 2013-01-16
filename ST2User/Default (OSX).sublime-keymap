@@ -1,9 +1,9 @@
 [
 	{ "keys": ["end"], "command": "move_to", "args": {"to": "eol"} },
 	{ "keys": ["home"], "command": "move_to", "args": {"to": "bol"} },
-	{ "keys": ["shift+end"], "command": "move_to", "args": { "to": "eol", "extend": true } },
-	{ "keys": ["shift+home"], "command": "move_to", "args": { "to": "bol", "extend": true } },
-	{ "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "replace"} },
+    { "keys": ["shift+end"], "command": "move_to", "args": { "to": "eol", "extend": true } },
+    { "keys": ["shift+home"], "command": "move_to", "args": { "to": "bol", "extend": true } },
+    { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "replace"} },
 	{ "keys": ["f1"], "command": "goto_documentation" },
 	{ "keys": ["super+enter"], "command": "repl_transfer_current", "args": {"scope": "file"}}
 ]
