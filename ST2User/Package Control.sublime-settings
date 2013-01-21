@@ -2,6 +2,7 @@
 	"installed_packages":
 	[
 		"Alignment",
+		"ApacheConf.tmLanguage",
 		"BracketHighlighter",
 		"CTags",
 		"DocBlockr",

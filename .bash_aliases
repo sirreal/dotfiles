@@ -13,10 +13,10 @@ elif [ $(uname) = 'Darwin' ]; then
     export GREP_OPTIONS='--color=auto'
 fi
 
+alias 'hig'='history | grep'
+
 alias '~'='cd ~'
-
 alias 'cd..'='cd ..'
-
 alias '..'='cd ..'
 alias '...'='cd ../..'
 alias '....'='cd ../../..'
