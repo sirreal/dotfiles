@@ -1,0 +1,11 @@
+[
+    { "keys": ["end"], "command": "move_to", "args": {"to": "eol"} },
+    { "keys": ["home"], "command": "move_to", "args": {"to": "bol"} },
+    { "keys": ["ctrl+end"], "command": "move_to", "args": {"to": "eof"} },
+    { "keys": ["ctrl+home"], "command": "move_to", "args": {"to": "bof"} },
+    { "keys": ["shift+end"], "command": "move_to", "args": { "to": "eol", "extend": true } },
+    { "keys": ["shift+home"], "command": "move_to", "args": { "to": "bol", "extend": true } },
+    { "keys": ["ctrl+shift+end"], "command": "move_to", "args": { "to": "eof", "extend": true } },
+    { "keys": ["ctrl+shift+home"], "command": "move_to", "args": { "to": "bof", "extend": true } },
+    { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "replace"} }
+]
