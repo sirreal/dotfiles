@@ -1,3 +1,11 @@
 {
     "sublimelinter": "save-only",
+    "sublimelinter_disable":
+    [
+        "coffeescript",
+        "lua",
+        "perl",
+        "puppet",
+        "ruby"
+    ]
 }
