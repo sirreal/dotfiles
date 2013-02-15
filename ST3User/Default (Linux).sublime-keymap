@@ -1,1 +1,4 @@
-[]
+[
+    { "keys": ["ctrl+º"], "command": "toggle_comment", "args": {"block": false} },
+    { "keys": ["ctrl+shift+º"], "command": "toggle_comment", "args": {"block": true} }
+]
