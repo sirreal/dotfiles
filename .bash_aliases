@@ -14,6 +14,7 @@ elif [ $(uname) = 'Darwin' ]; then
 fi
 
 alias 'hig'='history | grep'
+alias 'nohistory'='unset HISTFILE'
 
 alias '~'='cd ~'
 alias 'cd..'='cd ..'
