@@ -7,5 +7,7 @@
     { "keys": ["shift+home"], "command": "move_to", "args": { "to": "bol", "extend": true } },
     { "keys": ["ctrl+shift+end"], "command": "move_to", "args": { "to": "eof", "extend": true } },
     { "keys": ["ctrl+shift+home"], "command": "move_to", "args": { "to": "bof", "extend": true } },
-    { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "replace"} }
+    { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "replace"} },
+    { "keys": ["ctrl+º"], "command": "toggle_comment", "args": {"block": false} },
+    { "keys": ["ctrl+shift+º"], "command": "toggle_comment", "args": {"block": true} }
 ]
