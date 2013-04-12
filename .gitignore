@@ -1,7 +1,0 @@
-*.pyc
-.DS_Store
-*.cache
-.vim/undo
-.vim/swaps
-.vim/backups
-.vim/.netrwhist
