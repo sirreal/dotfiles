@@ -1,6 +1,6 @@
 [Configuration]
 ColorForeground=#fefefefefefe
-ColorBackground=#111111111111
+ColorBackground=#141414141414
 ColorCursor=#464b5910cb83
 ColorSelection=#6e4b6f1b0000
 ColorPalette2=#e872557c557c
@@ -18,13 +18,13 @@ ColorPalette13=#0000737cd889
 ColorPalette14=#ffff0000d5c4
 ColorPalette15=#0000aaaa8ae2
 ColorPalette16=#5231aecbffff
-FontName=Menlo for Powerline 11
-MiscAlwaysShowTabs=FALSE
+FontName=Liberation Mono 11
+MiscAlwaysShowTabs=TRUE
 MiscBell=FALSE
 MiscBordersDefault=TRUE
 MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
-MiscDefaultGeometry=158x11
+MiscDefaultGeometry=147x11
 MiscInheritGeometry=FALSE
 MiscMenubarDefault=FALSE
 MiscMouseAutohide=FALSE
@@ -39,7 +39,11 @@ TabActivityColor=#262656568080
 AccelSetTitle=<Primary><Shift>space
 ScrollingLines=3000
 ColorSelectionUseDefault=FALSE
-TitleInitial=%D
+TitleInitial=%w
 ScrollingOnOutput=FALSE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
+MiscToolbarDefault=FALSE
+MiscScrollAlternateScreen=TRUE
+ColorPalette=#000000000000;#a66600000000;#0000a6660000;#cccc66660000;#00000000a666;#aaaa0000aaaa;#0000aaaaaaaa;#aaaaaaaaaaaa;#777777777777;#ffff59995999;#5999ffff5999;#ffffaccc5999;#59995999ffff;#ffff5555ffff;#5555ffffffff;#ffffffffffff
+TitleMode=TERMINAL_TITLE_HIDE
 
