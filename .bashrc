@@ -14,6 +14,16 @@ if [ -d ~/bin ]; then
     export PATH=$PATH:~/bin
 fi
 
+# Add basic GOPATH
+if [ -d ~/lib/go/bin ]; then
+    export GOPATH=$GOPATH:~/lib/go
+fi
+
+# Add GO directory bin to PATH
+if [ -d ~/lib/go/bin ]; then
+    export PATH=$PATH:~/lib/go/bin
+fi
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
