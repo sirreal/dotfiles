@@ -2,6 +2,7 @@
 	"installed_packages":
 	[
 		"eZ Publish Syntax",
+		"GoSublime",
 		"jQuery",
 		"LESS",
 		"Package Control",
