@@ -1,6 +1,7 @@
 {
     "env": {
-        "GOPATH": "~/lib/go"
+        "GOROOT": "~/lib/go",
+        "GOPATH": "~/lib/go/bin"
     },
 
     "translate_tabs_to_spaces": false,

@@ -14,9 +14,13 @@ if [ -d ~/bin ]; then
     export PATH=$PATH:~/bin
 fi
 
-# Add basic GOPATH
+# Add basic GOROOT
+if [ -d ~/lib/go ]; then
+    export GOROOT=~/lib/go
+fi
 if [ -d ~/lib/go/bin ]; then
-    export GOPATH=$GOPATH:~/lib/go
+# Add basic GOPATH
+    export GOPATH=~/lib/go/bin:$GOPATH
 fi
 
 # Add GO directory bin to PATH
