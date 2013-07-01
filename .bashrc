@@ -134,4 +134,6 @@ if [ -f /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
 fi
 
-export APACHE_LYNX=w3m
+if hash npm 2>/dev/null; then
+    . <(npm completion)
+fi
