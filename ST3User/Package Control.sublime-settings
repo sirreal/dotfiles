@@ -1,6 +1,7 @@
 {
 	"installed_packages":
 	[
+		"CoffeeScript",
 		"eZ Publish Syntax",
 		"GoSublime",
 		"jQuery",
