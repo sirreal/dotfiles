@@ -1,2 +1,3 @@
 *.cache
 Package Control.last-run
+*.sublime-workspace
