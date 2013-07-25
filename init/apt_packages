@@ -16,7 +16,7 @@ python-software-properties
 python3
 ruby
 rubygems
-svn
+subversion
 vim
 vlc
 

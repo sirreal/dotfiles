@@ -16,6 +16,9 @@ case $(uname) in
         ;;
 esac
 
+bootstrap() {
+    touch ~/.hushlogin # silence login
+}
 
 # Test whether a command exists
 # $1 - cmd to test
@@ -27,8 +30,8 @@ type_exists() {
 }
 
 run_apt() {
-    sudo add-apt-repository http://dl.google.com/linux/talkplugin/deb/
-    sudo add-apt-repository ppa:chris-lea/node.js
+    # sudo add-apt-repository http://dl.google.com/linux/talkplugin/deb/
+    # sudo add-apt-repository ppa:chris-lea/node.js
     sudo apt-get update
     sudo apt-get install -y $(<apt_packages)
 }
@@ -93,6 +96,7 @@ elif [[ $# -gt 0 ]]; then
                     "y"|"Y"|"yes")
                         # Do everything
                         echo "bootstrap..."
+                        bootstrap
                         ;;
                     *)
                         exit 0
@@ -101,9 +105,18 @@ elif [[ $# -gt 0 ]]; then
                 ;;
             "packages" | "modules")
                 echo "Install packages..."
+                case $THIS_SYSTEM in
+                    "mac")
+                        ;;
+                    "linux")
+                        ;;
+                esac
                 ;;
             "node" | "npm")
                 run_npm
+                ;;
+            "apt")
+                run_apt
                 ;;
             "brew"|"homebrew")
                 run_brew
