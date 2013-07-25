@@ -77,14 +77,28 @@ run_npm() {
         return
     fi
 
-    echo "Installing Node.js modules..."
+    echo "Updating npm..."
+    npm update -g -q npm
+    echo "npm updated."
+
+    case $THIS_SYSTEM in
+        "mac")
+            if [ -d $(brew --prefix)/etc/bash_completion.d ]; then
+                npm completion > $(brew --prefix)/etc/bash_completion.d/npm
+            fi
+            ;;
+        "linux")
+            if [ -d /etc/bash_completion.d ]; then
+                npm completion > /etc/bash_completion.d/npm
+            fi
+            ;;
+    esac
 
     # Install packages globally and quietly
+    echo "Installing Node.js modules..."
     sudo npm install --global --quiet $(<global_node_modules)
-
     echo "Node.js modules installed!"
 }
-
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
 if [[ $# -eq 0 ]]; then
