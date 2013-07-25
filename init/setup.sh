@@ -37,6 +37,10 @@ run_apt() {
 }
 
 run_brew() {
+    if [[ $THIS_SYSTEM != 'mac' ]]; then
+        echo "Homebrew is only for mac." >&2
+        return
+    fi
     if ! type_exists 'brew'; then
         echo "Homebrew not installed or not found."
         read -e -p "Install? (y/N): " HB
