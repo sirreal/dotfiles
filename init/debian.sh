@@ -16,6 +16,26 @@ run_apt() {
     sudo apt-get install -y $(<apt_packages)
 }
 
+# @TODO: As copy/pasted, check for validity and add Mac version
+google_talk_plugin() {
+    echo 'Downloading Google Talk Plugin...'
+    # Download Debian file that matches system architecture
+    if [ $(uname -i) = 'i386' ]; then
+        wget https://dl.google.com/linux/direct/google-talkplugin_current_i386.deb
+    elif [ $(uname -i) = 'x86_64' ]; then
+        wget https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb
+    fi
+    # Install the package
+    echo 'Installing Google Talk Plugin...'
+    echo 'Requires root privileges:'
+    sudo dpkg -i google-talkplugin_current*.deb
+    sudo apt-get install -fy
+    # Cleanup and finish
+    rm google-talkplugin_current*.deb
+    cd
+    echo 'Done.'
+}
+
 # npm package installation
 run_npm() {
     # Check for npm
