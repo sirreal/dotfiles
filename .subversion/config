@@ -127,6 +127,7 @@ diff-cmd = meld
 ### Set interactive-conflicts to 'no' to disable interactive
 ### conflict resolution prompting.  It defaults to 'yes'.
 # interactive-conflicts = no
+global-ignores = *~ .*.swp .DS_Store *.sublime-workspace
 
 ### Section for configuring automatic properties.
 [auto-props]
