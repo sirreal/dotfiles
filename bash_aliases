@@ -24,28 +24,6 @@ alias l="ls -lAF ${colorflag}"
 alias la="ls -aF ${colorflag}"
 unset colorflag
 
-# GREP: colorize, ignore versioning dirs, ignore binary files
-# Detect grep exclude type
-if grep --exclude-dir > /dev/null 2>&1; then # GNU `ls`
-    excludeflag='--exclude-dir'
-else # OS X `ls`
-    excludeflag='--exclude-dir'
-fi
-export GREP_OPTIONS='--color=auto ${excludeflag}=.svn ${excludeflag}=.git --binary-files=without-match'
-unset excludeflag
-
-# Replace wget with "curl -OL" when not installed (Mac)
-type -P wget &> /dev/null
-if [ $? -eq 1 ]; then
-    type -P curl &> /dev/null
-    if [ $? -ne 1 ]; then
-        alias wget="curl -OL";
-        echo "wget not available, setting wget=curl -OL"
-    else
-        echo "wget and curl not installed."
-    fi
-fi
-
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
