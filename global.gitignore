@@ -1,0 +1,27 @@
+# OSX
+.DS_Store
+.AppleDouble
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# SublimeText
+*.sublime-workspace
+
+# Vim
+*~
+.*.swp
+
+# Python
+*.py[cod]
+__pycache__
+
+# SASS
+*.sass-cache
+
+# SVN
+.svn/
