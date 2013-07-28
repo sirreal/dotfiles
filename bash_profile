@@ -55,18 +55,11 @@ else
     PS1='\u@\h:\w\$ '
 fi
 
-# Alias definitions.
-if [ -r ~/.dotfiles/bash_aliases ]; then
-    source ~/.dotfiles/bash_aliases
-fi
-
-# Unversioned bash
-if [ -r ~/.bash_private ]; then
-    source ~/.bash_private
-else
-    echo "You may add unversioned bash setup in ~/.bash_private"
-    touch ~/.bash_private
-fi
+# Source all the files in bash_source
+for file in $HOME/.dotfiles/bash_source/*; do
+    source "$file"
+done
+unset file
 
 # GREP: colorize, ignore versioning dirs, ignore binary files
 # Detect grep exclude type
