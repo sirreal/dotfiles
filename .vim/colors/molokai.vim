@@ -1,1 +1,1 @@
-/Users/JS/.dotfiles/lib/molokai/colors/molokai.vim
+../../lib/molokai/colors/molokai.vim
