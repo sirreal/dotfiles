@@ -95,6 +95,9 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
+" Reset worthwhie title (not "Thanks for flying Vim")
+let &titleold=getcwd()
+
 " Set colorscheme to molokai if available
 let g:molokai_original = 1
 :silent! colorscheme molokai
