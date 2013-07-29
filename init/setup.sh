@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # Determine current system
 case $(uname) in
     "Linux")
@@ -53,7 +55,7 @@ run_apt() {
     # sudo add-apt-repository http://dl.google.com/linux/talkplugin/deb/
     # sudo add-apt-repository ppa:chris-lea/node.js
     sudo apt-get update
-    sudo apt-get install -y $(<apt_packages)
+    sudo apt-get install -y $(<install/apt)
 }
 
 run_brew() {
@@ -80,7 +82,7 @@ run_brew() {
     fi
 
     brew update
-    brew install $(<brew_formula)
+    brew install $(<install/homebrew)
 
 }
 
@@ -116,7 +118,7 @@ run_npm() {
 
     # Install packages globally and quietly
     echo "Installing Node.js modules..."
-    sudo npm install --global --quiet $(<global_node_modules)
+    sudo npm install --global --quiet $(<install/node)
     echo "Node.js modules installed!"
 }
 
