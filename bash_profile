@@ -61,6 +61,9 @@ for file in $HOME/.dotfiles/bash_source/*; do
 done
 unset file
 
+# Source ~/.bash_private
+[ -r $HOME/.bash_private ] && source $HOME/.bash_private
+
 # GREP: colorize, ignore versioning dirs, ignore binary files
 # Detect grep exclude type
 if grep --exclude-dir > /dev/null 2>&1; then # GNU `ls`
