@@ -20,10 +20,22 @@ esac
 set_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
-            [ -r "$1.linux_target" ] && LINK_TARGET=$(<"$1.linux_target") && return
+            if [ -r "$1.linux_target" ]; then
+                LINK_TARGET=$(<"$1.linux_target")
+
+                # This crappy eval allows link expansion
+                eval LINK_TARGET=$LINK_TARGET
+                return
+            fi
         ;;
         "osx")
-            [ -r "$1.osx_target" ] && LINK_TARGET=$(<"$1.osx_target") && return
+            if [ -r "$1.linux_target" ]; then
+                LINK_TARGET=$(<"$1.osx_target")
+
+                # This crappy eval allows link expansion
+                eval LINK_TARGET=$LINK_TARGET
+                return
+            fi
         ;;
     esac
     [ -r "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
@@ -45,7 +57,9 @@ bootstrap() {
         # Sets a global variable LINK_TARGET
         set_link_target $_file
 
-        ln -sv --backup="simple" --suffix=".DOTFILE_REPLACED" "$LINK_TARGET" "$_file"
+        echo "FILE: ${_linkdir}${_file}"
+        echo "LT: $LINK_TARGET"
+        ln -s --backup="simple" --suffix=".DOTFILE_REPLACED" "${_linkdir}${_file}" $LINK_TARGET
         # echo "LINK:" $_file "->" $LINK_TARGET
 
     done
