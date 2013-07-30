@@ -44,6 +44,11 @@ set_link_target() {
     LINK_TARGET="$HOME/$1"
 }
 
+# TODO write this to ´ln -s´ for different systems
+link_file() {
+    return
+}
+
 bootstrap() {
     touch ~/.hushlogin # silence login
 
@@ -93,44 +98,43 @@ google_talk_plugin() {
 # Test whether a command exists
 # $1 - cmd to test
 type_exists() {
-    if [ `type -P $1` ]; then
-      return 0
-    fi
-    return 1
+    type -P "$1" > /dev/null || return 1 && return 0
+}
+
+#
+confirm() {
+    local _conf
+    read -s -n 1 -p "Do you want to continue [y/N]? " _conf
+    echo
+    case $_conf in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
 }
 
 run_apt() {
     # sudo add-apt-repository http://dl.google.com/linux/talkplugin/deb/
     # sudo add-apt-repository ppa:chris-lea/node.js
     sudo apt-get update
-    sudo apt-get install -y $(<install/apt)
+    sudo apt-get install -y $(< ~/.dotfiles/setup/install/apt)
 }
 
 run_brew() {
-    if [[ $THIS_SYSTEM != 'mac' ]]; then
+    if [ "$THIS_SYSTEM" != 'osx' ]; then
         echo "Homebrew is only for mac." >&2
         return 1
     fi
     if ! type_exists 'brew'; then
-        echo "Homebrew not installed or not found."
-        read -e -p "Install? (y/N): " HB
-        HB=${HB:-"NO"}
-        case $inst in
-            "y"|"Y"|"yes")
-                ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-                ;;
-            *)
-                return
-                ;;
-        esac
+        echo "Hombrew not found, will be installed."
+        confirm || return && ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
     fi
-    if [ ! -f brew_formula ]; then
+    if [ ! -r ~/.dotfiles/setup/install/homebrew ]; then
         echo "brew_formula file not found. Aborting formula install." >&2
         return
     fi
 
     brew update
-    brew install $(<install/homebrew)
+    brew install $(< ~/.dotfiles/setup/install/homebrew)
 
 }
 
@@ -139,12 +143,12 @@ run_npm() {
     # Check for npm
     if ! type_exists 'npm'; then
         echo "npm not installed or not found. Aborting Node.js module install." >&2
-        return
+        return 1
     fi
 
-    if [ ! -f global_node_modules ]; then
+    if [ ! -r ~/.dotfiles/setup/install/node ]; then
         echo "global_node_modules file not found. Aborting Node.js module install." >&2
-        return
+        return 1
     fi
 
     echo "Updating npm..."
@@ -166,7 +170,7 @@ run_npm() {
 
     # Install packages globally and quietly
     echo "Installing Node.js modules..."
-    sudo npm install --global --quiet $(<install/node)
+    sudo npm install --global --quiet $(< ~/.dotfiles/setup/install/node)
     echo "Node.js modules installed!"
 }
 
@@ -178,17 +182,18 @@ elif [[ $# -gt 0 ]]; then
         case "$var" in
             "bootstrap")
                 echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
-                read -s -n 1 -p "Do you want to continue [y/N]? " BS
-                echo
-                case $BS in
-                    y*|Y*)
-                        # Do everything
-                        bootstrap
-                        ;;
-                    *)
-                        exit 0
-                        ;;
-                esac
+                confirm || exit && bootstrap
+                # read -s -n 1 -p "Do you want to continue [y/N]? " BS
+                # echo
+                # case $BS in
+                #     y*|Y*)
+                #         # Do everything
+                #         bootstrap
+                #         ;;
+                #     *)
+                #         exit 0
+                #         ;;
+                # esac
                 ;;
             "packages" | "modules")
                 echo "Install packages..."
