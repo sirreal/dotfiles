@@ -17,12 +17,14 @@ case $(uname -s) in
         ;;
 esac
 
+# Read link target directive
+# Allow different location depending on system
 set_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
             if [ -r "$1.linux_target" ]; then
                 LINK_TARGET=$(<"$1.linux_target")
-
+                [ -n LINK_TARGET ] && return 1
                 # This crappy eval allows link expansion
                 eval LINK_TARGET=$LINK_TARGET
                 return
@@ -31,7 +33,7 @@ set_link_target() {
         "osx")
             if [ -r "$1.linux_target" ]; then
                 LINK_TARGET=$(<"$1.osx_target")
-
+                [ -n LINK_TARGET ] && return 1
                 # This crappy eval allows link expansion
                 eval LINK_TARGET=$LINK_TARGET
                 return
@@ -44,7 +46,8 @@ set_link_target() {
 
 bootstrap() {
     touch ~/.hushlogin # silence login
-    local _dir _linkdir _file _line
+
+    local _dir _linkdir _file _line LINK_TARGET
     _dir=$(pwd)
 
     _linkdir="$HOME/.dotfiles/link/"
@@ -55,15 +58,15 @@ bootstrap() {
         [[ $_file = ?*.*target ]] && continue
 
         # Sets a global variable LINK_TARGET
-        set_link_target $_file
+        # If link shouldn't be set for this OS (blank config file)
+        # then we abort the linking
+        set_link_target $_file || continue
 
-        echo "FILE: ${_linkdir}${_file}"
-        echo "LT: $LINK_TARGET"
-        ln -s --backup="simple" --suffix=".DOTFILE_REPLACED" "${_linkdir}${_file}" $LINK_TARGET
-        # echo "LINK:" $_file "->" $LINK_TARGET
+        # ln implementations vary,
+        # these should work mac / debian
+        ln -sFfi "${_linkdir}${_file}" $LINK_TARGET
 
     done
-    unset LINK_TARGET
     cd $_dir
 }
 
