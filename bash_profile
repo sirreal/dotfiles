@@ -1,1 +1,0 @@
-link/.bash_profile

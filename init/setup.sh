@@ -1,16 +1,15 @@
 #!/bin/bash
 
-
-
 # Determine current system
-case $(uname) in
+# Define helper functions base on system
+case $(uname -s) in
     "Linux")
         echo "You're on a Linux system!"
         THIS_SYSTEM=linux
         ;;
     "Darwin")
         echo "You're on a Mac!"
-        THIS_SYSTEM=mac
+        THIS_SYSTEM=osx
         ;;
     *)
         echo "I'm not sure what system you're on :(" >&2
@@ -18,8 +17,40 @@ case $(uname) in
         ;;
 esac
 
+set_link_target() {
+    case "$THIS_SYSTEM" in
+        "linux")
+            [ -r "$1.linux_target" ] && LINK_TARGET=$(<"$1.linux_target") && return
+        ;;
+        "osx")
+            [ -r "$1.osx_target" ] && LINK_TARGET=$(<"$1.osx_target") && return
+        ;;
+    esac
+    [ -r "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
+    LINK_TARGET="$HOME/$1"
+}
+
 bootstrap() {
     touch ~/.hushlogin # silence login
+    local _dir _linkdir _file _line
+    _dir=$(pwd)
+
+    _linkdir="$HOME/.dotfiles/link/"
+    cd "$_linkdir"
+    for _file in $(ls -A $_linkdir); do
+
+        # Don't link our link target directive files
+        [[ $_file = ?*.*target ]] && continue
+
+        # Sets a global variable LINK_TARGET
+        set_link_target $_file
+
+        ln -sv --backup="simple" --suffix=".DOTFILE_REPLACED" "$LINK_TARGET" "$_file"
+        # echo "LINK:" $_file "->" $LINK_TARGET
+
+    done
+    unset LINK_TARGET
+    cd $_dir
 }
 
 # @TODO: As copy/pasted, check for validity and add Mac version
@@ -61,7 +92,7 @@ run_apt() {
 run_brew() {
     if [[ $THIS_SYSTEM != 'mac' ]]; then
         echo "Homebrew is only for mac." >&2
-        return
+        return 1
     fi
     if ! type_exists 'brew'; then
         echo "Homebrew not installed or not found."
@@ -130,12 +161,11 @@ elif [[ $# -gt 0 ]]; then
         case "$var" in
             "bootstrap")
                 echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
-                read -e -p "Continue? (y/N): " BS
-                BS=${BS:-"NO"}
+                read -s -n 1 -p "Do you want to continue [y/N]? " BS
+                echo
                 case $BS in
-                    "y"|"Y"|"yes")
+                    y*|Y*)
                         # Do everything
-                        echo "bootstrap..."
                         bootstrap
                         ;;
                     *)

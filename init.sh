@@ -1,2 +1,3 @@
 #!/bin/bash
-init/setup.sh bootstrap
+
+. ~/.dotfiles/init/setup.sh bootstrap
