@@ -19,13 +19,13 @@ esac
 
 # Read link target directive
 # Allow different location depending on system
-set_link_target() {
+get_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
             if [ -r "$1.linux_target" ]; then
                 LINK_TARGET=$(<"$1.linux_target")
-                [ -n LINK_TARGET ] && return 1
-                # This crappy eval allows link expansion
+                [ -z $LINK_TARGET ] && return 1
+                # This crappy eval allows link expansion (~/...)
                 eval LINK_TARGET=$LINK_TARGET
                 return
             fi
@@ -33,8 +33,8 @@ set_link_target() {
         "osx")
             if [ -r "$1.linux_target" ]; then
                 LINK_TARGET=$(<"$1.osx_target")
-                [ -n LINK_TARGET ] && return 1
-                # This crappy eval allows link expansion
+                [ -z LINK_TARGET ] && return 1
+                # This crappy eval allows link expansion (~/...)
                 eval LINK_TARGET=$LINK_TARGET
                 return
             fi
@@ -44,9 +44,34 @@ set_link_target() {
     LINK_TARGET="$HOME/$1"
 }
 
-# TODO write this to ´ln -s´ for different systems
+backup_linked_file() {
+    if [ -z $LINK_BAK_DIR ]; then
+        LINK_BAK_DIR=~"/df.$(date +%Y%m%d%H%M)/"
+        mkdir $LINK_BAK_DIR
+    fi
+
+    echo $LINK_BAK_DIR
+    ls $LINK_BAK_DIR
+
+    # TODO test this syntax on mac
+    # mv $1 $LINK_BAK_DIR
+}
+
+# TODO finish for osx
 link_file() {
-    return
+    local _flags
+    case "$THIS_SYSTEM" in
+        "linux")
+            _flags='-n'
+        ;;
+        "osx")
+            _flags='-h'
+        ;;
+
+    esac
+
+    [ -d $(dirname $2) ] || mkdir -p $(dirname $2)
+    ln -s -i $_flags $1 $2
 }
 
 bootstrap() {
@@ -65,12 +90,12 @@ bootstrap() {
         # Sets a global variable LINK_TARGET
         # If link shouldn't be set for this OS (blank config file)
         # then we abort the linking
-        set_link_target $_file || continue
+        get_link_target $_file || continue
 
-        # ln implementations vary,
-        # these should work mac / debian
-        ln -sFfi "${_linkdir}${_file}" $LINK_TARGET
+        echo "LINK: ${_linkdir}${_file} -> $LINK_TARGET"
 
+        # Link the file
+        link_file "${_linkdir}${_file}" $LINK_TARGET
     done
     cd $_dir
 }
