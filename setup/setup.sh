@@ -23,19 +23,19 @@ get_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
             if [ -f "$1.linux_target" ]; then
-                LINK_TARGET="$(<"$1.linux_target")"
-                [ -z "$LINK_TARGET" ] && return 1
                 # This crappy eval allows link expansion (~/...)
-                #eval LINK_TARGET=$LINK_TARGET
+                eval LINK_TARGET=$(printf "%q" "$(<"$1.linux_target")")
+                [ -z "$LINK_TARGET" ] && return 1
                 return
             fi
         ;;
         "osx")
             if [ -f "$1.osx_target" ]; then
+                # This crappy eval allows link expansion (~/...)
+                echo "LOOK!"
+                printf "%q" "$(<"$1.osx_target")"
                 LINK_TARGET=$(printf "%q" "$(<"$1.osx_target")")
                 [ -z $LINK_TARGET ] && return 1
-                # This crappy eval allows link expansion (~/...)
-                #eval LINK_TARGET=$LINK_TARGET
 
                 echo "LINKING: $LINK_TARGET"
 
