@@ -1,1 +1,1 @@
-~/.config/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+${XDG_CONFIG_HOME:-~/.config}/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml

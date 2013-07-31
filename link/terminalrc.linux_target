@@ -1,1 +1,1 @@
-~/.config/xfce4/terminal/terminalrc
+${XDG_CONFIG_HOME:-~/.config}/Terminal/terminalrc
