@@ -22,7 +22,7 @@ esac
 get_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
-            if [ -r "$1.linux_target" ]; then
+            if [ -f "$1.linux_target" ]; then
                 LINK_TARGET="$(<"$1.linux_target")"
                 [ -z "$LINK_TARGET" ] && return 1
                 # This crappy eval allows link expansion (~/...)
@@ -32,15 +32,18 @@ get_link_target() {
         ;;
         "osx")
             if [ -f "$1.osx_target" ]; then
-                LINK_TARGET="$(<"$1.osx_target")"
-                [ -z "$LINK_TARGET" ] && return 1
+                LINK_TARGET=$(printf "%q" "$(<"$1.osx_target")")
+                [ -z $LINK_TARGET ] && return 1
                 # This crappy eval allows link expansion (~/...)
                 #eval LINK_TARGET=$LINK_TARGET
+
+                echo "LINKING: $LINK_TARGET"
+
                 return
             fi
         ;;
     esac
-    [ -r "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
+    [ -f "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
     LINK_TARGET="$HOME/$1"
 }
 
@@ -49,16 +52,15 @@ link_file() {
     local _flags
     case "$THIS_SYSTEM" in
         "linux")
-            _flags='-n'
+            _flags='-sniv'
         ;;
         "osx")
-            _flags='-f -h'
+            _flags='-shiv'
         ;;
-
     esac
 
-    [ -d "$(dirname "$2")" ] || mkdir -p "$(dirname "$2")"
-    ln $_flags -s -i -v "$1" "$2"
+    [ -d $(dirname $2) ] || mkdir -p $(dirname $2)
+    ln $_flags "${1}" ${2}
 }
 
 bootstrap() {
@@ -82,7 +84,7 @@ bootstrap() {
         echo "LINK: ${_linkdir}${_file} -> $LINK_TARGET"
 
         # Link the file
-        link_file "${_linkdir}${_file}" "$LINK_TARGET"
+        link_file "${_linkdir}${_file}" $LINK_TARGET
     done
     cd $_dir
 }
