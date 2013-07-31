@@ -23,38 +23,25 @@ get_link_target() {
     case "$THIS_SYSTEM" in
         "linux")
             if [ -r "$1.linux_target" ]; then
-                LINK_TARGET=$(<"$1.linux_target")
-                [ -z $LINK_TARGET ] && return 1
+                LINK_TARGET="$(<"$1.linux_target")"
+                [ -z "$LINK_TARGET" ] && return 1
                 # This crappy eval allows link expansion (~/...)
-                eval LINK_TARGET=$LINK_TARGET
+                #eval LINK_TARGET=$LINK_TARGET
                 return
             fi
         ;;
         "osx")
-            if [ -r "$1.linux_target" ]; then
-                LINK_TARGET=$(<"$1.osx_target")
-                [ -z LINK_TARGET ] && return 1
+            if [ -f "$1.osx_target" ]; then
+                LINK_TARGET="$(<"$1.osx_target")"
+                [ -z "$LINK_TARGET" ] && return 1
                 # This crappy eval allows link expansion (~/...)
-                eval LINK_TARGET=$LINK_TARGET
+                #eval LINK_TARGET=$LINK_TARGET
                 return
             fi
         ;;
     esac
     [ -r "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
     LINK_TARGET="$HOME/$1"
-}
-
-backup_linked_file() {
-    if [ -z $LINK_BAK_DIR ]; then
-        LINK_BAK_DIR=~"/df.$(date +%Y%m%d%H%M)/"
-        mkdir $LINK_BAK_DIR
-    fi
-
-    echo $LINK_BAK_DIR
-    ls $LINK_BAK_DIR
-
-    # TODO test this syntax on mac
-    # mv $1 $LINK_BAK_DIR
 }
 
 # TODO finish for osx
@@ -65,13 +52,13 @@ link_file() {
             _flags='-n'
         ;;
         "osx")
-            _flags='-h'
+            _flags='-f -h'
         ;;
 
     esac
 
-    [ -d $(dirname $2) ] || mkdir -p $(dirname $2)
-    ln -s -i $_flags $1 $2
+    [ -d "$(dirname "$2")" ] || mkdir -p "$(dirname "$2")"
+    ln $_flags -s -i -v "$1" "$2"
 }
 
 bootstrap() {
@@ -95,7 +82,7 @@ bootstrap() {
         echo "LINK: ${_linkdir}${_file} -> $LINK_TARGET"
 
         # Link the file
-        link_file "${_linkdir}${_file}" $LINK_TARGET
+        link_file "${_linkdir}${_file}" "$LINK_TARGET"
     done
     cd $_dir
 }
