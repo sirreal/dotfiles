@@ -4,11 +4,9 @@
 # Define helper functions base on system
 case $(uname -s) in
     "Linux")
-        echo "You're on a Linux system!"
         THIS_SYSTEM=linux
         ;;
     "Darwin")
-        echo "You're on a Mac!"
         THIS_SYSTEM=osx
         ;;
     *)
@@ -169,8 +167,14 @@ run_brew() {
         return
     fi
 
-    brew update
-    brew install $(< ~/.dotfiles/setup/install/homebrew)
+    echo "HOMEBREW: Updating formula and installing packages..."
+
+    if [[ $(brew update) && $(brew install $(< ~/.dotfiles/setup/install/homebrew)) ]]; then
+        echo "HOMEBREW: Setup OK!"
+    else
+        echo "HOMEBREW: Setup failed!" >&2
+        return 1
+    fi
 }
 
 # npm package installation
@@ -188,12 +192,13 @@ run_npm() {
     fi
 
     local _cmd
+
     case $THIS_SYSTEM in
-        "mac")
+        "osx")
+            _cmd="npm"
             if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
                 npm completion > $(brew --prefix)/etc/bash_completion.d/npm
             fi
-            _cmd="npm"
             ;;
         "linux")
             if [[ -d /etc/bash_completion.d ]]; then
@@ -203,8 +208,10 @@ run_npm() {
             ;;
     esac
 
+    _cmd=${cmd:-npm}
+
     echo "Updating npm..."
-    $_cmd update -g -q npm
+    $_cmd update -g npm
     echo "npm updated."
 
     # Install packages globally and quietly
@@ -253,7 +260,7 @@ run_gem() {
 
     # Install packages globally and quietly
     echo "Installing gems..."
-    $_cmd --quiet $(< ~/.dotfiles/setup/install/gem)
+    gem install --quiet $(< ~/.dotfiles/setup/install/gem)
     echo "Gems installed!"
 }
 
