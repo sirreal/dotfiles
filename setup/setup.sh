@@ -31,9 +31,9 @@ get_link_target() {
             fi
         ;;
         "osx")
-            if [ -r "$1.linux_target" ]; then
+            if [ -r "$1.osx_target" ]; then
                 LINK_TARGET=$(<"$1.osx_target")
-                [ -z LINK_TARGET ] && return 1
+                [ -z $LINK_TARGET ] && return 1
                 # This crappy eval allows link expansion (~/...)
                 eval LINK_TARGET=$LINK_TARGET
                 return
@@ -62,26 +62,34 @@ link_file() {
     local _flags
     case "$THIS_SYSTEM" in
         "linux")
-            _flags='-n'
+            _flags='-sniv'
         ;;
         "osx")
-            _flags='-h'
+            _flags='-shiv'
         ;;
 
     esac
 
     [ -d $(dirname $2) ] || mkdir -p $(dirname $2)
-    ln -s -i $_flags $1 $2
+
+    echo "Run: 'ln $_flags $1 $2' ?"
+    confirm || return
+
+    ln $_flags $1 $2
 }
 
 bootstrap() {
+    echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
+    confirm || return 0
     touch ~/.hushlogin # silence login
 
     local _dir _linkdir _file _line LINK_TARGET
     _dir=$(pwd)
 
     _linkdir="$HOME/.dotfiles/link/"
-    cd "$_linkdir"
+    
+    # Move to ~/ to allow relative *.target
+    cd ~
     for _file in $(ls -A $_linkdir); do
 
         # Don't link our link target directive files
@@ -92,12 +100,13 @@ bootstrap() {
         # then we abort the linking
         get_link_target $_file || continue
 
-        echo "LINK: ${_linkdir}${_file} -> $LINK_TARGET"
-
         # Link the file
         link_file "${_linkdir}${_file}" $LINK_TARGET
     done
-    cd $_dir
+
+    # Return to where we were.
+    cd "$_dir"
+    return 0
 }
 
 # @TODO: As copy/pasted, check for validity and add Mac version
@@ -201,13 +210,12 @@ run_npm() {
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
 if [[ $# -eq 0 ]]; then
-    echo "Full dotfile bootstrap..."
+    bootstrap
 elif [[ $# -gt 0 ]]; then
     for var in "$@"; do
         case "$var" in
             "bootstrap")
-                echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
-                confirm || exit && bootstrap
+                bootstrap && exit 0
                 # read -s -n 1 -p "Do you want to continue [y/N]? " BS
                 # echo
                 # case $BS in
