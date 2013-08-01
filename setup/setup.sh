@@ -67,6 +67,7 @@ bootstrap() {
 
     local _dir _file _line _dotglob LINK_DIR LINK_TARGET
 
+    # Do all of our linking
     LINK_DIR=~/.dotfiles/link
 
     # Move to ~/ to allow relative *.target
@@ -96,6 +97,17 @@ bootstrap() {
 
     # Return to where we were.
     cd "$_dir"
+
+    # Install
+    [[ $THIS_SYSTEM == 'osx' ]] && run_brew
+    [[ $THIS_SYSTEM == 'linux' ]] && run_apt
+
+    run_npm
+    run_gem
+
+    # Load any new shell setup
+    source ~/.bashrc
+
     return 0
 }
 
@@ -153,13 +165,12 @@ run_brew() {
         confirm && ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" || return
     fi
     if [[ ! -e ~/.dotfiles/setup/install/homebrew ]]; then
-        echo "brew_formula file not found. Aborting formula install." >&2
+        echo "install/homebrew file not found. Aborting formula install." >&2
         return
     fi
 
     brew update
     brew install $(< ~/.dotfiles/setup/install/homebrew)
-
 }
 
 # npm package installation
@@ -170,32 +181,80 @@ run_npm() {
         return 1
     fi
 
-    if [[ ! -f ~/.dotfiles/setup/install/node ]]; then
-        echo "global_node_modules file not found. Aborting Node.js module install." >&2
+
+    if [[ ! -f ~/.dotfiles/setup/install/npm ]]; then
+        echo "install/npm file not found. Aborting Node.js module install." >&2
         return 1
     fi
 
-    echo "Updating npm..."
-    npm update -g -q npm
-    echo "npm updated."
-
+    local _cmd
     case $THIS_SYSTEM in
         "mac")
             if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
                 npm completion > $(brew --prefix)/etc/bash_completion.d/npm
             fi
+            _cmd="npm"
             ;;
         "linux")
             if [[ -d /etc/bash_completion.d ]]; then
                 npm completion > /etc/bash_completion.d/npm
             fi
+            _cmd="sudo npm"
             ;;
     esac
 
+    echo "Updating npm..."
+    $_cmd update -g -q npm
+    echo "npm updated."
+
     # Install packages globally and quietly
     echo "Installing Node.js modules..."
-    sudo npm install --global --quiet $(< ~/.dotfiles/setup/install/node)
+    $_cmd install --global --quiet $(< ~/.dotfiles/setup/install/npm)
     echo "Node.js modules installed!"
+}
+
+# gem (ruby) package installation
+run_gem() {
+    # Check for npm
+    if ! type_exists 'gem'; then
+        echo "gem not installed or not found. Aborting gem install." >&2
+        return 1
+    fi
+
+
+    if [[ ! -f ~/.dotfiles/setup/install/gem ]]; then
+        echo "Gem file not found. Aborting Node.js module install." >&2
+        return 1
+    fi
+
+    # local _cmd
+    # echo "Updating npm..."
+    # npm update -g -q npm
+    # echo "npm updated."
+
+    # case $THIS_SYSTEM in
+    #     "mac")
+    #         if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
+    #             npm completion > $(brew --prefix)/etc/bash_completion.d/npm
+    #         fi
+
+    #         _cmd="npm install"
+
+    #         ;;
+    #     "linux")
+    #         if [[ -d /etc/bash_completion.d ]]; then
+    #             npm completion > /etc/bash_completion.d/npm
+    #         fi
+
+    #         _cmd="sudo npm install"
+
+    #         ;;
+    # esac
+
+    # Install packages globally and quietly
+    echo "Installing gems..."
+    $_cmd --quiet $(< ~/.dotfiles/setup/install/gem)
+    echo "Gems installed!"
 }
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
