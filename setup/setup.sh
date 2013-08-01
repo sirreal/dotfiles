@@ -20,7 +20,7 @@ esac
 # Read link target directive
 # Allow different location depending on system
 get_link_target() {
-    local _system_link
+    local _system_target _base_target
     _system_target="${1}.${THIS_SYSTEM}_target"
 
     echo $_system_target
@@ -31,7 +31,12 @@ get_link_target() {
         return
     fi
 
-    [[ -f ${1}.target ]] && LINK_TARGET="$(<"${1}.target")" && return
+    _base_target="${1}.target"
+    if [[ -f $_base_target ]]; then
+        LINK_TARGET="$(<"$_base_target")"
+        [[ -z $LINK_TARGET ]] && return 1
+        return
+    fi
 
     LINK_TARGET=~/$(basename "$1")
 }
