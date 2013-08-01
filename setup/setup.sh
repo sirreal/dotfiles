@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LINK_DIR=~/.dotfiles/link
+
 # Determine current system
 # Define helper functions base on system
 case $(uname -s) in
@@ -20,36 +22,26 @@ esac
 # Read link target directive
 # Allow different location depending on system
 get_link_target() {
-    case "$THIS_SYSTEM" in
-        "linux")
-            if [ -f "$1.linux_target" ]; then
-                # This crappy eval allows link expansion (~/...)
-                eval LINK_TARGET=$(printf "%q" "$(<"$1.linux_target")")
-                [ -z "$LINK_TARGET" ] && return 1
-                return
-            fi
-        ;;
-        "osx")
-            if [ -f "$1.osx_target" ]; then
-                # This crappy eval allows link expansion (~/...)
-                echo "LOOK!"
-                printf "%q" "$(<"$1.osx_target")"
-                LINK_TARGET=$(printf "%q" "$(<"$1.osx_target")")
-                [ -z $LINK_TARGET ] && return 1
+    local _system_link
+    _system_link="${LINK_DIR}/${1}.${THIS_SYSTEM}_target"
 
-                echo "LINKING: $LINK_TARGET"
+    echo $_system_link
 
-                return
-            fi
-        ;;
-    esac
-    [ -f "$1.target" ] && LINK_TARGET=$(<"$1.target") && return
-    LINK_TARGET="$HOME/$1"
+    if [[ -e ${LINK_DIR}/${_system_link} ]]; then
+        # This crappy eval allows link expansion (~/...)
+        LINK_TARGET="$(<$_system_link)"
+        [[ -z $LINK_TARGET ]] && return 1
+        return
+    fi
+
+    [[ -e ${LINK_DIR}/${1}.target ]] && LINK_TARGET="$(<${LINK_DIR}/${1}.target)" && return
+
+    LINK_TARGET="${HOME}/${1}"
 }
 
 # TODO finish for osx
 link_file() {
-    local _flags
+    local _flags _dirname
     case "$THIS_SYSTEM" in
         "linux")
             _flags='-sniv'
@@ -59,43 +51,53 @@ link_file() {
         ;;
     esac
 
-    [ -d $(dirname $2) ] || mkdir -p $(dirname $2)
-    ln $_flags "${1}" ${2}
+    _dirname=$(dirname "$2")
+    [[ -d $_dirname ]] || mkdir -p "$_dirname"
+
+    echo "Run: \`ln $_flags \"$1\" \"$2\"\` ?"
+    confirm || return
+
+    ln $_flags "$1" "$2"
 }
 
 bootstrap() {
-    touch ~/.hushlogin # silence login
+    echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
+    confirm || return
 
-    local _dir _linkdir _file _line LINK_TARGET
+    local _dir _file _line LINK_TARGET
     _dir=$(pwd)
+    
 
-    _linkdir="$HOME/.dotfiles/link/"
-    cd "$_linkdir"
-    for _file in $(ls -A $_linkdir); do
+    touch ~/.hushlogin # silence login
+    
+    # Move to ~/ to allow relative *.target
+    cd ~
+    for _file in $(ls -A $LINK_DIR); do
 
         # Don't link our link target directive files
-        [[ $_file = ?*.*target ]] && continue
+        [[ $_file =~ \.([a-zA-Z]+_)?target$ ]] && continue
 
         # Sets a global variable LINK_TARGET
         # If link shouldn't be set for this OS (blank config file)
         # then we abort the linking
         get_link_target $_file || continue
 
-        echo "LINK: ${_linkdir}${_file} -> $LINK_TARGET"
-
         # Link the file
-        link_file "${_linkdir}${_file}" $LINK_TARGET
+        link_file "${LINK_DIR}/${_file}" $LINK_TARGET
     done
-    cd $_dir
+
+    # Return to where we were.
+    cd "$_dir"
+    return 0
 }
 
 # @TODO: As copy/pasted, check for validity and add Mac version
 google_talk_plugin() {
     echo 'Downloading Google Talk Plugin...'
     # Download Debian file that matches system architecture
-    if [ $(uname -i) = 'i386' ]; then
+    if [[ $(uname -i) = 'i386' ]]; then
         wget https://dl.google.com/linux/direct/google-talkplugin_current_i386.deb
-    elif [ $(uname -i) = 'x86_64' ]; then
+    elif [[ $(uname -i) = 'x86_64' ]]; then
         wget https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb
     fi
     # Install the package
@@ -134,7 +136,7 @@ run_apt() {
 }
 
 run_brew() {
-    if [ "$THIS_SYSTEM" != 'osx' ]; then
+    if [[ $THIS_SYSTEM != 'osx' ]]; then
         echo "Homebrew is only for mac." >&2
         return 1
     fi
@@ -142,7 +144,7 @@ run_brew() {
         echo "Hombrew not found, will be installed."
         confirm || return && ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
     fi
-    if [ ! -r ~/.dotfiles/setup/install/homebrew ]; then
+    if [[ ! -e ~/.dotfiles/setup/install/homebrew ]]; then
         echo "brew_formula file not found. Aborting formula install." >&2
         return
     fi
@@ -160,7 +162,7 @@ run_npm() {
         return 1
     fi
 
-    if [ ! -r ~/.dotfiles/setup/install/node ]; then
+    if [[ ! -e ~/.dotfiles/setup/install/node ]]; then
         echo "global_node_modules file not found. Aborting Node.js module install." >&2
         return 1
     fi
@@ -190,13 +192,12 @@ run_npm() {
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
 if [[ $# -eq 0 ]]; then
-    echo "Full dotfile bootstrap..."
+    bootstrap
 elif [[ $# -gt 0 ]]; then
     for var in "$@"; do
         case "$var" in
             "bootstrap")
-                echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
-                confirm || exit && bootstrap
+                bootstrap && exit 0
                 # read -s -n 1 -p "Do you want to continue [y/N]? " BS
                 # echo
                 # case $BS in
