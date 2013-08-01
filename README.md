@@ -40,8 +40,8 @@ Also useful for things like Sublime Text which have configuration directories in
 ## Inspiration
 Big thanks to these cats:
 
-*  mathiasbynens/dotfiles
+*  [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles)
   *  OSX setup is great
   *  general configuration stuff
-*  cowboy/dotfiles
+*  [cowboy/dotfiles](https://github.com/cowboy/dotfiles)
   *  I shamelessly stole the structure from @cowboy
