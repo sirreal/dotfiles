@@ -23,18 +23,16 @@ get_link_target() {
     local _system_target _base_target
     _system_target="${1}.${THIS_SYSTEM}_target"
 
-    echo $_system_target
-
     if [[ -f $_system_target ]]; then
         LINK_TARGET="$(<"$_system_target")"
-        [[ -z $LINK_TARGET ]] && return 1
+        [[ $LINK_TARGET ]] || return 1
         return
     fi
 
     _base_target="${1}.target"
     if [[ -f $_base_target ]]; then
         LINK_TARGET="$(<"$_base_target")"
-        [[ -z $LINK_TARGET ]] && return 1
+        [[ $LINK_TARGET ]] || return 1
         return
     fi
 
