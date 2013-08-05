@@ -185,34 +185,43 @@ run_npm() {
         return 1
     fi
 
-
     if [[ ! -f ~/.dotfiles/setup/install/npm ]]; then
         echo "install/npm file not found. Aborting Node.js module install." >&2
         return 1
     fi
 
-    local _cmd
+    local _cmd _tee
 
     case $THIS_SYSTEM in
-        "osx")
-            _cmd="npm"
-            if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
-                npm completion > $(brew --prefix)/etc/bash_completion.d/npm
-            fi
-            ;;
         "linux")
-            if [[ -d /etc/bash_completion.d ]]; then
-                npm completion > /etc/bash_completion.d/npm
-            fi
             _cmd="sudo npm"
+            _tee="sudo tee"
             ;;
     esac
 
-    _cmd=${cmd:-npm}
+    # Defaults
+    _cmd=${_cmd:-npm}
+    _tee=${_tee:-tee}
 
     echo "Updating npm..."
     $_cmd update -g npm
     echo "npm updated."
+
+    echo "Updating npm completion..."
+    case $THIS_SYSTEM in
+        "osx")
+            if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
+                npm completion | $_tee $(brew --prefix)/etc/bash_completion.d/npm > /dev/null
+            fi
+            ;;
+        "linux")
+            if [[ -d /etc/bash_completion.d ]]; then
+                npm completion | $_tee /etc/bash_completion.d/npm > /dev/null
+            fi
+            ;;
+    esac
+    echo "Npm completion OK."
+
 
     # Install packages globally and quietly
     echo "Installing Node.js modules..."
@@ -239,57 +248,39 @@ run_gem() {
     # npm update -g -q npm
     # echo "npm updated."
 
-    # case $THIS_SYSTEM in
-    #     "mac")
-    #         if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
-    #             npm completion > $(brew --prefix)/etc/bash_completion.d/npm
-    #         fi
+    local _cmd
 
-    #         _cmd="npm install"
+    case $THIS_SYSTEM in
+        "linux")
+            _cmd="sudo gem"
+            ;;
+    esac
 
-    #         ;;
-    #     "linux")
-    #         if [[ -d /etc/bash_completion.d ]]; then
-    #             npm completion > /etc/bash_completion.d/npm
-    #         fi
-
-    #         _cmd="sudo npm install"
-
-    #         ;;
-    # esac
+    _cmd=${_cmd:-gem}
 
     # Install packages globally and quietly
     echo "Installing gems..."
-    gem install --quiet $(< ~/.dotfiles/setup/install/gem)
+    $_cmd install --quiet $(< ~/.dotfiles/setup/install/gem)
     echo "Gems installed!"
 }
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
 if [[ $# -eq 0 ]]; then
-    bootstrap
+    bootstrap && exit 0
 elif [[ $# -gt 0 ]]; then
     for var in "$@"; do
         case "$var" in
             "bootstrap")
                 bootstrap && exit 0
-                # read -s -n 1 -p "Do you want to continue [y/N]? " BS
-                # echo
-                # case $BS in
-                #     y*|Y*)
-                #         # Do everything
-                #         bootstrap
-                #         ;;
-                #     *)
-                #         exit 0
-                #         ;;
-                # esac
                 ;;
             "packages" | "modules")
                 echo "Install packages..."
                 case $THIS_SYSTEM in
                     "mac")
+                        run_brew
                         ;;
                     "linux")
+                        run_apt
                         ;;
                 esac
                 ;;
@@ -303,7 +294,7 @@ elif [[ $# -gt 0 ]]; then
                 run_brew
                 ;;
             "ruby" | "gem")
-                echo "Just ruby"
+                run_gem
                 ;;
             *)
                 echo "I didn't understand \"$var\" :("
