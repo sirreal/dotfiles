@@ -39,16 +39,8 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-
-if [[ $TERM = xterm* ]] && [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
-    PS1='\[\033[00;32m\]\u:\w\[\033[00m\]\$ '
-else
-    PS1='\u@\h:\w\$ '
-fi
-
 # Source all the files in bash_source
-for file in ~/.dotfiles/bash_source/*; do
+for file in ~/.dotfiles/source/*; do
     source "$file"
 done
 unset file
