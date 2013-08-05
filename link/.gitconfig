@@ -10,7 +10,7 @@
     grep = auto
 [core]
     editor = vim
-    excludesfile = ~/.dotfiles/global.gitignore
+    excludesfile = ~/.dotfiles/config/global.gitignore
 [github]
     user = SirReal
 [push]
