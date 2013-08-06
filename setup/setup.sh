@@ -152,8 +152,11 @@ confirm() {
 run_apt() {
     # sudo add-apt-repository http://dl.google.com/linux/talkplugin/deb/
     # sudo add-apt-repository ppa:chris-lea/node.js
-    sudo apt-get update
-    sudo apt-get install -y $(< ~/.dotfiles/setup/install/apt)
+    echo "APT: Updating..."
+    sudo apt-get update -qq
+    echo "APT: Installing..."
+    sudo apt-get install -qq -y $(< ~/.dotfiles/setup/install/apt)
+    echo "APT: Finished"
 }
 
 run_brew() {
