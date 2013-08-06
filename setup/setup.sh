@@ -21,19 +21,29 @@ esac
 # Read link target directive
 # Allow different location depending on system
 get_link_target() {
-    local _system_target _base_target
+    local _system_target _base_target _directive
     _system_target="${1}.${THIS_SYSTEM}_target"
 
     if [[ -f $_system_target ]]; then
-        LINK_TARGET="$(<"$_system_target")"
-        [[ $LINK_TARGET ]] || return 1
+        _directive="$(<"$_system_target")"
+        [[ $_directive ]] || return 1
+        if [[ $_directive =~ ^/ ]]; then
+            LINK_TARGET="$_directive"
+        else
+            LINK_TARGET=~/"$_directive"
+        fi
         return
     fi
 
     _base_target="${1}.target"
     if [[ -f $_base_target ]]; then
-        LINK_TARGET="$(<"$_base_target")"
-        [[ $LINK_TARGET ]] || return 1
+        _directive="$(<"$_base_target")"
+        [[ $_directive ]] || return 1
+        if [[ $_directive =~ ^/ ]]; then
+            LINK_TARGET="$_directive"
+        else
+            LINK_TARGET=~/"$_directive"
+        fi
         return
     fi
 
@@ -52,6 +62,10 @@ link_file() {
         ;;
     esac
 
+    if [[ $1 == $(readlink "$2") ]]; then
+        echo "\`$(basename $1)\` already linked correctly."
+        return 0
+    fi
 
     echo "Preparing to link \"$1\" to \"$2\"."
     echo "If path to $2 doesn't exist, will be created."
@@ -62,10 +76,7 @@ link_file() {
     ln $_flags "$1" "$2"
 }
 
-bootstrap() {
-    echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
-    confirm || return
-
+do_linking() {
     local _dir _file _line _dotglob LINK_DIR LINK_TARGET
 
     # Do all of our linking
@@ -98,6 +109,13 @@ bootstrap() {
 
     # Return to where we were.
     cd "$_dir"
+}
+
+bootstrap() {
+    echo "Full system bootstrap. This will symlink files to ~ (possibly overwriting)."
+    confirm || return
+
+    do_linking
 
     # Install
     [[ $THIS_SYSTEM == 'osx' ]] && run_brew
@@ -301,6 +319,9 @@ elif [[ $# -gt 0 ]]; then
                 ;;
             "ruby" | "gem")
                 run_gem
+                ;;
+            "link")
+                do_linking
                 ;;
             *)
                 echo "I didn't understand \"$var\" :("
