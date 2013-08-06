@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Update submodules
+git submodule update --init --recursive
+
 # Determine current system
 # Define helper functions base on system
 case $(uname -s) in
