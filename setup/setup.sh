@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: Wrap this all in a function ??
 # Update submodules
 git submodule update --init --recursive
 
@@ -172,6 +173,12 @@ run_apt() {
     # sudo add-apt-repository ppa:chris-lea/node.js
     echo "APT: Updating..."
     sudo apt-get update -qq
+
+    if [[ ! -e ~/.dotfiles/setup/install/homebrew ]]; then
+        echo "APT: install/apt file not found. Aborting." >&2
+        return 1
+    fi
+
     echo "APT: Installing..."
     sudo apt-get install -qq -y $(< ~/.dotfiles/setup/install/apt)
     echo "APT: Finished"
@@ -183,12 +190,12 @@ run_brew() {
         return 1
     fi
     if ! type_exists 'brew'; then
-        echo "Hombrew not found, will be installed."
+        echo "HOMEBREW: Not found, will be installed."
         confirm && ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)" || return
     fi
     if [[ ! -e ~/.dotfiles/setup/install/homebrew ]]; then
-        echo "install/homebrew file not found. Aborting formula install." >&2
-        return
+        echo "HOMEBREW: install/homebrew file not found. Aborting." >&2
+        return 1
     fi
 
     echo "HOMEBREW: Updating formula and installing packages..."
@@ -205,12 +212,12 @@ run_brew() {
 run_npm() {
     # Check for npm
     if ! type_exists 'npm'; then
-        echo "npm not installed or not found. Aborting Node.js module install." >&2
+        echo "NPM: not installed or not found. Aborting." >&2
         return 1
     fi
 
-    if [[ ! -f ~/.dotfiles/setup/install/npm ]]; then
-        echo "install/npm file not found. Aborting Node.js module install." >&2
+    if [[ ! -e ~/.dotfiles/setup/install/npm ]]; then
+        echo "NPM: install/npm file not found. Aborting." >&2
         return 1
     fi
 
@@ -227,11 +234,13 @@ run_npm() {
     _cmd=${_cmd:-npm}
     _tee=${_tee:-tee}
 
-    echo "Updating npm..."
+    # TODO: Show possible errors
+    echo "NPM: Updating..."
     $_cmd update -g npm
-    echo "npm updated."
+    echo "NPM: Updated."
 
-    echo "Updating npm completion..."
+    # TODO: Show possible errors
+    echo "NPM: Updating bash completion..."
     case $THIS_SYSTEM in
         "osx")
             if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
@@ -244,26 +253,26 @@ run_npm() {
             fi
             ;;
     esac
-    echo "Npm completion OK."
-
+    echo "NPM: Completion updated."
 
     # Install packages globally and quietly
-    echo "Installing Node.js modules..."
+    # TODO: Show possible errors
+    echo "NPM: Installing global modules..."
     $_cmd install --global --quiet $(< ~/.dotfiles/setup/install/npm)
-    echo "Node.js modules installed!"
+    echo "NPM: Global modules installed."
 }
 
 # gem (ruby) package installation
 run_gem() {
     # Check for npm
     if ! type_exists 'gem'; then
-        echo "gem not installed or not found. Aborting gem install." >&2
+        echo "GEM: not installed or not found. Aborting." >&2
         return 1
     fi
 
 
     if [[ ! -f ~/.dotfiles/setup/install/gem ]]; then
-        echo "Gem file not found. Aborting Node.js module install." >&2
+        echo "GEM: install/gem file not found. Aborting." >&2
         return 1
     fi
 
@@ -283,9 +292,9 @@ run_gem() {
     _cmd=${_cmd:-gem}
 
     # Install packages globally and quietly
-    echo "Installing gems..."
+    echo "GEM: Installing gems..."
     $_cmd install --quiet $(< ~/.dotfiles/setup/install/gem)
-    echo "Gems installed!"
+    echo "GEM: Gems installed."
 }
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.

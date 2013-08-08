@@ -1,6 +1,7 @@
 ack-grep
 axel
 bash-completion
+build-essential
 chromium-browser
 filezilla
 fonts-liberation
