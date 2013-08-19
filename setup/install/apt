@@ -3,6 +3,7 @@ axel
 bash-completion
 build-essential
 chromium-browser
+colordiff
 filezilla
 fonts-liberation
 g++

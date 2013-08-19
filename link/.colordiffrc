@@ -1,0 +1,19 @@
+banner=no
+color_patches=no
+diff_cmd=diff
+#
+# available colours are: white, yellow, green, blue,
+#                        cyan, red, magenta, black,
+#                        darkwhite, darkyellow, darkgreen,
+#                        darkblue, darkcyan, darkred,
+#                        darkmagenta, darkblack
+#
+# Can also specify 'none', 'normal' or 'off' which are all
+# aliases for the same thing, namely "don't colour highlight
+# this, use the default output colour"
+#
+plain=off
+newtext=darkgreen
+oldtext=darkred
+diffstuff=darkcyan
+cvsstuff=darkcyan
