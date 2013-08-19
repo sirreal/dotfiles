@@ -2,6 +2,7 @@
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_delay": 25,
 	"auto_complete_with_fields": true,
+	"binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.woff", "*.zip"],
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
