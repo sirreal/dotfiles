@@ -52,5 +52,5 @@ export TITLEBAR='\[\033]0;\u@\h: \w\007\]'
 
 # Highlight exit errors with red time, don't highlight ctrl-c exit ($? = 130)
 # TODO: OSX seems to have different exit for ctrl+c
-export PS1="${TITLEBAR}\[${BOLD}${GREEN}\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\]: \[$GREEN\]\w\n\$([[ \$? != 0 && \$? != 130 ]] && echo \"\[\$RED\]\" || echo \"\[\$WHITE\]\")[\t]\[$WHITE\]\$\[$RESET\] "
+export PS1="${TITLEBAR}\[${BOLD}${GREEN}\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\]: \[$GREEN\]\w\[$RESET\]\n\[$BOLD\]\$([[ \$? != 0 && \$? != 130 ]] && echo \"\[\$RED\]\" || echo \"\[\$WHITE\]\")[\t]\[$WHITE\]\$\[$RESET\] "
 export PS2="\[$ORANGE\]→\[$RESET\] "
