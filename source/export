@@ -1,0 +1,27 @@
+# Set UTF-8 and English
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+
+# Set vi as editor
+export EDITOR=vi
+
+# Add home directory bin
+if [[ -d ~/bin ]]; then
+    export PATH=~/bin:"$PATH"
+fi
+
+# don't put duplicate lines or lines starting with space in the history.
+export HISTCONTROL=ignoreboth
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+
+# GREP: colorize, ignore versioning dirs, ignore binary files
+# Detect grep exclude type
+if grep --exclude-dir > /dev/null 2>&1; then # GNU `ls`
+    excludeflag='--exclude-dir'
+else # OS X `ls`
+    excludeflag='--exclude'
+fi
+export GREP_OPTIONS="--color=auto ${excludeflag}=.svn ${excludeflag}=.git --binary-files=without-match"
+unset excludeflag
