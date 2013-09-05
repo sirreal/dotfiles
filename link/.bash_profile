@@ -23,7 +23,14 @@ shopt -s checkwinsize
 # Source all the files in bash_source
 # @todo Make this work with directory scheme
 for file in ~/.dotfiles/source/*; do
-    [[ -d $file ]] && continue
+    if [[ -d $file ]]; then
+        if [[ $(uname -s) == $(basename "$file") ]]; then
+            for file2 in "$file"/*; do
+                source "$file2"
+            done
+        fi
+        continue
+    fi
     source "$file"
 done
 unset file
