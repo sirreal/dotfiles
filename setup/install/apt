@@ -8,6 +8,7 @@ filezilla
 fonts-liberation
 g++
 git
+git-svn
 golang
 make
 mysql-workbench
