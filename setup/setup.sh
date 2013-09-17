@@ -240,20 +240,22 @@ run_npm() {
     echo "NPM: Updated."
 
     # TODO: Show possible errors
-    echo "NPM: Updating bash completion..."
-    case $THIS_SYSTEM in
-        "osx")
-            if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
-                npm completion | $_tee $(brew --prefix)/etc/bash_completion.d/npm > /dev/null
-            fi
-            ;;
-        "linux")
-            if [[ -d /etc/bash_completion.d ]]; then
-                npm completion | $_tee /etc/bash_completion.d/npm > /dev/null
-            fi
-            ;;
-    esac
-    echo "NPM: Completion updated."
+    # NPM completion this way is SUPER slow. Disabled.
+    #
+    # echo "NPM: Updating bash completion..."
+    # case $THIS_SYSTEM in
+    #     "osx")
+    #         if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
+    #             npm completion | $_tee $(brew --prefix)/etc/bash_completion.d/npm > /dev/null
+    #         fi
+    #         ;;
+    #     "linux")
+    #         if [[ -d /etc/bash_completion.d ]]; then
+    #             npm completion | $_tee /etc/bash_completion.d/npm > /dev/null
+    #         fi
+    #         ;;
+    # esac
+    # echo "NPM: Completion updated."
 
     # Install packages globally and quietly
     # TODO: Show possible errors
