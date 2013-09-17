@@ -1,9 +1,7 @@
 {
-	"auto_upgrade_last_run": null,
 	"installed_packages":
 	[
-		"Arduino",
-		"CoffeeScript",
+		"Better CoffeeScript",
 		"eZ Publish Syntax",
 		"GoSublime",
 		"jQuery",
