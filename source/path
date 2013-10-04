@@ -1,0 +1,9 @@
+paths=(~/bin ~/.cabal/bin)
+
+for p in ${paths[@]}; do
+    if [[ -d $p ]]; then
+        export PATH="$p":"$PATH"
+    fi
+done
+
+unset paths
