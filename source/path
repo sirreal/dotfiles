@@ -1,4 +1,4 @@
-paths=(~/bin ~/.cabal/bin)
+paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/.cabal/bin ~/bin)
 
 for p in ${paths[@]}; do
     if [[ -d $p ]]; then
