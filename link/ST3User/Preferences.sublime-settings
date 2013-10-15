@@ -33,8 +33,9 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Vintage",
 		"GoSublime",
-		"Vintage"
+		"SublimeHaskell"
 	],
 	"indent_guide_options":
 	[
@@ -46,14 +47,6 @@
 	],
 	"scroll_past_end": true,
 	"shift_tab_unindent": true,
-	"sublimelinter": "save-only",
-	"sublimelinter_disable":
-	[
-		"lua",
-		"perl",
-		"puppet",
-		"ruby"
-	],
 	"tab_size": 4,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,

@@ -1,7 +1,12 @@
 {
-    "add_to_PATH": ["/Users/JS/.cabal/bin"]
-    , "ghc_opts": ["-Wall", "-Werror"]
-    // , "show_output_window": false
-    // , "enable_hdevtools": false
-    // , "enable_ghc_mod": false
+	"add_to_PATH":
+	[
+		"/home/jas/.cabal/bin"
+	],
+	"enable_hdevtools": false,
+	"ghc_opts":
+	[
+		"-Wall",
+		"-Werror"
+	]
 }
