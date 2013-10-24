@@ -33,8 +33,25 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"ActionScript",
+		"ASP",
+		"C#",
+		"Clojure",
+		"D",
+		"Erlang",
 		"GoSublime",
+		"Graphviz",
+		"Groovy",
+		"LaTeX",
+		"Lua",
+		"Matlab",
+		"OCaml",
+		"Pascal",
+		"R",
+		"RestructuredText",
+		"Scala",
 		"SublimeHaskell",
+		"TCL",
 		"Vintage"
 	],
 	"indent_guide_options":
