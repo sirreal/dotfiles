@@ -36,7 +36,7 @@ done
 unset file
 
 # Source ~/.bash_private
-[[ -f ~/.bash_private ]] && source $HOME/.bash_private
+[[ -f ~/.bash_private ]] && source ~/.bash_private
 
 if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
     source /etc/bash_completion
