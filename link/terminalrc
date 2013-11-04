@@ -1,38 +1,13 @@
 [Configuration]
 AccelSetTitle=<Primary><Shift>space
-
-# Soloarized: https://raw.github.com/sgerrand/xfce4-terminal-colors-solarized
-# ColorBackground=#00002b2b3636
-# ColorCursor=#0f0f49499999
-# ColorForeground=#838394949696
-# ColorPalette1=#070736364242
-# ColorPalette2=#dcdc32322f2f
-# ColorPalette3=#858599990000
-# ColorPalette4=#b5b589890000
-# ColorPalette5=#26268b8bd2d2
-# ColorPalette6=#d3d336368282
-# ColorPalette7=#2a2aa1a19898
-# ColorPalette8=#eeeee8e8d5d5
-# ColorPalette9=#00002b2b3636
-# ColorPalette10=#cbcb4b4b1616
-# ColorPalette11=#58586e6e7575
-# ColorPalette12=#65657b7b8383
-# ColorPalette13=#838394949696
-# ColorPalette14=#6c6c7171c4c4
-# ColorPalette15=#9393a1a1a1a1
-# ColorPalette16=#fdfdf6f6e3e3
-# Term=xterm-color
-
-# Monokai: https://github.com/chriskempson/base16-xfce4-terminal
 ColorCursor=#ff88ff88ff22
 ColorForeground=#ff88ff88ff22
 ColorBackground=#227722882222
 ColorPalette=#227722882222;#ff9922667722;#aa66ee2222ee;#ff44bbff7755;#6666dd99eeff;#aaee8811ffff;#aa11eeffee44;#ff88ff88ff22;#7755771155ee;#ff9922667722;#aa66ee2222ee;#ff44bbff7755;#6666dd99eeff;#aaee8811ffff;#aa11eeffee44;#ff99ff88ff55
-
 FontName=Liberation Mono 11
-MiscAlwaysShowTabs=TRUE
+MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
-MiscBordersDefault=TRUE
+MiscBordersDefault=FALSE
 MiscConfirmClose=TRUE
 MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
@@ -54,3 +29,4 @@ ScrollingOnOutput=FALSE
 TabActivityColor=#262656568080
 TitleInitial=%w
 TitleMode=TERMINAL_TITLE_HIDE
+
