@@ -39,11 +39,13 @@ syntax on
 " Highlight current line
 set cursorline
 " Make tabs as wide as two spaces
-set tabstop=2
+set tabstop=4
 " Show “invisible” characters
 "set lcs=tab:▸\ ,trail:·,nbsp:_,eol:¬
-set lcs=tab:▸\ ,trail:·,nbsp:_
+set listchars=tab:▸\ ,trail:·,nbsp:·
 set list
+"spaces not tabs
+set expandtab
 " Highlight searches
 set hlsearch
 " Ignore case of searches
