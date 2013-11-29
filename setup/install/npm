@@ -1,7 +1,2 @@
-bower
-coffee-script
 grunt-cli
-jshint
-less
 prettyjson
-uglify-js
