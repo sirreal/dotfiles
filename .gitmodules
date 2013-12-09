@@ -1,3 +1,4 @@
 [submodule "lib/molokai"]
 	path = lib/molokai
 	url = https://github.com/tomasr/molokai.git
+	branch = master
