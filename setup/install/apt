@@ -4,6 +4,7 @@ bash-completion
 build-essential
 chromium-browser
 colordiff
+curl
 filezilla
 fonts-liberation
 g++
