@@ -1,9 +1,0 @@
-{
-    "env": {
-        "GOROOT": "~/lib/go",
-        "GOPATH": "~/lib/go/bin"
-    },
-
-    "translate_tabs_to_spaces": false,
-    "detect_indentation": false
-}

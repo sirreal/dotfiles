@@ -1,6 +1,5 @@
 Package Control.ca-bundle
 Package Control.ca-list
-GoSublime/
-GoSublime-aux.sublime-settings
 Package Control.system-ca-bundle
 linters/
+*(SL).tmTheme

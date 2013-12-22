@@ -1,16 +1,15 @@
 {
 	"installed_packages":
 	[
-		"Better CoffeeScript",
-		"Emmet",
 		"eZ Publish Syntax",
-		"GoSublime",
-		"jQuery",
 		"LESS",
 		"Package Control",
 		"SCSS",
-		"Smarty",
-		"SublimeHaskell",
+		"SublimeLinter",
+		"SublimeLinter-flake8",
+		"SublimeLinter-jshint",
+		"SublimeLinter-json",
+		"SublimeLinter-php",
 		"Theme - Soda"
 	]
 }
