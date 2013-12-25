@@ -1,7 +1,6 @@
 {
 	"installed_packages":
 	[
-		"eZ Publish Syntax",
 		"LESS",
 		"Package Control",
 		"SCSS",
