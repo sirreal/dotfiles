@@ -1,5 +1,0 @@
-[
-    { "keys": ["f1"], "command": "goto_documentation" },
-    { "keys": ["alt+shift+up"], "command": "select_lines", "args": {"forward": false} },
-    { "keys": ["alt+shift+down"], "command": "select_lines", "args": {"forward": true} }
-]
