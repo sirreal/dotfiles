@@ -4,6 +4,7 @@
 		"LESS",
 		"Package Control",
 		"SCSS",
+		"Smarty",
 		"SublimeLinter",
 		"SublimeLinter-flake8",
 		"SublimeLinter-ghc",
