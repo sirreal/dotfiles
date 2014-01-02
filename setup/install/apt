@@ -23,4 +23,5 @@ rubygems
 subversion
 vim
 vlc
+libxml2-utils
 nodejs
