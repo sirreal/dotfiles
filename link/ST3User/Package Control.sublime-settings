@@ -9,6 +9,7 @@
 		"SublimeLinter-coffeelint",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
+		"SublimeLinter-contrib-govet",
 		"SublimeLinter-flake8",
 		"SublimeLinter-ghc",
 		"SublimeLinter-jshint",
