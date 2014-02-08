@@ -1,4 +1,5 @@
 coffeelint
 grunt-cli
+gulp
 jshint
 prettyjson
