@@ -1,5 +1,6 @@
 coffeelint
 grunt-cli
 gulp
+jscs
 jshint
 prettyjson
