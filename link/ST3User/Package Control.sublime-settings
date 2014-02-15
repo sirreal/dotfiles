@@ -16,6 +16,7 @@
 		"SublimeLinter-jshint",
 		"SublimeLinter-json",
 		"SublimeLinter-php",
+		"SublimeLinter-phpcs",
 		"SublimeLinter-xmllint",
 		"Theme - Soda"
 	]
