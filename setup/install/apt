@@ -1,5 +1,4 @@
 ack-grep
-axel
 bash-completion
 build-essential
 chromium-browser
@@ -11,6 +10,7 @@ g++
 git
 git-svn
 golang
+haskell-platform
 make
 mysql-workbench
 php5
@@ -23,6 +23,7 @@ python3
 ruby
 rubygems
 subversion
+traceroute
 vim
 vlc
 libxml2-utils
