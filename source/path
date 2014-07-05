@@ -1,9 +1,12 @@
-paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/.cabal/bin ~/.rvm/bin ~/bin)
+paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/bin)
 
 for p in ${paths[@]}; do
-    if [[ -d $p ]]; then
-        export PATH="$p":"$PATH"
-    fi
+  if [[ -d $p ]]; then
+    export PATH="$p":"$PATH"
+  fi
 done
-
 unset paths
+
+if [[ -d "$HOME/go" ]]; then
+  export GOPATH="$HOME/go"
+fi
