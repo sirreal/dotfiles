@@ -1,4 +1,6 @@
 #!/bin/bash
+set -o nounset
+set -o errexit
 
 # TODO: Wrap this all in a function ??
 # Update submodules
