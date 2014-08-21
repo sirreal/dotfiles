@@ -5,7 +5,6 @@
 		"Package Control",
 		"Smarty",
 		"SublimeLinter",
-		"SublimeLinter-coffeelint",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
 		"SublimeLinter-contrib-govet",

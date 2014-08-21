@@ -11,16 +11,6 @@
 		"lint_mode": "background",
 		"linters":
 		{
-			"coffeelint":
-			{
-				"@disable": false,
-				"args":
-				[
-				],
-				"excludes":
-				[
-				]
-			},
 			"flake8":
 			{
 				"@disable": false,
@@ -38,7 +28,7 @@
 			},
 			"ghc":
 			{
-				"@disable": false,
+				"@disable": true,
 				"args":
 				[
 				],
@@ -68,17 +58,7 @@
 			},
 			"govet":
 			{
-				"@disable": false,
-				"args":
-				[
-				],
-				"excludes":
-				[
-				]
-			},
-			"jscs":
-			{
-				"@disable": false,
+				"@disable": true,
 				"args":
 				[
 				],
@@ -104,7 +84,8 @@
 				],
 				"excludes":
 				[
-				]
+				],
+				"strict": true
 			},
 			"php":
 			{
@@ -115,17 +96,6 @@
 				"excludes":
 				[
 				]
-			},
-			"phpcs":
-			{
-				"@disable": true,
-				"args":
-				[
-				],
-				"excludes":
-				[
-				],
-				"standard": "PSR2"
 			},
 			"xmllint":
 			{
