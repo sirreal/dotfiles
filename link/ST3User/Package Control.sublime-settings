@@ -3,7 +3,6 @@
 	[
 		"LESS",
 		"Package Control",
-		"SCSS",
 		"Smarty",
 		"SublimeLinter",
 		"SublimeLinter-coffeelint",
