@@ -66,6 +66,16 @@
 				[
 				]
 			},
+			"jscs":
+			{
+				"@disable": false,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				]
+			},
 			"jshint":
 			{
 				"@disable": false,
@@ -96,6 +106,17 @@
 				"excludes":
 				[
 				]
+			},
+			"phpcs":
+			{
+				"@disable": false,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				],
+				"standard": "PSR2"
 			},
 			"xmllint":
 			{
