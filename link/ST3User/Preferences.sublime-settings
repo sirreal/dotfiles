@@ -55,6 +55,7 @@
 		"RestructuredText",
 		"Ruby",
 		"Scala",
+		"SublimeLinter-flake8",
 		"TCL",
 		"Textile",
 		"Theme - Default",
