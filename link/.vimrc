@@ -12,6 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Theme
 Plugin 'Lokaltog/vim-distinguished'
+Plugin 'tomasr/molokai'
 
 " Syntax
 Plugin 'jelera/vim-javascript-syntax'
