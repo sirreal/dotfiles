@@ -3,10 +3,8 @@
 	[
 		"LESS",
 		"Package Control",
-		"SCSS",
 		"Smarty",
 		"SublimeLinter",
-		"SublimeLinter-coffeelint",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
 		"SublimeLinter-contrib-govet",

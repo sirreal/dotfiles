@@ -11,16 +11,6 @@
 		"lint_mode": "background",
 		"linters":
 		{
-			"coffeelint":
-			{
-				"@disable": false,
-				"args":
-				[
-				],
-				"excludes":
-				[
-				]
-			},
 			"flake8":
 			{
 				"@disable": false,
@@ -38,7 +28,7 @@
 			},
 			"ghc":
 			{
-				"@disable": false,
+				"@disable": true,
 				"args":
 				[
 				],
@@ -48,7 +38,7 @@
 			},
 			"golint":
 			{
-				"@disable": false,
+				"@disable": true,
 				"args":
 				[
 				],
@@ -58,7 +48,7 @@
 			},
 			"gotype":
 			{
-				"@disable": false,
+				"@disable": true,
 				"args":
 				[
 				],
@@ -67,6 +57,16 @@
 				]
 			},
 			"govet":
+			{
+				"@disable": true,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				]
+			},
+			"jscs":
 			{
 				"@disable": false,
 				"args":
@@ -94,7 +94,8 @@
 				],
 				"excludes":
 				[
-				]
+				],
+				"strict": true
 			},
 			"php":
 			{
@@ -105,6 +106,17 @@
 				"excludes":
 				[
 				]
+			},
+			"phpcs":
+			{
+				"@disable": false,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				],
+				"standard": "PSR2"
 			},
 			"xmllint":
 			{

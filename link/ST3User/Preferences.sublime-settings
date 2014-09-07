@@ -19,7 +19,7 @@
 		"*.woff",
 		"*.zip"
 	],
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"color_scheme": "Packages/User/Monokai (SL).tmTheme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
 	"drag_text": false,
@@ -54,7 +54,10 @@
 		"Rails",
 		"RestructuredText",
 		"Ruby",
+		"Ruby",
 		"Scala",
+		"Scala",
+		"SublimeLinter-flake8",
 		"TCL",
 		"Textile",
 		"Theme - Default",
@@ -70,10 +73,10 @@
 	],
 	"scroll_past_end": true,
 	"shift_tab_unindent": true,
-	"tab_size": 4,
+	"tab_size": 2,
 	"theme": "Soda Dark 3.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"wide_caret": true,
-	"word_wrap": true
+	"word_wrap": false
 }
