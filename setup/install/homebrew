@@ -1,8 +1,10 @@
 ack
 bash-completion
+bash
 colordiff
 git
 gnu-sed
+haskell-platform
 node
 python
 python3
@@ -12,3 +14,4 @@ tmux
 vim
 watch
 wget
+zsh
