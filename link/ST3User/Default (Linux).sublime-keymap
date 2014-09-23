@@ -1,5 +1,6 @@
 [
     { "keys": ["ctrl+º"], "command": "toggle_comment", "args": {"block": false} },
     { "keys": ["ctrl+shift+º"], "command": "toggle_comment", "args": {"block": true} },
-    { "keys": ["ctrl+<"], "command": "show_panel", "args": {"panel": "console", "toggle": true} }
+    { "keys": ["ctrl+<"], "command": "show_panel", "args": {"panel": "console", "toggle": true} },
+    { "keys": ["ctrl+super+v"], "command": "paste_from_history" }
 ]
