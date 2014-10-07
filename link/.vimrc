@@ -23,8 +23,10 @@ Plugin 'jelera/vim-javascript-syntax'
 
 Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Raimondi/delimitMate'
-Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+
+" Plugin 'rking/ag.vim'
+" Plugin 'scrooloose/syntastic'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
