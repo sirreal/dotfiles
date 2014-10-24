@@ -166,3 +166,5 @@ noremap <leader>ss :call StripWhitespace()<CR>
 
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
+
+source ~/.vimrc.local
