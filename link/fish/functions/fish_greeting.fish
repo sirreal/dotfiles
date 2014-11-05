@@ -1,3 +1,5 @@
 function fish_greeting --description 'Print message at startup'
-	fortune -a
+	if not test -z $TMUX
+		fortune -a
+	end
 end
