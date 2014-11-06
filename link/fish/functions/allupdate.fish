@@ -5,7 +5,7 @@ function allupdate --description 'System update'
 				and test -x (which apt-get)
 			end
 			sudo apt-get update -qq
-			sudo apt-get upgrade -yqqu
+			sudo apt-get upgrade -yq
 		end
 		if	begin
 				which brew > /dev/null
