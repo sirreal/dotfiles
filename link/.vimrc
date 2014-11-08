@@ -19,10 +19,12 @@ Plugin 'terryma/vim-multiple-cursors'
 
 " Syntax
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'plasticboy/vim-markdown'
 
 
-Plugin 'pangloss/vim-javascript'
-Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'godlygeek/tabular'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/ctrlp.vim'
 
 " Plugin 'rking/ag.vim'
