@@ -1,6 +1,7 @@
 {
 	"installed_packages":
 	[
+		"Jade",
 		"LESS",
 		"Package Control",
 		"Smarty",
