@@ -156,6 +156,10 @@ set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+" XML filetype folding
+let g:xml_syntax_folding=1
+au FileType xml setlocal foldmethod=syntax
+
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
   let save_cursor = getpos(".")
@@ -164,7 +168,7 @@ function! StripWhitespace()
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
+" noremap <leader>ss :call StripWhitespace()<CR>
 
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
