@@ -21,6 +21,8 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'plasticboy/vim-markdown'
 
+Plugin 'Valloric/YouCompleteMe'
+
 
 Plugin 'godlygeek/tabular'
 " Plugin 'pangloss/vim-javascript'
