@@ -1,4 +1,4 @@
-function updateVim --description 'update vim plugins'
+function vimupdate --description 'update vim plugins'
   set SHELL (which sh)
   vim +PluginInstall! +qall
   set SHELL (which fish)
