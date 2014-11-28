@@ -1,7 +1,9 @@
 {
 	"installed_packages":
 	[
+		"CSS3",
 		"Jade",
+		"JavaScriptNext - ES6 Syntax",
 		"LESS",
 		"Package Control",
 		"Smarty",
