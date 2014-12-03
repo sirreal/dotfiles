@@ -175,4 +175,6 @@ endfunction
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
 
-source ~/.vimrc.local
+if filereadable(".vimrc.local")
+  source .vimrc.local
+endif
