@@ -11,6 +11,7 @@
 [core]
   editor = vim
   excludesfile = ~/.dotfiles/config/global.gitignore
+	pager = less
 [github]
   user = SirReal
 [push]
