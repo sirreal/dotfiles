@@ -3,3 +3,4 @@ Package Control.ca-list
 Package Control.system-ca-bundle
 linters/
 *(SL).tmTheme
+*.*-ca-bundle
