@@ -1,1 +1,0 @@
-../lib/prezto/runcoms/zshenv

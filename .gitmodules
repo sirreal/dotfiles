@@ -2,7 +2,3 @@
 	path = lib/Vundle
 	url = https://github.com/gmarik/Vundle.vim.git
 	branch = master
-[submodule "lib/prezto"]
-	path = lib/prezto
-	url = git@github.com:sirreal/prezto.git
-	branch = master
