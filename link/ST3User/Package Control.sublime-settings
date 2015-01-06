@@ -1,6 +1,7 @@
 {
 	"installed_packages":
 	[
+		"Base16 Color Schemes",
 		"CSS3",
 		"Jade",
 		"JavaScriptNext - ES6 Syntax",
@@ -19,6 +20,7 @@
 		"SublimeLinter-php",
 		"SublimeLinter-phpcs",
 		"SublimeLinter-xmllint",
-		"Theme - Soda"
+		"Theme - Soda",
+		"Theme - Spacegray"
 	]
 }
