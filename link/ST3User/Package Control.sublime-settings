@@ -1,13 +1,17 @@
 {
+	"in_process_packages":
+	[
+	],
 	"installed_packages":
 	[
-		"Base16 Color Schemes",
 		"CSS3",
+		"HTML5",
 		"Jade",
 		"JavaScriptNext - ES6 Syntax",
 		"LESS",
+		"lispindent",
 		"Package Control",
-		"Smarty",
+		"paredit",
 		"SublimeLinter",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
@@ -18,9 +22,7 @@
 		"SublimeLinter-jshint",
 		"SublimeLinter-json",
 		"SublimeLinter-php",
-		"SublimeLinter-phpcs",
 		"SublimeLinter-xmllint",
-		"Theme - Soda",
-		"Theme - Spacegray"
+		"Theme - Soda"
 	]
 }
