@@ -15,7 +15,7 @@ Plugin 'Lokaltog/vim-distinguished'
 Plugin 'tomasr/molokai'
 
 " ST-like multiple cursors
-Plugin 'terryma/vim-multiple-cursors'
+" Plugin 'terryma/vim-multiple-cursors'
 
 " Syntax
 Plugin 'jelera/vim-javascript-syntax'
