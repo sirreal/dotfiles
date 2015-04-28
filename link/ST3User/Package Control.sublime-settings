@@ -18,6 +18,7 @@
 		"SublimeLinter-contrib-govet",
 		"SublimeLinter-flake8",
 		"SublimeLinter-ghc",
+		"SublimeLinter-hlint",
 		"SublimeLinter-jscs",
 		"SublimeLinter-jshint",
 		"SublimeLinter-json",

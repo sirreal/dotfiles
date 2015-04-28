@@ -29,7 +29,7 @@
 			},
 			"ghc":
 			{
-				"@disable": true,
+				"@disable": false,
 				"args":
 				[
 				],
