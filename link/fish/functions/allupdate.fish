@@ -12,7 +12,7 @@ function allupdate --description 'System update'
 				and test -x (which brew)
 			end
 			brew update
-			brew upgrade
+			brew upgrade --all
 		end
 		if	begin
 				which npm > /dev/null
