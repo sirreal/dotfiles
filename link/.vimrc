@@ -30,6 +30,8 @@ Plugin 'kien/ctrlp.vim'
 
 " Plugin 'rking/ag.vim'
 " Plugin 'scrooloose/syntastic'
+"
+Plugin 'digitaltoad/vim-jade'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

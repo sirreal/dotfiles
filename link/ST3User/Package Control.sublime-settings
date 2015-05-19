@@ -4,6 +4,7 @@
 	],
 	"installed_packages":
 	[
+		"Better CoffeeScript",
 		"CSS3",
 		"HTML5",
 		"Jade",
@@ -12,6 +13,7 @@
 		"lispindent",
 		"Package Control",
 		"paredit",
+		"Sass",
 		"SublimeLinter",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
