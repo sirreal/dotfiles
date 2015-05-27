@@ -27,11 +27,14 @@ Plugin 'Valloric/YouCompleteMe'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/ctrlp.vim'
+
+Plugin 'php.vim'
 let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
 
 " Plugin 'rking/ag.vim'
-" Plugin 'scrooloose/syntastic'
-"
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+
 Plugin 'digitaltoad/vim-jade'
 
 call vundle#end()            " required

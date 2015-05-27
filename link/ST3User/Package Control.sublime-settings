@@ -4,7 +4,9 @@
 	],
 	"installed_packages":
 	[
+		"AutoFileName",
 		"Better CoffeeScript",
+		"Color Highlighter",
 		"CSS3",
 		"HTML5",
 		"Jade",
@@ -14,6 +16,7 @@
 		"Package Control",
 		"paredit",
 		"Sass",
+		"Search in Project",
 		"SublimeLinter",
 		"SublimeLinter-contrib-golint",
 		"SublimeLinter-contrib-gotype",
