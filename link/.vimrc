@@ -81,7 +81,13 @@ set encoding=utf-8 nobomb
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
+  set undofile
   set undodir=~/.vim/undo
+  set undolevels=500
+  set undoreload=500
+endif
+if exists("&undodir")
+  set undofile
 endif
 
 " Respect modeline in files
