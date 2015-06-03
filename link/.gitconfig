@@ -1,5 +1,5 @@
 [user]
-  name = sirreal
+  name = Jon Surrell
   email = jon.surrell@gmail.com
 [color]
   diff = auto
@@ -11,9 +11,9 @@
 [core]
   editor = vim
   excludesfile = ~/.dotfiles/config/global.gitignore
-	pager = less
+  pager = less
 [github]
-  user = SirReal
+  user = sirreal
 [push]
   default = current
 [alias]

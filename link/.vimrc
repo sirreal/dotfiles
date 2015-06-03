@@ -23,7 +23,7 @@ Plugin 'tomasr/molokai'
 " Completion
 Plugin 'Valloric/YouCompleteMe'
 
-" Plugin 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/ctrlp.vim'
@@ -36,6 +36,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'digitaltoad/vim-jade'
+
+Plugin 'junegunn/vim-easy-align'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
