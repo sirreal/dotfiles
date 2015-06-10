@@ -20,5 +20,3 @@ else # OS X `ls`
 fi
 export GREP_OPTIONS="--color=auto ${excludeflag}=.svn ${excludeflag}=.git --binary-files=without-match"
 unset excludeflag
-
-command -v most >/dev/null 2>&1 && export PAGER=most
