@@ -1,18 +1,3 @@
-# Inspired by @gf3’s Sexy Bash Prompt: https://github.com/gf3/dotfiles
-
-# My old prompt:
-# if [[ $TERM = xterm* ]] && [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
-#     PS1='\[\033[00;32m\]\u:\w\[\033[00m\]\$ '
-# else
-#     PS1='\u@\h:\w\$ '
-# fi
-
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-    export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-    export TERM=xterm-256color
-fi
-
 if tput setaf 1 &> /dev/null; then
     tput sgr0
     if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then

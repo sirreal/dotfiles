@@ -1,58 +1,46 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+  Plugin 'gmarik/Vundle.vim'
 
-" fancy vim status line
-Plugin 'bling/vim-airline'
+  " fancy vim status line
+  Plugin 'bling/vim-airline'
+  let g:airline_powerline_fonts = 1
 
-" Theme
-Plugin 'Lokaltog/vim-distinguished'
-Plugin 'tomasr/molokai'
+  " Theme
+  Plugin 'Lokaltog/vim-distinguished'
+  Plugin 'tomasr/molokai'
 
-" ST-like multiple cursors
-" Plugin 'terryma/vim-multiple-cursors'
+  " ST-like multiple cursors
+  " Plugin 'terryma/vim-multiple-cursors'
 
-" Syntax
-" Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'plasticboy/vim-markdown'
+  " Syntax
+  " Plugin 'jelera/vim-javascript-syntax'
+  " Plugin 'plasticboy/vim-markdown'
 
-" Completion
-Plugin 'Valloric/YouCompleteMe'
+  " Completion
+  Plugin 'Valloric/YouCompleteMe'
 
-Plugin 'godlygeek/tabular'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'kien/ctrlp.vim'
+  Plugin 'godlygeek/tabular'
+  " Plugin 'pangloss/vim-javascript'
+  " Plugin 'nathanaelkane/vim-indent-guides'
+  Plugin 'kien/ctrlp.vim'
 
-Plugin 'php.vim'
-let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
+  Plugin 'php.vim'
+  let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
 
-" Plugin 'rking/ag.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
+  " Plugin 'rking/ag.vim'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'scrooloose/nerdtree'
 
-Plugin 'digitaltoad/vim-jade'
+  Plugin 'digitaltoad/vim-jade'
 
-Plugin 'junegunn/vim-easy-align'
+  Plugin 'junegunn/vim-easy-align'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
 
 
 set t_Co=256
@@ -72,9 +60,6 @@ set backspace=indent,eol,start
 
 " Optimize for fast terminal connections
 set ttyfast
-
-" Add the g flag to search/replace by default
-set gdefault
 
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
@@ -116,7 +101,7 @@ set shiftwidth=2
 set softtabstop=2
 
 " Highlight searches
-" set hlsearch
+set hlsearch
 
 " Ignore case of searches
 " set ignorecase
