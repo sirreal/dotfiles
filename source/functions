@@ -1,26 +1,4 @@
-# Update all basic system stuff
-function allupdate {
-  (apt-upgrade) &
-  (brew-upgrade) &
-  (npm-upgrade) &
-  wait
-  exit 0
-}
-
-# Upgrade apt stuff
-function apt-upgrade {
-  sudo apt-get update -qq; sudo apt-get upgrade -yq
-}
-
-# Upgrade homebrew stuff
-function brew-upgrade {
-  :
-}
-
-# Safely upgrade global npm packages
-function npm-upgrade {
-  for package in $(npm -g outdated --parseable --depth=0 | cut -d: -f2)
-  do
-    sudo npm -g install "$package"
-  done
+# Upgrade Vundle plugins
+function vimupdate {
+  vim +PluginInstall! +qall
 }
