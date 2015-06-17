@@ -84,6 +84,9 @@ set modelines=4
 " Enable line numbers
 set number
 
+" Make line numbers relative
+set relativenumber
+
 " Enable syntax highlighting
 syntax on
 
