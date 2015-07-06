@@ -22,6 +22,7 @@ call vundle#begin()
 
   " Completion
   Plugin 'Valloric/YouCompleteMe'
+  Plugin 'mattn/emmet-vim'
 
   Plugin 'godlygeek/tabular'
   " Plugin 'pangloss/vim-javascript'
