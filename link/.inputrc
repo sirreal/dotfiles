@@ -3,7 +3,9 @@
 
 set editing-mode vi
 set keymap vi-command
-set show-mode-in-prompt on
 set enable-keypad Off
 
-# if it's configured correctly, your prompt will be prefixed with a `+` while in insert mode and a `:` when in command mode.
+# To show vi mode in the prompt (+ :)
+# Doesn't work with multi-line
+set show-mode-in-prompt off
+

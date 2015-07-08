@@ -1,4 +1,4 @@
-paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/bin)
+paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/.composer/vendor/bin ~/bin)
 
 for p in ${paths[@]}; do
   if [[ -d $p ]]; then
