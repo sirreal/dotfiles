@@ -163,3 +163,7 @@ let &titleold=getcwd()
 if filereadable($HOME."/.vimrc.local")
   source $HOME/.vimrc.local
 endif
+
+" Enable per-directory .vimrc files and disable unsafe commands in them
+set exrc
+set secure
