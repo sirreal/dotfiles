@@ -14,7 +14,7 @@ export HISTFILESIZE=2000
 
 # GREP: colorize, ignore versioning dirs, ignore binary files
 # Detect grep exclude type
-if grep --exclude-dir > /dev/null 2>&1; then # GNU `ls`
+if  $(echo '' | grep --exclude-dir=x '' > /dev/null 2>&1); then # GNU `ls`
     excludeflag='--exclude-dir'
 else # OS X `ls`
     excludeflag='--exclude'

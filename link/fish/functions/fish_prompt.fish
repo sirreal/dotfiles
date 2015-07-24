@@ -1,47 +1,31 @@
 function fish_prompt --description 'Write out the prompt'
-	# Save the return status of the previous command
-	set stat $status
+	# Save our status
+    set -l last_status $status
 
-	# Just calculate these once, to save a few cycles when displaying the prompt
-	if not set -q __fish_prompt_hostname
-		set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
-	end
+    set -l last_status_string ""
+    if [ $last_status -ne 0 ]
+        printf "%s(%d)%s " (set_color red --bold) $last_status (set_color normal)
+    end
 
-	if not set -q __fish_prompt_normal
-		set -g __fish_prompt_normal (set_color normal)
-	end
+    # Just calculate this once, to save a few cycles when displaying the prompt
+    if not set -q __fish_prompt_hostname
+        set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
+    end
 
-	if not set -q __fish_color_blue
-		set -g __fish_color_blue (set_color -o blue)
-	end
+    set -l color_cwd
+    set -l suffix
+    switch $USER
+    case root toor
+        if set -q fish_color_cwd_root
+            set color_cwd $fish_color_cwd_root
+        else
+            set color_cwd $fish_color_cwd
+        end
+        set suffix '#'
+    case '*'
+        set color_cwd $fish_color_cwd
+        set suffix '>'
+    end
 
-	#Set the color for the status depending on the value
-	set __fish_color_status (set_color -o green)
-	if test $stat -gt 0
-		set __fish_color_status (set_color -o red)
-	end
-
-	switch $USER
-
-	case root
-
-		if not set -q __fish_prompt_cwd
-			if set -q fish_color_cwd_root
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd_root)
-			else
-				set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-			end
-		end
-
-		printf '%s@%s %s%s%s# ' $USER $__fish_prompt_hostname "$__fish_prompt_cwd" (prompt_pwd) "$__fish_prompt_normal"
-
-	case '*'
-
-		if not set -q __fish_prompt_cwd
-			set -g __fish_prompt_cwd (set_color $fish_color_cwd)
-		end
-
-		printf '[%s] %s%s@%s %s%s %s(%s)%s \f\r> ' (date "+%H:%M:%S") "$__fish_color_blue" $USER $__fish_prompt_hostname "$__fish_prompt_cwd" (prompt_pwd) "$__fish_color_status" "$stat" "$__fish_prompt_normal"
-
-	end
+    echo -n -s "$USER" @ "$__fish_prompt_hostname" ' ' (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
 end
