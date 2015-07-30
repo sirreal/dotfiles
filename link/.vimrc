@@ -167,3 +167,5 @@ endif
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 set secure
+
+let g:syntastic_javascript_checkers = ['eslint']

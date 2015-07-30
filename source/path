@@ -1,11 +1,12 @@
-paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/.composer/vendor/bin ~/bin)
+_paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/.composer/vendor/bin ~/.npm-globals/bin ~/bin)
 
-for p in ${paths[@]}; do
+for p in ${_paths[@]}; do
+  # echo "TESTING $p"
   if [[ -d $p ]]; then
     export PATH="$p":"$PATH"
   fi
 done
-unset paths
+unset _paths
 
 if [[ -d "$HOME/go" ]]; then
   export GOPATH="$HOME/go"

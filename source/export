@@ -21,3 +21,9 @@ else # OS X `ls`
 fi
 export GREP_OPTIONS="--color=auto ${excludeflag}=.svn ${excludeflag}=.git --binary-files=without-match"
 unset excludeflag
+
+# NPM config settings
+# Don't version .npmrc which may contain passwords
+export npm_config_spin=false
+export npm_config_progress=false
+export npm_config_prefix=/home/jas/.npm-globals

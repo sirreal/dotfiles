@@ -11,6 +11,16 @@
 		"lint_mode": "background",
 		"linters":
 		{
+			"eslint":
+			{
+				"@disable": false,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				]
+			},
 			"flake8":
 			{
 				"@disable": false,
@@ -60,6 +70,16 @@
 			"govet":
 			{
 				"@disable": true,
+				"args":
+				[
+				],
+				"excludes":
+				[
+				]
+			},
+			"hlint":
+			{
+				"@disable": false,
 				"args":
 				[
 				],
