@@ -2,3 +2,13 @@
 function vimupdate {
   vim +PluginInstall! +qall
 }
+
+# Serve static directory (python)
+function serveit {
+  python -m SimpleHTTPServer 9090
+}
+
+# Serve static directory (php)
+function serveitphp {
+  php -S localhost:9090
+}
