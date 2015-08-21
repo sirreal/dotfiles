@@ -25,5 +25,5 @@ unset excludeflag
 # NPM config settings
 # Don't version .npmrc which may contain passwords
 export npm_config_spin=false
-export npm_config_progress=false
+export npm_config_progress=true
 export npm_config_prefix="$HOME/.npm-globals"
