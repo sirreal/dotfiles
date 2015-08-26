@@ -40,6 +40,9 @@ call vundle#begin()
 
   Plugin 'junegunn/vim-easy-align'
 
+  Plugin 'tpope/vim-surround'
+  Plugin 'tpope/vim-commentary'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
