@@ -25,7 +25,11 @@ call vundle#begin()
   Plugin 'mattn/emmet-vim'
 
   Plugin 'godlygeek/tabular'
-  " Plugin 'pangloss/vim-javascript'
+  Plugin 'pangloss/vim-javascript'
+  Plugin 'mxw/vim-jsx'
+
+
+
   " Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'kien/ctrlp.vim'
 
