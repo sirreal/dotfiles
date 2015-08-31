@@ -36,5 +36,5 @@ export RESET
 export TITLEBAR='\[\033]0;\u@\h: \w\007\]'
 
 # Highlight exit errors with time in red
-export PS1="${TITLEBAR}\[${BOLD}${GREEN}\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\]: \[$GREEN\]\w\[$RESET\]\n\[$BOLD\]\$([[ \$? != 0 ]] && echo \"\[\$RED\]\" || echo \"\[\$WHITE\]\")[\t]\[$WHITE\]\$\[$RESET\] "
+export PS1="${TITLEBAR}\[${BOLD}${GREEN}\]\u\[$WHITE\]@\[$GREEN\]\h\[$WHITE\] [\j]: \[$GREEN\]\w\[$RESET\]\n\[$BOLD\]\$([[ \$? != 0 ]] && echo \"\[\$RED\]\" || echo \"\[\$WHITE\]\")[\t]\[$WHITE\]\$\[$RESET\] "
 export PS2="\[$ORANGE\]→\[$RESET\] "
