@@ -115,7 +115,8 @@ set softtabstop=2
 set hlsearch
 
 " Ignore case of searches
-" set ignorecase
+set ignorecase
+set smartcase
 
 " Highlight dynamically as pattern is typed
 set incsearch
@@ -166,6 +167,23 @@ endfunction
 
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
+
+" Up/down on wrapped lines
+nmap j gj
+nmap k gk
+
+" Command line movements
+cnoremap <C-a>  <Home>
+cnoremap <C-b>  <Left>
+cnoremap <C-f>  <Right>
+cnoremap <C-d>  <Delete>
+cnoremap <M-b>  <S-Left>
+cnoremap <M-f>  <S-Right>
+cnoremap <M-d>  <S-right><Delete>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+cnoremap <Esc>d <S-right><Delete>
+cnoremap <C-g>  <C-c>
 
 if filereadable($HOME."/.vimrc.local")
   source $HOME/.vimrc.local
