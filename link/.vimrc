@@ -7,11 +7,11 @@ call vundle#begin()
 
   " fancy vim status line
   Plugin 'bling/vim-airline'
-  let g:airline_powerline_fonts = 1
 
   " Theme
-  Plugin 'Lokaltog/vim-distinguished'
-  Plugin 'tomasr/molokai'
+  " Plugin 'Lokaltog/vim-distinguished'
+  " Plugin 'tomasr/molokai'
+  Plugin 'NLKNguyen/papercolor-theme'
 
   " ST-like multiple cursors
   " Plugin 'terryma/vim-multiple-cursors'
@@ -34,7 +34,6 @@ call vundle#begin()
   Plugin 'kien/ctrlp.vim'
 
   Plugin 'php.vim'
-  let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
 
   " Plugin 'rking/ag.vim'
   Plugin 'scrooloose/syntastic'
@@ -52,10 +51,24 @@ filetype plugin indent on    " required
 
 
 set t_Co=256
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
 syntax on
 set background=dark
-:silent! colorscheme distinguished
+:silent! colorscheme PaperColor
 
+" Airline
+let g:airline_theme='PaperColor'
+let g:airline_powerline_fonts = 1
+
+" CtrlP
+let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
 
 " Enhance command-line completion
 set wildmenu
