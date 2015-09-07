@@ -36,6 +36,8 @@ call vundle#begin()
   Plugin 'php.vim'
 
   " Plugin 'rking/ag.vim'
+  " Plugin 'marijnh/tern_for_vim'
+
   Plugin 'scrooloose/syntastic'
   Plugin 'scrooloose/nerdtree'
 
@@ -62,7 +64,7 @@ endif
 
 syntax on
 set background=dark
-:silent! colorscheme PaperColor
+colorscheme PaperColor
 
 " Airline
 let g:airline_theme='PaperColor'
@@ -115,7 +117,7 @@ syntax on
 " Highlight current line
 set cursorline
 
-" Show “invisible” characters
+" Show 'invisible' characters
 "set lcs=tab:▸\ ,trail:·,nbsp:_,eol:¬
 set listchars=tab:▸\ ,trail:·,nbsp:·
 set list
@@ -195,3 +197,4 @@ set exrc
 set secure
 
 let g:syntastic_javascript_checkers = ['eslint']
+let g:tern#command = '~/.npm-globals/bin/tern'

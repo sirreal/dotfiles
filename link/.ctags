@@ -3,3 +3,4 @@
 --exclude=.git,.svn
 
 --PHP-kinds=-v
+--fields=+l

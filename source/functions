@@ -3,6 +3,10 @@ function vimupdate {
   vim +PluginInstall! +qall
 }
 
+function nvimupdate {
+  nvim +PluginInstall! +qall
+}
+
 # Serve static directory (python)
 function serveit {
   python -m SimpleHTTPServer 9090
