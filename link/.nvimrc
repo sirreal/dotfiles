@@ -1,8 +1,9 @@
-set nocompatible
+" Always set in nvim
+" set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.nvim/bundle/Vundle.vim
+call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'gmarik/Vundle.vim'
 
   " fancy vim status line
@@ -54,15 +55,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 
-set t_Co=256
-
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
-
 syntax on
 set background=dark
 colorscheme PaperColor
@@ -81,20 +73,22 @@ set wildmenu
 set esckeys
 
 " Allow backspace in insert mode
-set backspace=indent,eol,start
+" DEFAULT IN NVIM
+" set backspace=indent,eol,start
 
 " Optimize for fast terminal connections
-set ttyfast
+" ALWAYS SET IN NVIM
+" set ttyfast
 
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
 
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/.nvim/backups
+set directory=~/.nvim/swaps
 if exists("&undodir")
   set undofile
-  set undodir=~/.vim/undo
+  set undodir=~/.nvim/undo
   set undolevels=500
   set undoreload=500
 endif
@@ -136,7 +130,8 @@ set ignorecase
 set smartcase
 
 " Highlight dynamically as pattern is typed
-set incsearch
+" NVIM DEFAULT
+" set incsearch
 
 " Always show status line
 set laststatus=2
