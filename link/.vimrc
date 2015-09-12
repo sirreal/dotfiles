@@ -68,7 +68,7 @@ set background=dark
 colorscheme PaperColor
 
 " Airline
-let g:airline_theme='PaperColor'
+" let g:airline_theme='PaperColor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
