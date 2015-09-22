@@ -56,6 +56,9 @@ filetype plugin indent on    " required
 
 
 syntax on
+
+" Darken papercolor BG
+let g:PaperColor_Dark_Override = { 'background': '#111111', 'cursorline': '#1f1f1f' }
 set background=dark
 colorscheme PaperColor
 
