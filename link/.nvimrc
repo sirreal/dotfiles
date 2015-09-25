@@ -196,4 +196,6 @@ set exrc
 set secure
 
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+
 let g:tern#command = '~/.npm-globals/bin/tern'
