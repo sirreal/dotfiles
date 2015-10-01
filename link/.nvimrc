@@ -27,7 +27,7 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'godlygeek/tabular'
   Plugin 'pangloss/vim-javascript'
-  Plugin 'mxw/vim-jsx'
+  " Plugin 'mxw/vim-jsx'
 
 
 
