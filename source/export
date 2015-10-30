@@ -14,13 +14,11 @@ export HISTFILESIZE=2000
 
 # GREP: colorize, ignore versioning dirs, ignore binary files
 # Detect grep exclude type
-if  $(echo '' | grep --exclude-dir=x '' > /dev/null 2>&1); then # GNU `ls`
-    excludeflag='--exclude-dir'
-else # OS X `ls`
-    excludeflag='--exclude'
+if  $(echo '' | grep --exclude-dir=x '' > /dev/null 2>&1); then
+    alias grep='grep --color=auto --exclude-dir=.svn --exclude-dir=.git --binary-files=without-match'
+else
+    export GREP_OPTIONS="--color=auto --exclude=.svn --exclude=.git --binary-files=without-match"
 fi
-export GREP_OPTIONS="--color=auto ${excludeflag}=.svn ${excludeflag}=.git --binary-files=without-match"
-unset excludeflag
 
 # NPM config settings
 # Don't version .npmrc which may contain passwords
