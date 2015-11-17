@@ -50,6 +50,8 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-commentary'
   Plugin 'tpope/vim-rsi'
   Plugin 'tpope/vim-repeat'
+  Plugin 'tpope/vim-tbone'
+  Plugin 'tpope/vim-sensible'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
