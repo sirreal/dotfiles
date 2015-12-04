@@ -53,6 +53,9 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-tbone'
   Plugin 'tpope/vim-sensible'
 
+  Plugin 'rust-lang/rust.vim'
+  Plugin 'mileszs/ack.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -201,3 +204,4 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
 let g:tern#command = '~/.npm-globals/bin/tern'
+let g:rustfmt_autosave = 1
