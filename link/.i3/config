@@ -155,4 +155,7 @@ bar {
         status_command i3status
 }
 
+focus_follows_mouse no
+mouse_warping none
+
 exec --no-startup-id "xrandr --output HDMI1 --auto --left-of HDMI2"
