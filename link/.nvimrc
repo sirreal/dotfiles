@@ -55,6 +55,7 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'rust-lang/rust.vim'
   Plugin 'mileszs/ack.vim'
+  Plugin 'lambdatoast/elm.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
