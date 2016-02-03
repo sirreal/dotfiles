@@ -206,3 +206,9 @@ let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
 let g:tern#command = '~/.npm-globals/bin/tern'
 let g:rustfmt_autosave = 0
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
