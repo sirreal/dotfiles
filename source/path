@@ -1,11 +1,11 @@
-_paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/.composer/vendor/bin ~/.npm-globals/bin ~/bin)
+_paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.cabal/bin ~/.rvm/bin ~/.composer/vendor/bin ~/.npm-globals/bin ~/bin ~/android-sdk-linux/platform-tools ~/android-sdk-linux/build-tools ~/android-sdk-linux/tools)
 
-for p in ${_paths[@]}; do
-  # echo "TESTING $p"
-  if [[ -d $p ]]; then
-    export PATH="$p":"$PATH"
+for _p in ${_paths[@]}; do
+  if [[ -d $_p ]] && [[ ":$PATH:" != *":$_p:"* ]]; then
+    export PATH="$_p:$PATH"
   fi
 done
+unset _p
 unset _paths
 
 if [[ -d "$HOME/go" ]]; then

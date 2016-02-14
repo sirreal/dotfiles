@@ -53,6 +53,10 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-tbone'
   Plugin 'tpope/vim-sensible'
 
+  Plugin 'rust-lang/rust.vim'
+  Plugin 'mileszs/ack.vim'
+  Plugin 'lambdatoast/elm.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -201,3 +205,10 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
 let g:tern#command = '~/.npm-globals/bin/tern'
+let g:rustfmt_autosave = 0
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
