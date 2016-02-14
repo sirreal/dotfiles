@@ -10,7 +10,7 @@ shopt -s nocaseglob
 shopt -s histappend
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell
+# shopt -s cdspell
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
