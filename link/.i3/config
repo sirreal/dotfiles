@@ -123,9 +123,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# lock i3
+# keybindings
 bindsym $mod+Shift+Ctrl+l exec "i3lock --dpms --color=000000"
 bindsym $mod+Shift+Ctrl+b exec "chromium-browser"
+bindsym $mod+Shift+Ctrl+s exec "xfce4-screenshooter"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
