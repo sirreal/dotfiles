@@ -27,3 +27,5 @@ fi
 export npm_config_spin=false
 export npm_config_progress=true
 export npm_config_prefix="$HOME/.npm-globals"
+
+export NODE_PATH="$npm_config_prefix/lib/node_modules:$NODE_PATH"
