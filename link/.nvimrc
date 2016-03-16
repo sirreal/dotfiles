@@ -212,3 +212,14 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Some filetype settings
+" set verbose=9
+autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et
+autocmd Filetype haskell highlight OverLength ctermbg=red ctermfg=white
+autocmd Filetype haskell match OverLength /\%81v.\+/
+
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 et
+autocmd Filetype python highlight OverLength ctermbg=red ctermfg=white
+autocmd Filetype python match OverLength /\%80v.\+/
+
