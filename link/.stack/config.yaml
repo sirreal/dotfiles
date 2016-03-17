@@ -1,0 +1,11 @@
+# This file contains default non-project-specific settings for 'stack', used
+# in all projects.  For more information about stack's configuration, see
+# http://docs.haskellstack.org/en/stable/yaml_configuration.html
+
+templates:
+  params:
+    author-name: Jon Surrell
+    author-email: jon.surrell@gmail.com
+    github-username: sirreal
+    # category: value
+    # copyright: value
