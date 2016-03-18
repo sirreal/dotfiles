@@ -3,7 +3,13 @@ export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
 # Set neovim as editor
-export EDITOR=nvim
+if hash nvim 2>/dev/null; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
+
 # Visual editor vim: noswap, nocompat, norc/plugins
 export VISUAL="$EDITOR -nN -u NONE"
 
@@ -11,12 +17,12 @@ export VISUAL="$EDITOR -nN -u NONE"
 export HISTCONTROL=ignoreboth
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export HISTSIZE=1000
-export HISTFILESIZE=2000
+export HISTSIZE=3000
+export HISTFILESIZE=6000
 
 # GREP: colorize, ignore versioning dirs, ignore binary files
 # Detect grep exclude type
-if  $(echo '' | grep --exclude-dir=x '' > /dev/null 2>&1); then
+if $(echo '' | grep --exclude-dir=x '' > /dev/null 2>&1); then
     alias grep='grep --color=auto --exclude-dir=.svn --exclude-dir=.git --binary-files=without-match'
 else
     export GREP_OPTIONS="--color=auto --exclude=.svn --exclude=.git --binary-files=without-match"

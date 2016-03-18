@@ -1,5 +1,6 @@
 # Grep history
 alias hig='history | grep'
+
 # Don't save history for current session
 alias nohistory='unset HISTFILE'
 
