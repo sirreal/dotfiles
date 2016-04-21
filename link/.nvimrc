@@ -42,7 +42,7 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'scrooloose/syntastic'
   Plugin 'scrooloose/nerdtree'
 
-  Plugin 'digitaltoad/vim-jade'
+  " Plugin 'digitaltoad/vim-jade'
 
   Plugin 'junegunn/vim-easy-align'
 
@@ -53,9 +53,9 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-tbone'
   Plugin 'tpope/vim-sensible'
 
-  Plugin 'rust-lang/rust.vim'
-  Plugin 'mileszs/ack.vim'
-  Plugin 'lambdatoast/elm.vim'
+  " Plugin 'rust-lang/rust.vim'
+  " Plugin 'mileszs/ack.vim'
+  " Plugin 'lambdatoast/elm.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
