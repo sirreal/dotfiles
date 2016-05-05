@@ -6,12 +6,9 @@ set rtp+=~/.nvim/bundle/Vundle.vim
 call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'gmarik/Vundle.vim'
 
-  " fancy vim status line
-  Plugin 'bling/vim-airline'
+  Plugin 'taglist.vim'
 
-  " Theme
-  " Plugin 'Lokaltog/vim-distinguished'
-  " Plugin 'tomasr/molokai'
+  Plugin 'bling/vim-airline'
   Plugin 'NLKNguyen/papercolor-theme'
 
   " ST-like multiple cursors
@@ -29,14 +26,11 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'pangloss/vim-javascript'
   " Plugin 'mxw/vim-jsx'
 
-
-
   " Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'ctrlpvim/ctrlp.vim'
 
   Plugin 'php.vim'
 
-  " Plugin 'rking/ag.vim'
   " Plugin 'marijnh/tern_for_vim'
 
   Plugin 'scrooloose/syntastic'
