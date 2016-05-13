@@ -116,8 +116,7 @@ syntax on
 set cursorline
 
 " Show 'invisible' characters
-"set lcs=tab:▸\ ,trail:·,nbsp:_,eol:¬
-set listchars=tab:▸\ ,trail:·,nbsp:·
+set listchars=tab:▸\ ,trail:␠,nbsp:␣
 set list
 
 "spaces not tabs
