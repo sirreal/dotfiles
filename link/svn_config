@@ -128,7 +128,7 @@ diff-cmd = colordiff
 ### Set interactive-conflicts to 'no' to disable interactive
 ### conflict resolution prompting.  It defaults to 'yes'.
 # interactive-conflicts = no
-global-ignores = *~ .*.swp .DS_Store *.sublime-workspace .tags
+global-ignores = *~ .*.swp .DS_Store *.sublime-workspace .tags .git
 
 ### Section for configuring automatic properties.
 [auto-props]
