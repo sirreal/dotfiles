@@ -1,8 +1,3 @@
-if [ -n "$TMUX" ]; then
-  PATH=""
-  source /etc/profile
-fi
-
 _paths=(/usr/local/bin /usr/local/sbin /usr/local/opt/ruby/bin /usr/local/share/npm/bin ~/go/bin ~/.rvm/bin ~/android-sdk-linux/platform-tools ~/android-sdk-linux/build-tools ~/android-sdk-linux/tools ~/.cabal/bin ~/.composer/vendor/bin ~/.local/bin ~/.npm-globals/bin ~/.local/bin ~/bin)
 
 for _p in ${_paths[@]}; do

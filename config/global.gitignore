@@ -1,3 +1,8 @@
+# Config
+.ctags
+.tags
+.nvimrc
+
 # OSX
 .DS_Store
 .AppleDouble
@@ -25,3 +30,6 @@ __pycache__
 
 # SVN
 .svn/
+
+# NVIM
+.main.shada

@@ -12,6 +12,7 @@
 	editor = nvim
 	excludesfile = ~/.dotfiles/config/global.gitignore
 	pager = less
+	autocrlf = input
 [github]
 	user = sirreal
 [push]
