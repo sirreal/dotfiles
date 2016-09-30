@@ -33,3 +33,6 @@ __pycache__
 
 # NVIM
 .main.shada
+
+# haskell stack
+.stack-work
