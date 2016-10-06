@@ -29,7 +29,7 @@ call vundle#begin("$HOME/.nvim/bundle")
   " Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'ctrlpvim/ctrlp.vim'
 
-  Plugin 'php.vim'
+  " Plugin 'php.vim'
 
   " Plugin 'marijnh/tern_for_vim'
 
