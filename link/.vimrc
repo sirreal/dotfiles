@@ -5,12 +5,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
   Plugin 'gmarik/Vundle.vim'
 
-  " fancy vim status line
   Plugin 'bling/vim-airline'
 
-  " Theme
-  " Plugin 'Lokaltog/vim-distinguished'
-  " Plugin 'tomasr/molokai'
   Plugin 'NLKNguyen/papercolor-theme'
 
   " ST-like multiple cursors
@@ -26,29 +22,22 @@ call vundle#begin()
 
   Plugin 'godlygeek/tabular'
   Plugin 'pangloss/vim-javascript'
-  Plugin 'mxw/vim-jsx'
-
-
 
   " Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'kien/ctrlp.vim'
+  Plugin 'ctrlpvim/ctrlp.vim'
 
-  Plugin 'php.vim'
-
-  " Plugin 'rking/ag.vim'
-  " Plugin 'marijnh/tern_for_vim'
 
   Plugin 'scrooloose/syntastic'
   Plugin 'scrooloose/nerdtree'
 
-  Plugin 'digitaltoad/vim-jade'
-
   Plugin 'junegunn/vim-easy-align'
 
-  Plugin 'tpope/vim-surround'
   Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-rsi'
   Plugin 'tpope/vim-repeat'
+  Plugin 'tpope/vim-rsi'
+  Plugin 'tpope/vim-sensible'
+  Plugin 'tpope/vim-surround'
+  " Plugin 'tpope/vim-tbone'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -71,7 +60,7 @@ set background=dark
 colorscheme PaperColor
 
 " Airline
-" let g:airline_theme='PaperColor'
+let g:airline_theme='PaperColor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
@@ -122,8 +111,7 @@ syntax on
 set cursorline
 
 " Show 'invisible' characters
-"set lcs=tab:▸\ ,trail:·,nbsp:_,eol:¬
-set listchars=tab:▸\ ,trail:·,nbsp:·
+set listchars=tab:▸\ ,trail:␠,nbsp:␣
 set list
 
 "spaces not tabs
@@ -201,4 +189,23 @@ set exrc
 set secure
 
 let g:syntastic_javascript_checkers = ['eslint']
-let g:tern#command = '~/.npm-globals/bin/tern'
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+
+let g:rustfmt_autosave = 0
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" Some filetype settings
+" set verbose=9
+autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et
+autocmd Filetype haskell highlight OverLength ctermbg=red ctermfg=white
+autocmd Filetype haskell match OverLength /\%81v.\+/
+
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 et
+autocmd Filetype python highlight OverLength ctermbg=red ctermfg=white
+autocmd Filetype python match OverLength /\%80v.\+/
+

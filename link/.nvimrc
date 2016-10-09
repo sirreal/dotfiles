@@ -24,28 +24,22 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'godlygeek/tabular'
   Plugin 'pangloss/vim-javascript'
-  " Plugin 'mxw/vim-jsx'
 
   " Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'ctrlpvim/ctrlp.vim'
 
-  " Plugin 'php.vim'
-
-  " Plugin 'marijnh/tern_for_vim'
 
   Plugin 'scrooloose/syntastic'
   Plugin 'scrooloose/nerdtree'
 
-  " Plugin 'digitaltoad/vim-jade'
-
   Plugin 'junegunn/vim-easy-align'
 
-  Plugin 'tpope/vim-surround'
   Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-rsi'
   Plugin 'tpope/vim-repeat'
-  Plugin 'tpope/vim-tbone'
+  Plugin 'tpope/vim-rsi'
   Plugin 'tpope/vim-sensible'
+  Plugin 'tpope/vim-surround'
+  " Plugin 'tpope/vim-tbone'
 
   " Plugin 'rust-lang/rust.vim'
   " Plugin 'mileszs/ack.vim'
@@ -197,7 +191,6 @@ set secure
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
-let g:tern#command = '~/.npm-globals/bin/tern'
 let g:rustfmt_autosave = 0
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
