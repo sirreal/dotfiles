@@ -9,10 +9,10 @@
 	ui = auto
 	grep = auto
 [core]
-	editor = nvim
 	excludesfile = ~/.dotfiles/config/global.gitignore
 	pager = less
 	autocrlf = input
+	editor = =
 [github]
 	user = sirreal
 [push]
