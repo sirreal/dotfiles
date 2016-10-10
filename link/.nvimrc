@@ -35,6 +35,7 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'junegunn/vim-easy-align'
 
   Plugin 'tpope/vim-commentary'
+  Plugin 'tpope/vim-fugitive'
   Plugin 'tpope/vim-repeat'
   Plugin 'tpope/vim-rsi'
   Plugin 'tpope/vim-sensible'
