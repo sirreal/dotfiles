@@ -166,7 +166,6 @@ focus_follows_mouse no
 mouse_warping none
 
 #exec --no-startup-id "xrandr --output HDMI1 --auto --left-of HDMI2"
-exec --no-startup-id "xrandr --output DP1 --auto --right-of eDP1"
 exec --no-startup-id "setxkbmap us,es"
 exec --no-startup-id "setxkbmap -option ctrl:nocaps"
-
+exec --no-startup-id "xrandr --output DP1 --auto --right-of eDP1"
