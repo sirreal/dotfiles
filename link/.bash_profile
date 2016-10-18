@@ -26,10 +26,11 @@ unset file
 
 if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
     source /etc/bash_completion
-    # homebrew bash completion
-    if [[ -f /usr/local/etc/bash_completion ]]; then
-        source /usr/local/etc/bash_completion
-    fi
+fi
+
+# homebrew bash completion
+if [[ -f /usr/local/etc/bash_completion ]]; then
+  source /usr/local/etc/bash_completion
 fi
 
 # vi et sw=4 ts=4 sts=4
