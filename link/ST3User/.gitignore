@@ -5,3 +5,4 @@ linters/
 *(SL).tmTheme
 *.*-ca-bundle
 Color Highlighter
+oscrypto-ca-bundle.crt
