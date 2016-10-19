@@ -17,10 +17,6 @@ Desktop.ini
 # SublimeText
 *.sublime-workspace
 
-# Vim
-*~
-.*.swp
-
 # Python
 *.py[cod]
 __pycache__
@@ -30,6 +26,11 @@ __pycache__
 
 # SVN
 .svn/
+
+# Vim
+*~
+.*.swp
+Session.vim
 
 # NVIM
 .main.shada
