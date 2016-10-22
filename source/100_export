@@ -16,6 +16,9 @@ export VISUAL="$EDITOR -nN -u NONE"
 # Git editor
 export GIT_EDITOR="$VISUAL"
 
+# SVN editor
+export SVN_EDITOR="$VISUAL"
+
 # don't put duplicate lines or lines starting with space in the history.
 export HISTCONTROL=ignoreboth
 
