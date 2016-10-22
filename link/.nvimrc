@@ -45,6 +45,9 @@ call vundle#begin("$HOME/.nvim/bundle")
   " Plugin 'rust-lang/rust.vim'
   " Plugin 'mileszs/ack.vim'
   " Plugin 'lambdatoast/elm.vim'
+  Plugin 'STanAngeloff/php.vim'
+
+  Plugin 'shawncplus/phpcomplete.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -199,6 +202,14 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+
+" PHP Autocomplete
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+set completeopt=longest,menuone
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:phpcomplete_parse_docblock_comments = 1
+let g:phpcomplete_complete_for_unknown_classes = 1
 
 " Some filetype settings
 " set verbose=9
