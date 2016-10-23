@@ -210,6 +210,9 @@ set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:phpcomplete_parse_docblock_comments = 1
 let g:phpcomplete_complete_for_unknown_classes = 1
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet
+autocmd Filetype php highlight OverLength ctermbg=Red ctermfg=White
+autocmd Filetype php match OverLength /\%81v.\+/
 
 " Some filetype settings
 " set verbose=9
