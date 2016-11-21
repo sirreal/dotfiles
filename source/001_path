@@ -12,7 +12,6 @@ _paths=(
   ~/.composer/vendor/bin \
   ~/.local/bin \
   ~/.npm-globals/bin \
-  ~/.yarn-config/global/node_modules/.bin \
   ~/.local/bin \
   ~/bin \
 )
