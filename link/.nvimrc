@@ -49,6 +49,9 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'shawncplus/phpcomplete.vim'
 
+  Plugin 'FrigoEU/psc-ide-vim'
+  Plugin 'raichoo/purescript-vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
