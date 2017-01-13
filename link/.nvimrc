@@ -8,7 +8,8 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'taglist.vim'
 
-  Plugin 'bling/vim-airline'
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
   Plugin 'NLKNguyen/papercolor-theme'
 
   " ST-like multiple cursors
@@ -64,7 +65,7 @@ set background=dark
 colorscheme PaperColor
 
 " Airline
-let g:airline_theme='PaperColor'
+let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
