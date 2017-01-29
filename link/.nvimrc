@@ -50,6 +50,11 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'shawncplus/phpcomplete.vim'
 
+  Plugin 'leafgarland/typescript-vim'
+  Plugin 'Quramy/tsuquyomi'
+    Plugin 'Shougo/vimproc.vim'
+  Plugin 'palantir/tslint'
+
   Plugin 'FrigoEU/psc-ide-vim'
   Plugin 'raichoo/purescript-vim'
 
@@ -69,7 +74,7 @@ let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
-let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
+let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules|bower_components'
 
 " Enhance command-line completion
 set wildmenu
@@ -196,6 +201,14 @@ endif
 set exrc
 set secure
 
+" Typescript checking
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+let g:syntastic_typescript_checkers = ['tsc']
+
+" JavaScript checking
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
