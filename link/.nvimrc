@@ -39,7 +39,6 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-fugitive'
   Plugin 'tpope/vim-repeat'
   Plugin 'tpope/vim-rsi'
-  Plugin 'tpope/vim-sensible'
   Plugin 'tpope/vim-surround'
   " Plugin 'tpope/vim-tbone'
 
