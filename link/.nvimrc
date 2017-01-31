@@ -73,7 +73,7 @@ let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
-let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules|bower_components'
+let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_components'
 
 " Enhance command-line completion
 set wildmenu
