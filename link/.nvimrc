@@ -78,9 +78,6 @@ let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_compo
 " Enhance command-line completion
 set wildmenu
 
-" Allow cursor keys in insert mode
-set esckeys
-
 " Allow backspace in insert mode
 " DEFAULT IN NVIM
 " set backspace=indent,eol,start
