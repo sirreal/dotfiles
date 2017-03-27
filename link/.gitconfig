@@ -12,11 +12,10 @@
 	excludesfile = ~/.dotfiles/config/global.gitignore
 	pager = less
 	autocrlf = input
-	editor = =
 [github]
 	user = sirreal
 [push]
-	default = current
+	default = simple
 	followTags = true
 [alias]
 	st = status
