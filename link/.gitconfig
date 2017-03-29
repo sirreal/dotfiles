@@ -1,5 +1,6 @@
 [user]
 	name = Jon Surrell
+	useConfigOnly = true
 [color]
 	diff = auto
 	status = auto
