@@ -199,6 +199,9 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" Escape can be a pain
+imap jj <Esc>
+
 " Some filetype settings
 " set verbose=9
 autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et

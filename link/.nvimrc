@@ -216,6 +216,8 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" Escape can be a pain
+imap jj <Esc>
 
 " PHP Autocomplete
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
