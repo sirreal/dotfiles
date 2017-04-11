@@ -6,6 +6,8 @@ set rtp+=~/.nvim/bundle/Vundle.vim
 call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'gmarik/Vundle.vim'
 
+  Plugin 'editorconfig/editorconfig-vim'
+
   Plugin 'taglist.vim'
 
   Plugin 'vim-airline/vim-airline'
@@ -209,6 +211,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 
 let g:rustfmt_autosave = 0
+
+" EditorConfig play well with others
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
