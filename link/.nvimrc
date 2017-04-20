@@ -226,7 +226,7 @@ imap jj <Esc>
 
 " JS line length
 autocmd Filetype javascript highlight OverLength ctermbg=Red ctermfg=White
-autocmd Filetype javascript match OverLength /\%81v.\+/
+autocmd Filetype javascript match OverLength /\%101v.\+/
 
 " PHP Autocomplete
 " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
