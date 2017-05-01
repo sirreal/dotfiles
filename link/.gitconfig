@@ -23,5 +23,6 @@
 	co = checkout
 	unstage = reset HEAD
 	subs = submodule update --init --recursive
+	dc = diff --cached
 [diff]
 	algorithm = histogram
