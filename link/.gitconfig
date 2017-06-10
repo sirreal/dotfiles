@@ -24,5 +24,15 @@
 	unstage = reset HEAD
 	subs = submodule update --init --recursive
 	dc = diff --cached
+	d = diff
+	ll = log --oneline --format='%H' -1
+	lo = log --oneline
+	lp = log --patch-with-stat
+	p = pull -v -p
+	graph = log --graph --oneline --decorate=short --all
+	f = fetch --prune
 [diff]
 	algorithm = histogram
+[rebase]
+	autosquash = true
+	stat = true

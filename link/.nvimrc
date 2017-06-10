@@ -224,9 +224,16 @@ nmap ga <Plug>(EasyAlign)
 " Escape can be a pain
 imap jj <Esc>
 
+highlight ColorColumn ctermbg=lightred ctermfg=black guibg=lightred guifg=black
+
+
 " JS line length
-autocmd Filetype javascript highlight OverLength ctermbg=Red ctermfg=White
-autocmd Filetype javascript match OverLength /\%101v.\+/
+autocmd Filetype javascript setlocal colorcolumn+=101
+
+" Remove - from keywords in some filetypes
+autocmd Filetype javascript setlocal iskeyword+=-
+autocmd Filetype scss setlocal iskeyword+=-
+autocmd Filetype css setlocal iskeyword+=-
 
 " PHP Autocomplete
 " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
@@ -234,17 +241,10 @@ autocmd Filetype javascript match OverLength /\%101v.\+/
 " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 " let g:phpcomplete_parse_docblock_comments = 1
 " let g:phpcomplete_complete_for_unknown_classes = 1
-autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet
-autocmd Filetype php highlight OverLength ctermbg=Red ctermfg=White
-autocmd Filetype php match OverLength /\%101v.\+/
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
 
 " Some filetype settings
-" set verbose=9
-autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et
-autocmd Filetype haskell highlight OverLength ctermbg=red ctermfg=white
-autocmd Filetype haskell match OverLength /\%81v.\+/
+autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
 
-autocmd Filetype python setlocal ts=4 sw=4 sts=4 et
-autocmd Filetype python highlight OverLength ctermbg=red ctermfg=white
-autocmd Filetype python match OverLength /\%80v.\+/
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
 
