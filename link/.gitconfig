@@ -18,19 +18,20 @@
 	default = simple
 	followTags = true
 [alias]
-	st = status
 	ci = commit
 	co = checkout
-	unstage = reset HEAD
-	subs = submodule update --init --recursive
-	dc = diff --cached
 	d = diff
+	dc = diff --cached
+	f = fetch --prune
+	graph = log --graph --oneline --decorate=short --all
 	ll = log --oneline --format='%H' -1
 	lo = log --oneline
 	lp = log --patch-with-stat
-	p = pull -v -p
-	graph = log --graph --oneline --decorate=short --all
-	f = fetch --prune
+	p = pull --verbose --prune --rebase
+	pushf = push --force-with-lease
+	st = status
+	subs = submodule update --init --recursive
+	unstage = reset HEAD
 [diff]
 	algorithm = histogram
 [rebase]
