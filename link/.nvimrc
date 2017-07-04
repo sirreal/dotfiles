@@ -245,6 +245,7 @@ autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
 
 " Some filetype settings
 autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
 
 autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
 
