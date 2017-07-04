@@ -1,6 +1,7 @@
 [user]
 	name = Jon Surrell
 	useConfigOnly = true
+	signingkey = 263A660FF6EFB758
 [color]
 	diff = auto
 	status = auto
@@ -37,3 +38,5 @@
 [rebase]
 	autosquash = true
 	stat = true
+[commit]
+	gpgSign = true
