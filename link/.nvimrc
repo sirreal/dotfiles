@@ -93,7 +93,7 @@ set encoding=utf-8 nobomb
 
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.nvim/backups
-set directory=~/.nvim/swaps
+set directory=~/.nvim/swaps//,.
 if exists("&undodir")
   set undofile
   set undodir=~/.nvim/undo
