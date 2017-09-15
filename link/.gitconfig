@@ -2,6 +2,7 @@
 	name = Jon Surrell
 	useConfigOnly = true
 	signingkey = 263A660FF6EFB758
+	email = jon.surrell@automattic.com
 [color]
 	diff = auto
 	status = auto
@@ -28,6 +29,7 @@
 	ll = log --oneline --format='%H' -1
 	lo = log --oneline
 	lp = log --patch-with-stat
+	ls = log --stat
 	p = pull --verbose --prune --rebase
 	pushf = push --force-with-lease
 	st = status

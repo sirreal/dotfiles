@@ -27,6 +27,7 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   Plugin 'godlygeek/tabular'
   Plugin 'pangloss/vim-javascript'
+  Plugin 'mxw/vim-jsx'
 
   " Plugin 'nathanaelkane/vim-indent-guides'
   Plugin 'ctrlpvim/ctrlp.vim'
@@ -59,9 +60,12 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'FrigoEU/psc-ide-vim'
   Plugin 'raichoo/purescript-vim'
 
+  Plugin 'prettier/vim-prettier'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+set termguicolors
 
 syntax on
 
@@ -171,8 +175,9 @@ set showcmd
 set scrolloff=3
 
 " XML filetype folding
-let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
+" DISABLE: Breaks JSX syntax (https://github.com/mxw/vim-jsx#frequently-asked-questions)
+" let g:xml_syntax_folding=1
+" au FileType xml setlocal foldmethod=syntax
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
@@ -206,10 +211,16 @@ endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
 let g:syntastic_typescript_checkers = ['tsc']
 
-" JavaScript checking
+"
+" JavaScript
+"
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:jsx_ext_required = 0
 
+"
+" Rust
+"
 let g:rustfmt_autosave = 0
 
 " EditorConfig play well with others
