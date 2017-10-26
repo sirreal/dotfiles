@@ -20,12 +20,14 @@
 	default = simple
 	followTags = true
 [alias]
-	ci = commit
+	ap = add --patch
+	ci = commit -v
 	co = checkout
 	d = diff
 	dc = diff --cached
 	f = fetch --prune
 	graph = log --graph --oneline --decorate=short --all
+	l = log
 	ll = log --oneline --format='%H' -1
 	lo = log --oneline
 	lp = log --patch-with-stat

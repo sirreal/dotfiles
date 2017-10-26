@@ -246,17 +246,9 @@ autocmd Filetype javascript setlocal iskeyword+=-
 autocmd Filetype scss setlocal iskeyword+=-
 autocmd Filetype css setlocal iskeyword+=-
 
-" PHP Autocomplete
-" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-" set completeopt=longest,menuone
-" let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-" let g:phpcomplete_parse_docblock_comments = 1
-" let g:phpcomplete_complete_for_unknown_classes = 1
-autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
-
 " Some filetype settings
 autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+autocmd Filetype markdown setlocal colorcolumn=101 tw=100 spell
 autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
-
 autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
-
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
