@@ -32,7 +32,7 @@
 	lo = log --oneline
 	lp = log --patch-with-stat
 	ls = log --stat
-	p = pull --verbose --prune --rebase
+	p = pull --prune --rebase
 	pushf = push --force-with-lease
 	st = status
 	subs = submodule update --init --recursive
