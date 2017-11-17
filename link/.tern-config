@@ -1,0 +1,22 @@
+{
+  "dontLoad": [
+    "node_modules/**"
+  ],
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "ecma5",
+    "ecma6",
+    "jquery",
+    "react"
+  ],
+  "loadEagerly": [],
+  "plugins": {
+    "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+    },
+    "es_modules": {},
+    "node": {}
+  }
+}
