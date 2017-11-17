@@ -1,24 +1,3 @@
-[user]
-	name = Jon Surrell
-	useConfigOnly = true
-	signingkey = 263A660FF6EFB758
-	email = jon.surrell@automattic.com
-[color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	ui = auto
-	grep = auto
-[core]
-	excludesfile = ~/.dotfiles/config/global.gitignore
-	pager = less
-	autocrlf = input
-[github]
-	user = sirreal
-[push]
-	default = simple
-	followTags = true
 [alias]
 	ap = add --patch
 	ci = commit -v
@@ -37,10 +16,41 @@
 	st = status
 	subs = submodule update --init --recursive
 	unstage = reset HEAD
+[color]
+	branch = auto
+	diff = auto
+	grep = auto
+	interactive = auto
+	status = auto
+	ui = auto
+[commit]
+	gpgSign = true
+[core]
+	autocrlf = input
+	excludesfile = ~/.dotfiles/config/global.gitignore
+	pager = less
 [diff]
 	algorithm = histogram
+	tool = vimdiff
+[difftool]
+	prompt = false
+[github]
+	user = sirreal
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+	keepBackup = false
+[push]
+	default = simple
+	followTags = true
 [rebase]
 	autosquash = true
 	stat = true
-[commit]
-	gpgSign = true
+[user]
+	email = jon.surrell@automattic.com
+	name = Jon Surrell
+	signingkey = 263A660FF6EFB758
+	useConfigOnly = true
+[mergetool "vimdiff"]
+	trustExitCode = false
