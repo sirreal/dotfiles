@@ -6,32 +6,21 @@ zstyle :compinstall filename '/Users/jonsurrell/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-# Lines configured by zsh-newuser-install
+#
 HISTFILE=~/.histfile
 HISTSIZE=3000
 SAVEHIST=3000
-setopt appendhistory extendedglob
-unsetopt autocd
+setopt \
+    APPEND_HISTORY         \
+    EXTENDED_GLOB          \
+    HIST_EXPIRE_DUPS_FIRST \
+    HIST_FIND_NO_DUPS      \
+    HIST_IGNORE_DUPS       \
+    HIST_IGNORE_SPACE      \
+    NO_AUTO_CD             \
+    SHARE_HISTORY
+
 bindkey -v
-# End of lines configured by zsh-newuser-install
-
-# Git prompt
-# source "$HOME/jon/zsh-git-prompt/zshrc.sh"
-# ZSH_THEME_GIT_PROMPT_PREFIX=""
-# ZSH_THEME_GIT_PROMPT_SUFFIX=""
-# ZSH_THEME_GIT_PROMPT_SEPARATOR=" | "
-# ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
-# ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
-# ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
-# ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{✚%G%}"
-# ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-# ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
-# ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
-# ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
-
-# GIT_PROMPT_EXECUTABLE="haskell"
-# PROMPT='%B%m%~%b %# '
-# RPROMPT='$(git_super_status)'
 
 # Powerline
 POWERLINE_COMMAND=$HOME/.local/bin/powerline-hs
@@ -133,9 +122,6 @@ export GIT_EDITOR="$EDITOR -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
 
 # SVN editor
 export SVN_EDITOR="$VISUAL"
-
-# don't put duplicate lines or lines starting with space in the history.
-export HISTCONTROL=ignoreboth
 
 # NPM config settings
 # Don't version .npmrc which may contain passwords
