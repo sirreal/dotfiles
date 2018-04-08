@@ -6,6 +6,8 @@ set rtp+=~/.nvim/bundle/Vundle.vim
 call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'gmarik/Vundle.vim'
 
+  Plugin 'Valloric/YouCompleteMe'
+
   Plugin 'editorconfig/editorconfig-vim'
 
   Plugin 'taglist.vim'
@@ -21,8 +23,6 @@ call vundle#begin("$HOME/.nvim/bundle")
   " Plugin 'jelera/vim-javascript-syntax'
   " Plugin 'plasticboy/vim-markdown'
 
-  " Completion
-  Plugin 'Valloric/YouCompleteMe'
   Plugin 'mattn/emmet-vim'
 
   Plugin 'godlygeek/tabular'
@@ -54,11 +54,11 @@ call vundle#begin("$HOME/.nvim/bundle")
 
   " Plugin 'leafgarland/typescript-vim'
   " Plugin 'Quramy/tsuquyomi'
-    " Plugin 'Shougo/vimproc.vim'
+  "   Plugin 'Shougo/vimproc.vim'
   " Plugin 'palantir/tslint'
 
-  Plugin 'FrigoEU/psc-ide-vim'
-  Plugin 'raichoo/purescript-vim'
+  " Plugin 'FrigoEU/psc-ide-vim'
+  " Plugin 'raichoo/purescript-vim'
 
   Plugin 'prettier/vim-prettier'
 
@@ -79,7 +79,8 @@ let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
 
 " CtrlP
-let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_components'
+" let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_components'
+let g:ctrlp_user_command = 'rg --files --hidden --follow %s'
 
 " Enhance command-line completion
 set wildmenu
@@ -217,7 +218,7 @@ let g:syntastic_typescript_checkers = ['tsc']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:jsx_ext_required = 0
-let g:prettier#exec_cmd_path = "npx prettier -- "
+let g:prettier#exec_cmd_path = "~/jon/calypso-prettier/bin/prettier.js"
 
 "
 " Rust
