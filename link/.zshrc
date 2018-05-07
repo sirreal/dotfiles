@@ -76,23 +76,21 @@ export NVM_DIR="$HOME/.nvm"
 export KEYTIMEOUT=1
 
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias gettestemail='echo "jon.surrell+$( openssl rand -hex 10 )@gmail.com" | pbcopy'
 
 
 _paths=(
-  "/usr/local/bin" \
-  "/usr/local/sbin" \
-  "/usr/local/opt/ruby/bin" \
-  "/usr/local/share/npm/bin" \
-  "$HOME/go/bin" \
-  "$HOME/.rvm/bin" \
-  "$HOME/android-sdk-linux/platform-tools" \
-  "$HOME/android-sdk-linux/build-tools" \
-  "$HOME/android-sdk-linux/tools" \
-  "$HOME/.cabal/bin" \
-  "$HOME/.composer/vendor/bin" \
-  "$HOME/.local/bin" \
-  "$HOME/.npm-globals/bin" \
-  "$HOME/bin" \
+  /usr/local/bin \
+  /usr/local/sbin \
+  /usr/local/opt/ruby/bin \
+  /usr/local/share/npm/bin \
+  ~/go/bin \
+  ~/.cabal/bin \
+  ~/.composer/vendor/bin \
+  ~/Library/Python/*/bin \
+  ~/.cargo/bin \
+  ~/.local/bin \
+  ~/bin \
 )
 
 for _p in ${_paths[@]}; do

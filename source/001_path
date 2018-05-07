@@ -4,14 +4,10 @@ _paths=(
   /usr/local/opt/ruby/bin \
   /usr/local/share/npm/bin \
   ~/go/bin \
-  ~/.rvm/bin \
-  ~/android-sdk-linux/platform-tools \
-  ~/android-sdk-linux/build-tools \
-  ~/android-sdk-linux/tools \
   ~/.cabal/bin \
   ~/.composer/vendor/bin \
-  ~/.local/bin \
-  ~/.npm-globals/bin \
+  ~/Library/Python/*/bin \
+  ~/.cargo/bin \
   ~/.local/bin \
   ~/bin \
 )
