@@ -33,7 +33,8 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'ctrlpvim/ctrlp.vim'
 
 
-  Plugin 'scrooloose/syntastic'
+  Plugin 'w0rp/ale'
+  " Plugin 'scrooloose/syntastic'
   Plugin 'scrooloose/nerdtree'
 
   Plugin 'junegunn/vim-easy-align'
@@ -45,17 +46,17 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'tpope/vim-surround'
   " Plugin 'tpope/vim-tbone'
 
-  " Plugin 'rust-lang/rust.vim'
+  Plugin 'rust-lang/rust.vim'
   " Plugin 'mileszs/ack.vim'
   " Plugin 'lambdatoast/elm.vim'
   " Plugin 'STanAngeloff/php.vim'
 
   " Plugin 'shawncplus/phpcomplete.vim'
 
-  " Plugin 'leafgarland/typescript-vim'
+  Plugin 'leafgarland/typescript-vim'
   " Plugin 'Quramy/tsuquyomi'
   "   Plugin 'Shougo/vimproc.vim'
-  " Plugin 'palantir/tslint'
+  Plugin 'palantir/tslint'
 
   " Plugin 'FrigoEU/psc-ide-vim'
   " Plugin 'raichoo/purescript-vim'
@@ -76,11 +77,26 @@ colorscheme PaperColor
 
 " Airline
 let g:airline_theme='papercolor'
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V',
+    \ '' : 'V',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+\ }
+let g:airline_section_x = "" " Remove filetype section
+let g:airline_section_y = "" " Remove file encoding section
 
 " CtrlP
 " let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_components'
-let g:ctrlp_user_command = 'rg --files --hidden --follow %s'
+let g:ctrlp_user_command = "fd --full-path '%s' --hidden --follow --exclude '.git' --type file"
 
 " Enhance command-line completion
 set wildmenu
@@ -210,20 +226,29 @@ if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-let g:syntastic_typescript_checkers = ['tsc']
+" let g:syntastic_typescript_checkers = ['tsc']
 
 "
 " JavaScript
 "
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:jsx_ext_required = 0
-let g:prettier#exec_cmd_path = "~/jon/calypso-prettier/bin/prettier.js"
+
+let g:prettier#exec_cmd_path = '~/a8c/calypso/node_modules/.bin/prettier'
+" let g:prettier#autoformat = 0
+" let g:prettier#exec_cmd_async = 1
+" let g:prettier#quickfix_enabled = 0
+let g:prettier#quickfix_auto_focus = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.graphql,*.md,*.yaml,*.html PrettierAsync
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.json,*.graphql PrettierAsync
 
 "
 " Rust
 "
-let g:rustfmt_autosave = 0
+let g:rustfmt_autosave = 1
+" let g:syntastic_rust_checkers = ['cargo']
 
 " EditorConfig play well with others
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -247,6 +272,11 @@ autocmd Filetype javascript setlocal colorcolumn+=101
 autocmd Filetype javascript setlocal iskeyword+=-
 autocmd Filetype scss setlocal iskeyword+=-
 autocmd Filetype css setlocal iskeyword+=-
+
+" ALE lint
+let g:ale_fixers = {
+\   'php': [ 'php_cs_fixer' ]
+\}
 
 " Some filetype settings
 autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81

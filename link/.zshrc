@@ -23,9 +23,9 @@ setopt \
 bindkey -v
 
 # Powerline
-POWERLINE_COMMAND=$HOME/.local/bin/powerline-hs
-POWERLINE_CONFIG_COMMAND=true
-source "$HOME/jon/powerline-hs/powerline/powerline/bindings/zsh/powerline.zsh"
+# POWERLINE_COMMAND=$HOME/.local/bin/powerline-hs
+# POWERLINE_CONFIG_COMMAND=true
+# source "$HOME/jon/powerline-hs/powerline/powerline/bindings/zsh/powerline.zsh"
 
 # History substring
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -35,6 +35,9 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Completions
 fpath=(/usr/local/share/zsh-completions $fpath)
+if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
+  . ~/.config/exercism/exercism_completion.zsh
+fi
 
 #
 # Key bindings
@@ -130,3 +133,8 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 
+# OPAM configuration
+. /Users/jonsurrell/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# added by travis gem
+[ -f /Users/jonsurrell/.travis/travis.sh ] && source /Users/jonsurrell/.travis/travis.sh
