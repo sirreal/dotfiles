@@ -205,6 +205,9 @@ function! StripWhitespace()
   call setreg('/', old_query)
 endfunction
 " noremap <leader>ss :call StripWhitespace()<CR>
+"
+" Enter cleans the search highlight
+:nnoremap <CR> :nohlsearch<cr>
 
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
