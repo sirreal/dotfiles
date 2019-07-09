@@ -49,9 +49,11 @@
 	autosquash = true
 	stat = true
 [user]
-	email = jon.surrell@automattic.com
+	email = jon.surrell@gmail.com
 	name = Jon Surrell
 	signingkey = 263A660FF6EFB758
 	useConfigOnly = true
 [mergetool "vimdiff"]
 	trustExitCode = false
+[includeIf "gitdir:~/a8c/**/*"]
+	path = /Users/jonsurrell/.dotfiles/config/gitconfig.a8c
