@@ -56,7 +56,7 @@ call vundle#begin("$HOME/.nvim/bundle")
   Plugin 'leafgarland/typescript-vim'
   " Plugin 'Quramy/tsuquyomi'
   "   Plugin 'Shougo/vimproc.vim'
-  Plugin 'palantir/tslint'
+  " Plugin 'palantir/tslint'
 
   " Plugin 'FrigoEU/psc-ide-vim'
   " Plugin 'raichoo/purescript-vim'
