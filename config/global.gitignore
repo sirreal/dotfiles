@@ -17,6 +17,9 @@ Desktop.ini
 # SublimeText
 *.sublime-workspace
 
+# VSCode
+.vscode/
+
 # Python
 *.py[cod]
 __pycache__

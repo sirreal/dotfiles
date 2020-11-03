@@ -40,3 +40,4 @@ unset method
 # Git
 # Branch cleanup
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias syncblocks='rsync -avz -essh -c /Users/jonsurrell/a8c/calypso/apps/o2-blocks/dist/ wpcomsb:public_html/wp-content/a8c-plugins/a8c-blocks/dist/'

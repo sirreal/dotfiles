@@ -38,8 +38,13 @@ fi
 # Don't version .npmrc which may contain passwords
 export npm_config_spin=false
 export npm_config_progress=true
-# export npm_config_prefix="$HOME/.npm-globals"
-
-# export NODE_PATH="$npm_config_prefix/lib/node_modules:$NODE_PATH"
 
 export NVM_DIR="$HOME/.nvm"
+
+# Node / npm / yarn stuff
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export CHROMEDRIVER_SKIP_DOWNLOAD=true
+export PUPPETEER_SKIP_DOWNLOAD=true
+export NODE_OPTIONS=--max-old-space-size=24576
+export npm_config_cache="$(yarn cache dir)"
+

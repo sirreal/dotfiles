@@ -24,23 +24,19 @@
 	status = auto
 	ui = auto
 [commit]
-	gpgSign = true
+	gpgSign = false
 [core]
 	autocrlf = input
 	excludesfile = ~/.dotfiles/config/global.gitignore
 	pager = less
 [diff]
 	algorithm = histogram
-	tool = vimdiff
 [difftool]
-	prompt = false
 [github]
 	user = sirreal
 [merge]
-	tool = vimdiff
 	conflictstyle = diff3
 [mergetool]
-	prompt = false
 	keepBackup = false
 [push]
 	default = simple
@@ -51,9 +47,13 @@
 [user]
 	email = jon.surrell@gmail.com
 	name = Jon Surrell
-	signingkey = 263A660FF6EFB758
 	useConfigOnly = true
 [mergetool "vimdiff"]
 	trustExitCode = false
-[includeIf "gitdir:~/a8c/**/*"]
-	path = /Users/jonsurrell/.dotfiles/config/gitconfig.a8c
+[include]
+	path = ~/.gitconfig.local
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"

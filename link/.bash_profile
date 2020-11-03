@@ -29,8 +29,11 @@ if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
 fi
 
 # homebrew bash completion
-if [[ -f /usr/local/share/bash-completion/bash_completion ]]; then
-  source /usr/local/share/bash-completion/bash_completion
+export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
+if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && ! shopt -oq posix; then
+  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # vi et sw=4 ts=4 sts=4

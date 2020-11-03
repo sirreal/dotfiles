@@ -2,73 +2,77 @@
 " set nocompatible
 filetype off
 
-set rtp+=~/.nvim/bundle/Vundle.vim
-call vundle#begin("$HOME/.nvim/bundle")
-  Plugin 'gmarik/Vundle.vim'
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-  Plugin 'Valloric/YouCompleteMe'
+call plug#begin("$HOME/.config/nvim/plugged")
 
-  Plugin 'editorconfig/editorconfig-vim'
+  Plug 'maralla/completor.vim', { 'do': 'make js' }
+  Plug 'maralla/completor-typescript'
+  " Plug 'Valloric/YouCompleteMe'
 
-  Plugin 'taglist.vim'
+  " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
-  Plugin 'vim-airline/vim-airline'
-  Plugin 'vim-airline/vim-airline-themes'
-  Plugin 'NLKNguyen/papercolor-theme'
+  Plug 'editorconfig/editorconfig-vim'
+
+  " Plug 'taglist.vim'
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'NLKNguyen/papercolor-theme'
 
   " ST-like multiple cursors
-  " Plugin 'terryma/vim-multiple-cursors'
+  " Plug 'terryma/vim-multiple-cursors'
 
-  " Syntax
-  " Plugin 'jelera/vim-javascript-syntax'
-  " Plugin 'plasticboy/vim-markdown'
+  " Plug 'mattn/emmet-vim'
 
-  Plugin 'mattn/emmet-vim'
+  Plug 'godlygeek/tabular'
 
-  Plugin 'godlygeek/tabular'
-  Plugin 'pangloss/vim-javascript'
-  Plugin 'mxw/vim-jsx'
+  Plug 'yuezk/vim-js'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'maxmellon/vim-jsx-pretty'
 
-  " Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'ctrlpvim/ctrlp.vim'
+  " Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'ctrlpvim/ctrlp.vim'
 
 
-  Plugin 'w0rp/ale'
-  " Plugin 'scrooloose/syntastic'
-  Plugin 'scrooloose/nerdtree'
+  Plug 'w0rp/ale'
+  " Plug 'scrooloose/syntastic'
+  Plug 'scrooloose/nerdtree'
 
-  Plugin 'junegunn/vim-easy-align'
+  Plug 'junegunn/vim-easy-align'
 
-  Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-repeat'
-  Plugin 'tpope/vim-rsi'
-  Plugin 'tpope/vim-surround'
-  " Plugin 'tpope/vim-tbone'
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-rsi'
+  Plug 'tpope/vim-surround'
+  " Plug 'tpope/vim-tbone'
 
-  Plugin 'rust-lang/rust.vim'
-  " Plugin 'mileszs/ack.vim'
-  " Plugin 'lambdatoast/elm.vim'
-  " Plugin 'STanAngeloff/php.vim'
+  Plug 'rust-lang/rust.vim'
+  " Plug 'mileszs/ack.vim'
+  " Plug 'lambdatoast/elm.vim'
+  " Plug 'STanAngeloff/php.vim'
 
-  " Plugin 'shawncplus/phpcomplete.vim'
+  " Plug 'shawncplus/phpcomplete.vim'
 
-  Plugin 'leafgarland/typescript-vim'
-  " Plugin 'Quramy/tsuquyomi'
-  "   Plugin 'Shougo/vimproc.vim'
-  " Plugin 'palantir/tslint'
+  Plug 'Quramy/tsuquyomi'
+  " Plug 'Shougo/vimproc.vim'
+  " Plug 'palantir/tslint'
 
-  " Plugin 'FrigoEU/psc-ide-vim'
-  " Plugin 'raichoo/purescript-vim'
+  " Plug 'FrigoEU/psc-ide-vim'
+  " Plug 'raichoo/purescript-vim'
 
-  Plugin 'prettier/vim-prettier'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
+  Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'issue/232-adding-support-for-prettier-2.x'
+  \ }
+call plug#end()
 
 set termguicolors
-
-syntax on
 
 " Darken papercolor BG
 let g:PaperColor_Dark_Override = { 'background': '#111111', 'cursorline': '#1f1f1f' }
@@ -230,6 +234,9 @@ if !exists("g:ycm_semantic_triggers")
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
 " let g:syntastic_typescript_checkers = ['tsc']
+autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
+" autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+
 
 "
 " JavaScript
@@ -246,6 +253,11 @@ let g:prettier#quickfix_auto_focus = 0
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.graphql,*.md,*.yaml,*.html PrettierAsync
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.json,*.graphql PrettierAsync
+
+" Completor
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 "
 " Rust
