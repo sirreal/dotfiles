@@ -74,8 +74,6 @@ export SVN_EDITOR="$VISUAL"
 export npm_config_spin=false
 export npm_config_progress=true
 
-export NVM_DIR="$HOME/.nvm"
-
 export KEYTIMEOUT=1
 
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
@@ -128,10 +126,6 @@ export SVN_EDITOR="$VISUAL"
 # Don't version .npmrc which may contain passwords
 export npm_config_spin=false
 export npm_config_progress=true
-
-export NVM_DIR="$HOME/.nvm"
-
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 
 # OPAM configuration
 . /Users/jonsurrell/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

@@ -9,6 +9,7 @@ _paths=(
   ~/Library/Python/*/bin \
   ~/.cargo/bin \
   ~/.local/bin \
+  ~/.volta/bin \
   ~/bin \
 )
 

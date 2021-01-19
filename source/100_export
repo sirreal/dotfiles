@@ -34,12 +34,12 @@ else
     export GREP_OPTIONS="--color=auto --exclude=.svn --exclude=.git --binary-files=without-match"
 fi
 
+export VOLTA_HOME="$HOME/.volta"
+
 # NPM config settings
 # Don't version .npmrc which may contain passwords
 export npm_config_spin=false
 export npm_config_progress=true
-
-export NVM_DIR="$HOME/.nvm"
 
 # Node / npm / yarn stuff
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
@@ -47,4 +47,3 @@ export CHROMEDRIVER_SKIP_DOWNLOAD=true
 export PUPPETEER_SKIP_DOWNLOAD=true
 export NODE_OPTIONS=--max-old-space-size=24576
 export npm_config_cache="$(yarn cache dir)"
-
