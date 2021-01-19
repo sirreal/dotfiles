@@ -10,13 +10,15 @@ endif
 
 call plug#begin("$HOME/.config/nvim/plugged")
 
-  Plug 'maralla/completor.vim', { 'do': 'make js' }
-  Plug 'maralla/completor-typescript'
+  " Plug 'maralla/completor.vim', { 'do': 'make js' }
+  " Plug 'maralla/completor-typescript'
+  Plug 'preservim/tagbar'
   " Plug 'Valloric/YouCompleteMe'
 
   " Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
   Plug 'editorconfig/editorconfig-vim'
+  Plug 'racer-rust/vim-racer'
 
   " Plug 'taglist.vim'
 
@@ -41,7 +43,7 @@ call plug#begin("$HOME/.config/nvim/plugged")
 
   Plug 'w0rp/ale'
   " Plug 'scrooloose/syntastic'
-  Plug 'scrooloose/nerdtree'
+  " Plug 'scrooloose/nerdtree'
 
   Plug 'junegunn/vim-easy-align'
 
@@ -263,7 +265,21 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 " Rust
 "
 let g:rustfmt_autosave = 1
+let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
 " let g:syntastic_rust_checkers = ['cargo']
+
+
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    " autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    " autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+    autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
+    autocmd FileType rust imap <buffer> <C-Space>  
+augroup END
 
 " EditorConfig play well with others
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
