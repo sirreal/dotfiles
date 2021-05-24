@@ -34,6 +34,9 @@ else
     export GREP_OPTIONS="--color=auto --exclude=.svn --exclude=.git --binary-files=without-match"
 fi
 
+# Fix for GPG signing (git signed commits) "Inappropriate ioctl for device"
+export GPG_TTY=$(tty)
+
 export VOLTA_HOME="$HOME/.volta"
 
 # NPM config settings
@@ -45,5 +48,8 @@ export npm_config_progress=true
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export CHROMEDRIVER_SKIP_DOWNLOAD=true
 export PUPPETEER_SKIP_DOWNLOAD=true
-export NODE_OPTIONS=--max-old-space-size=24576
-export npm_config_cache="$(yarn cache dir)"
+export NODE_OPTIONS=--max-old-space-size=8192
+# export npm_config_cache="$(yarn cache dir)"
+
+
+export BASH_COMPLETION_USER_DIR="$HOME/.bash_completion"

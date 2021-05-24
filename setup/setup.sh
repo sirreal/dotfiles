@@ -210,96 +210,6 @@ run_brew() {
     fi
 }
 
-# npm package installation
-run_npm() {
-    # Check for npm
-    if ! type_exists 'npm'; then
-        echo "NPM: not installed or not found. Aborting." >&2
-        return 1
-    fi
-
-    if [[ ! -e ~/.dotfiles/setup/install/npm ]]; then
-        echo "NPM: install/npm file not found. Aborting." >&2
-        return 1
-    fi
-
-    local _cmd _tee
-
-    case $THIS_SYSTEM in
-        "linux")
-            _cmd="sudo npm"
-            _tee="sudo tee"
-            ;;
-    esac
-
-    # Defaults
-    _cmd=${_cmd:-npm}
-    _tee=${_tee:-tee}
-
-    # TODO: Show possible errors
-    echo "NPM: Updating..."
-    $_cmd update -g npm
-    echo "NPM: Updated."
-
-    # TODO: Show possible errors
-    # NPM completion this way is SUPER slow. Disabled.
-    #
-    # echo "NPM: Updating bash completion..."
-    # case $THIS_SYSTEM in
-    #     "osx")
-    #         if [[ -d $(brew --prefix)/etc/bash_completion.d ]]; then
-    #             npm completion | $_tee $(brew --prefix)/etc/bash_completion.d/npm > /dev/null
-    #         fi
-    #         ;;
-    #     "linux")
-    #         if [[ -d /etc/bash_completion.d ]]; then
-    #             npm completion | $_tee /etc/bash_completion.d/npm > /dev/null
-    #         fi
-    #         ;;
-    # esac
-    # echo "NPM: Completion updated."
-
-    # Install packages globally and quietly
-    # TODO: Show possible errors
-    echo "NPM: Installing global modules..."
-    $_cmd install --global --quiet $(< ~/.dotfiles/setup/install/npm)
-    echo "NPM: Global modules installed."
-}
-
-# gem (ruby) package installation
-run_gem() {
-    # Check for npm
-    if ! type_exists 'gem'; then
-        echo "GEM: not installed or not found. Aborting." >&2
-        return 1
-    fi
-
-
-    if [[ ! -f ~/.dotfiles/setup/install/gem ]]; then
-        echo "GEM: install/gem file not found. Aborting." >&2
-        return 1
-    fi
-
-    # local _cmd
-    # echo "Updating npm..."
-    # npm update -g -q npm
-    # echo "npm updated."
-
-    local _cmd
-
-    case $THIS_SYSTEM in
-        "linux")
-            _cmd="sudo gem"
-            ;;
-    esac
-
-    _cmd=${_cmd:-gem}
-
-    # Install packages globally and quietly
-    echo "GEM: Installing gems..."
-    $_cmd install --quiet $(< ~/.dotfiles/setup/install/gem)
-    echo "GEM: Gems installed."
-}
 
 # The variable $0 is the script's name. The total number of arguments is stored in $#. The variables $@ and $* return all the arguments.
 if [[ $# -eq 0 ]]; then
@@ -311,7 +221,7 @@ elif [[ $# -gt 0 ]]; then
                 bootstrap && exit 0
                 ;;
             "packages" | "modules")
-                echo "Install packages..."
+                echo "Install packages…"
                 case $THIS_SYSTEM in
                     "mac")
                         run_brew
@@ -321,17 +231,11 @@ elif [[ $# -gt 0 ]]; then
                         ;;
                 esac
                 ;;
-            "node" | "npm")
-                run_npm
-                ;;
             "apt")
                 run_apt
                 ;;
             "brew"|"homebrew")
                 run_brew
-                ;;
-            "ruby" | "gem")
-                run_gem
                 ;;
             "link")
                 do_linking

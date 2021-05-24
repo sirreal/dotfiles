@@ -23,8 +23,6 @@
 	interactive = auto
 	status = auto
 	ui = auto
-[commit]
-	gpgSign = false
 [core]
 	autocrlf = input
 	excludesfile = ~/.dotfiles/config/global.gitignore
@@ -45,7 +43,7 @@
 	autosquash = true
 	stat = true
 [user]
-	email = jon.surrell@gmail.com
+	email = sirreal@users.noreply.github.com
 	name = Jon Surrell
 	useConfigOnly = true
 [mergetool "vimdiff"]
@@ -59,3 +57,4 @@
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [rerere]
 	enabled = true
+

@@ -3,6 +3,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+eval "$(starship init bash)"
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 
@@ -29,11 +31,24 @@ if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
 fi
 
 # homebrew bash completion
-export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
-if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && ! shopt -oq posix; then
-  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+if type brew &> /dev/null; then
+    HOMEBREW_PREFIX="$(brew --prefix)"
+    if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+    else
+        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+            [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+        done
+        unset COMPLETION
+    fi
+    unset HOMEBREW_PREFIX
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+# user completions
+for COMPLETION in "${HOME}/.bash_completion/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+done
+unset COMPLETION
+
 
 # vi et sw=4 ts=4 sts=4

@@ -3,14 +3,15 @@ _paths=(
   /usr/local/sbin \
   /usr/local/opt/ruby/bin \
   /usr/local/share/npm/bin \
-  ~/go/bin \
-  ~/.cabal/bin \
-  ~/.composer/vendor/bin \
-  ~/Library/Python/*/bin \
-  ~/.cargo/bin \
-  ~/.local/bin \
-  ~/.volta/bin \
-  ~/bin \
+  /usr/local/Cellar/python@*/*/Frameworks/Python.framework/Versions/*/bin \
+  $HOME/Library/Python/*/bin \
+  $HOME/go/bin \
+  $HOME/.cabal/bin \
+  $HOME/.composer/vendor/bin \
+  $HOME/.cargo/bin \
+  $HOME/.local/bin \
+  $HOME/.volta/bin \
+  $HOME/bin \
 )
 
 for _p in ${_paths[@]}; do

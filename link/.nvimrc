@@ -243,6 +243,9 @@ autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
 "
 " JavaScript
 "
+
+let g:node_host_prog = system('volta which neovim-node-host | tr -d "\n"')
+
 " let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:jsx_ext_required = 0

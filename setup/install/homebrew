@@ -1,14 +1,12 @@
-ack
 bash-completion
 bash
 colordiff
 git
 gnu-sed
-node
 python
 python3
-ruby
 subversion
+starship
 tmux
 vim
 watch
