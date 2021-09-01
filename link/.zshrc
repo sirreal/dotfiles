@@ -130,5 +130,5 @@ export npm_config_progress=true
 # OPAM configuration
 . /Users/jonsurrell/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-# added by travis gem
-[ -f /Users/jonsurrell/.travis/travis.sh ] && source /Users/jonsurrell/.travis/travis.sh
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
