@@ -1,4 +1,0 @@
-[
-    { "button": "scroll_down", "modifiers": ["ctrl"], "command": "null" },
-    { "button": "scroll_up", "modifiers": ["ctrl"], "command": "null" }
-]

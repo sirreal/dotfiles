@@ -1,8 +1,0 @@
-Package Control.ca-bundle
-Package Control.ca-list
-Package Control.system-ca-bundle
-linters/
-*(SL).tmTheme
-*.*-ca-bundle
-Color Highlighter
-oscrypto-ca-bundle.crt
