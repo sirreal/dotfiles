@@ -13,20 +13,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-# customize ls
-# Detect ls color flag
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-    colorflag='--color=auto'
-else # OS X `ls`
-    colorflag='-G'
-fi
-alias ls="ls -F ${colorflag}"
-alias l="ls -lAF ${colorflag}"
-alias la="ls -aF ${colorflag}"
-unset colorflag
-
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
+alias ls="exa"
 
 # Subversion
 alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
@@ -40,4 +27,5 @@ unset method
 # Git
 # Branch cleanup
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+
 alias syncblocks='rsync -avz -essh -c /Users/jonsurrell/a8c/calypso/apps/o2-blocks/dist/ wpcomsb:public_html/wp-content/a8c-plugins/a8c-blocks/dist/'
