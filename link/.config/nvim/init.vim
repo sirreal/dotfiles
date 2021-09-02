@@ -8,6 +8,7 @@ EOLUA
 
 autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
+autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=200, on_visual=true}
 
 set nojoinspaces
 set termguicolors
