@@ -64,13 +64,21 @@ return require("packer").startup(function()
 	--   end
 	-- }
 
-	-- completion
-
+	--
+	-- Completion
+	--
 	use({
-		"hrsh7th/nvim-compe",
-		config = [[require("config.compe")]],
+		"hrsh7th/nvim-cmp",
+		requires = {
+			"neovim/nvim-lspconfig",
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = [[require("config.cmp")]],
 	})
 
+	--
+	-- Finding stuff
+	--
 	use({
 		{
 			"nvim-telescope/telescope.nvim",
