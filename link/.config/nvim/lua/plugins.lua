@@ -49,20 +49,7 @@ return require("packer").startup(function()
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 		},
-		config = function()
-			local null_ls = require("null-ls")
-
-			null_ls.config({
-				sources = {
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.prettier,
-					null_ls.builtins.diagnostics.eslint,
-				},
-			})
-			require("lspconfig")["null-ls"].setup({
-				on_attach = require("config.utils").on_attach,
-			})
-		end,
+		config = [[require("config.null-ls")]],
 	})
 
 	-- {
