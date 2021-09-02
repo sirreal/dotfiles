@@ -9,68 +9,8 @@ EOLUA
 autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
 
-
-
-" if empty(glob('~/.config/nvim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
-
-
-" call plug#begin("$HOME/.config/nvim/plugged")
-"   Plug 'navarasu/onedark.nvim'
-
-
-"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"   Plug 'nvim-lua/popup.nvim'
-"   Plug 'nvim-lua/plenary.nvim'
-"   Plug 'nvim-telescope/telescope.nvim'
-"   Plug 'tami5/sql.nvim'
-"   Plug 'nvim-telescope/telescope-frecency.nvim'
-"   Plug 'lewis6991/gitsigns.nvim'
-
-"   Plug 'neovim/nvim-lspconfig'
-"   Plug 'nvim-lua/lsp_extensions.nvim'
-"   Plug 'hrsh7th/nvim-compe'
-"   Plug 'iamcco/diagnostic-languageserver'
-
-
-"   Plug 'editorconfig/editorconfig-vim'
-
-"   Plug 'vim-airline/vim-airline'
-"   Plug 'vim-airline/vim-airline-themes'
-"   Plug 'NLKNguyen/papercolor-theme'
-
-"   Plug 'godlygeek/tabular'
-
-"   " Plug 'ctrlpvim/ctrlp.vim'
-
-"   Plug 'junegunn/vim-easy-align'
-
-"   Plug 'tpope/vim-commentary'
-"   Plug 'tpope/vim-fugitive'
-"   Plug 'tpope/vim-repeat'
-"   Plug 'tpope/vim-rsi'
-"   Plug 'tpope/vim-surround'
-"   " Plug 'tpope/vim-tbone'
-
-"   " Plug 'racer-rust/vim-racer'
-"   Plug 'rust-lang/rust.vim'
-"   " Plug 'lambdatoast/elm.vim'
-
-"   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" call plug#end()
-
-
-
 set nojoinspaces
 set termguicolors
-
-" Darken papercolor BG
-" let g:PaperColor_Dark_Override = { 'background': '#111111', 'cursorline': '#1f1f1f' }
-" set background=dark
-" colorscheme PaperColor
 
 " Airline
 let g:airline_theme='papercolor'
@@ -178,7 +118,7 @@ set nostartofline
 set ruler
 
 " Don’t show the intro message when starting Vim
-set shortmess=atI
+set shortmess=attI
 
 " Show the current mode
 set showmode
@@ -217,66 +157,16 @@ let &titleold=getcwd()
 nmap j gj
 nmap k gk
 
-if filereadable($HOME."/.vimrc.local")
-  source $HOME/.vimrc.local
-endif
-
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 set secure
 
-
-" set updatetime=667
-" autocmd CursorHold *.{js,jsx,ts,tsx,mjs,cjs,rs} lua vim.lsp.buf.hover()
-
-" Typescript checking
-" if !exists("g:ycm_semantic_triggers")
-"   let g:ycm_semantic_triggers = {}
-" endif
-" let g:ycm_semantic_triggers['typescript'] = ['.']
-" let g:syntastic_typescript_checkers = ['tsc']
-" autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
-" autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-
-
-"
-" JavaScript
-"
-
 let g:node_host_prog = system('volta which neovim-node-host | tr -d "\n"')
-
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exec = 'eslint_d'
-" let g:jsx_ext_required = 0
-
-" let g:prettier#exec_cmd_path = '~/a8c/calypso/node_modules/.bin/prettier'
-" let g:prettier#autoformat = 0
-" let g:prettier#exec_cmd_async = 1
-" let g:prettier#quickfix_enabled = 0
-" let g:prettier#quickfix_auto_focus = 0
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.graphql,*.md,*.yaml,*.html Format
-" let g:prettier#autoformat = 0
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.json,*.graphql Prettier
 
 "
 " Rust
 "
 let g:rustfmt_autosave = 1
-" let g:racer_experimental_completer = 1
-" let g:racer_insert_paren = 1
-" let g:syntastic_rust_checkers = ['cargo']
-
-
-" augroup Racer
-"     autocmd!
-"     autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-"     autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-"     " autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-"     " autocmd FileType rust nmap <buffer> gt         <Plug>(rust-def-tab)
-"     autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-"     autocmd FileType rust nmap <buffer> <leader>gD <Plug>(rust-doc-tab)
-"     autocmd FileType rust imap <buffer> <C-Space>  
-" augroup END
 
 " EditorConfig play well with others
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -290,22 +180,22 @@ nmap ga <Plug>(EasyAlign)
 " Escape can be a pain
 imap jj <Esc>
 
+" Line length ruler
 highlight ColorColumn ctermbg=lightred ctermfg=black guibg=lightred guifg=black
 
+" Some filetype settings
+autocmd Filetype css setlocal iskeyword+=-
+autocmd Filetype scss setlocal iskeyword+=-
 
-" JS line length
-autocmd Filetype javascript setlocal colorcolumn+=101
+autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
+
+autocmd Filetype markdown setlocal colorcolumn=101 tw=100 spell
+
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
+
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+
+autocmd Filetype javascript setlocal colorcolumn+=101 iskeyword+=-
 autocmd Filetype typescript setlocal colorcolumn+=101
 autocmd Filetype typescriptreact setlocal colorcolumn+=101
-
-" Remove - from keywords in some filetypes
-autocmd Filetype javascript setlocal iskeyword+=-
-autocmd Filetype scss setlocal iskeyword+=-
-autocmd Filetype css setlocal iskeyword+=-
-
-" Some filetype settings
-autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
-autocmd Filetype markdown setlocal colorcolumn=101 tw=100 spell
-autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
-autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
-autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
