@@ -1,7 +1,7 @@
-local utils = {}
+local M = {}
 
-utils.on_attach = function(client, bufnr)
-	print("LSP started.")
+M.on_attach = function(client, bufnr)
+	print("LSP " .. client.name .. " started.")
 	local map = function(type, key, value)
 		vim.api.nvim_buf_set_keymap(bufnr, type, key, value, { noremap = true, silent = true })
 	end
@@ -46,4 +46,4 @@ utils.on_attach = function(client, bufnr)
 	end
 end
 
-return utils
+return M
