@@ -22,7 +22,7 @@ return require("packer").startup(function()
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		run = ":TSUpdate",
-		config = [[require('config.treesitter')]],
+		config = [[require("config.treesitter")]],
 	})
 
 	-- LSP
@@ -35,7 +35,7 @@ return require("packer").startup(function()
 	use({
 
 		"neovim/nvim-lspconfig",
-		config = [[require('config.lsp')]],
+		config = [[require("config.lsp")]],
 	})
 	use({
 		"nvim-lua/lsp_extensions.nvim",
@@ -77,10 +77,12 @@ return require("packer").startup(function()
 	--   end
 	-- }
 
-	-- use{
-	-- "hrsh7th/nvim-compe",
-	--   config = [[require('config.compe')]],
-	-- }
+	-- completion
+
+	use({
+		"hrsh7th/nvim-compe",
+		config = [[require("config.compe")]],
+	})
 
 	use({
 		{
@@ -91,7 +93,7 @@ return require("packer").startup(function()
 				"telescope-frecency.nvim",
 				"telescope-fzf-native.nvim",
 			},
-			config = [[require('config.telescope')]],
+			config = [[require("config.telescope")]],
 			cmd = "Telescope",
 			module = "telescope",
 		},
