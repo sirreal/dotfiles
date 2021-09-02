@@ -1,48 +1,6 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-  Plugin 'gmarik/Vundle.vim'
-
-  Plugin 'bling/vim-airline'
-
-  Plugin 'NLKNguyen/papercolor-theme'
-
-  " ST-like multiple cursors
-  " Plugin 'terryma/vim-multiple-cursors'
-
-  " Syntax
-  " Plugin 'jelera/vim-javascript-syntax'
-  " Plugin 'plasticboy/vim-markdown'
-
-  " Completion
-  Plugin 'Valloric/YouCompleteMe'
-  Plugin 'mattn/emmet-vim'
-
-  Plugin 'godlygeek/tabular'
-  Plugin 'pangloss/vim-javascript'
-
-  " Plugin 'nathanaelkane/vim-indent-guides'
-  Plugin 'ctrlpvim/ctrlp.vim'
-
-
-  Plugin 'scrooloose/syntastic'
-  Plugin 'scrooloose/nerdtree'
-
-  Plugin 'junegunn/vim-easy-align'
-
-  Plugin 'tpope/vim-commentary'
-  Plugin 'tpope/vim-repeat'
-  Plugin 'tpope/vim-rsi'
-  Plugin 'tpope/vim-sensible'
-  Plugin 'tpope/vim-surround'
-  " Plugin 'tpope/vim-tbone'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-
 set t_Co=256
 
 if &term =~ '256color'
@@ -54,17 +12,8 @@ endif
 
 syntax on
 
-" Darken papercolor BG
-let g:PaperColor_Dark_Override = { 'background': '#111111', 'cursorline': '#1f1f1f' }
 set background=dark
-colorscheme PaperColor
-
-" Airline
-let g:airline_theme='PaperColor'
-let g:airline_powerline_fonts = 1
-
-" CtrlP
-let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules'
+colorscheme zellner
 
 " Enhance command-line completion
 set wildmenu
@@ -90,13 +39,9 @@ if exists("&undodir")
   set undolevels=500
   set undoreload=500
 endif
-if exists("&undodir")
-  set undofile
-endif
 
 " Respect modeline in files
 set modeline
-set modelines=4
 
 " Enable line numbers
 set number
@@ -114,20 +59,20 @@ set cursorline
 set listchars=tab:▸\ ,trail:␠,nbsp:␣
 set list
 
-"spaces not tabs
-set expandtab
-set shiftwidth=2
-set softtabstop=2
+" Guess tabs/spaces
+set smarttab
+set softtabstop=4
+set tabstop=4
 
 " Highlight searches
 set hlsearch
 
-" Ignore case of searches
-set ignorecase
-set smartcase
-
 " Highlight dynamically as pattern is typed
 set incsearch
+
+" Ignore case of searches
+set ignorecase
+set smartcase " unless there's mixed caps in search ;)
 
 " Always show status line
 set laststatus=2
@@ -145,7 +90,7 @@ set nostartofline
 set ruler
 
 " Don’t show the intro message when starting Vim
-set shortmess=atI
+set shortmess=attI
 
 " Show the current mode
 set showmode
@@ -163,7 +108,7 @@ set scrolloff=3
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 
-" Strip trailing whitespace (,ss)
+" Strip trailing whitespace (<leader>ss)
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
@@ -180,35 +125,29 @@ let &titleold=getcwd()
 nmap j gj
 nmap k gk
 
-if filereadable($HOME."/.vimrc.local")
-  source $HOME/.vimrc.local
-endif
-
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 set secure
 
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-
-let g:rustfmt_autosave = 0
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
 " Escape can be a pain
 imap jj <Esc>
 
+" Line length ruler
+highlight ColorColumn ctermbg=lightred ctermfg=black guibg=lightred guifg=black
+
 " Some filetype settings
-" set verbose=9
-autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et
-autocmd Filetype haskell highlight OverLength ctermbg=red ctermfg=white
-autocmd Filetype haskell match OverLength /\%81v.\+/
+autocmd Filetype css setlocal iskeyword+=-
+autocmd Filetype scss setlocal iskeyword+=-
 
-autocmd Filetype python setlocal ts=4 sw=4 sts=4 et
-autocmd Filetype python highlight OverLength ctermbg=red ctermfg=white
-autocmd Filetype python match OverLength /\%80v.\+/
+autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
 
+autocmd Filetype markdown setlocal colorcolumn=101 tw=100 spell
+
+autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
+
+autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+
+autocmd Filetype javascript setlocal colorcolumn+=101 iskeyword+=-
+autocmd Filetype typescript setlocal colorcolumn+=101
+autocmd Filetype typescriptreact setlocal colorcolumn+=101
