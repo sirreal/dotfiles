@@ -72,6 +72,7 @@ return require("packer").startup(function()
 		requires = {
 			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
 		},
 		config = [[require("config.cmp")]],
 	})
