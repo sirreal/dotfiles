@@ -3,7 +3,7 @@
 filetype off
 
 lua << EOLUA
-require('plugins')
+require('init')
 EOLUA
 
 autocmd BufWritePost plugins.lua source <afile> | PackerCompile
