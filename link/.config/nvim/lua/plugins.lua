@@ -41,6 +41,13 @@ return require("packer").startup(function()
 		"nvim-lua/lsp_extensions.nvim",
 		requires = { "neovim/nvim-lspconfig" },
 	})
+	use({
+		"glepnir/lspsaga.nvim",
+		requires = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("lspsaga").init_lsp_saga()
+		end,
+	})
 
 	-- Linting, autoformatting…
 	use({
