@@ -1,0 +1,6 @@
+*
+!/.gitignore
+!/alacritty/
+!/nvim/
+!/starship.toml
+!/fish/
