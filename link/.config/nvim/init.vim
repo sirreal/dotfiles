@@ -3,6 +3,7 @@
 filetype off
 
 lua << EOLUA
+vim.g.DEBUG = "ERROR"
 require('init')
 EOLUA
 

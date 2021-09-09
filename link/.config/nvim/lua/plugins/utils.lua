@@ -1,5 +1,37 @@
 local M = {}
 
+M.log = {}
+M.log.debug = function() end
+M.log.info = function() end
+M.log.warn = function() end
+M.log.error = function() end
+M.log.fatal = function() end
+
+if vim.g.DEBUG then
+	require("packer.luarocks").setup_paths()
+	local logfile = vim.fn.stdpath("cache") .. "config-debug.log"
+	local Logging = require("logging")
+	require("logging.rolling_file")
+	local logger = Logging.rolling_file({ filename = logfile, maxFileSize = 1024 })
+
+	logger:setLevel(vim.g.DEBUG)
+	M.log.debug = function(s)
+		logger:debug(s)
+	end
+	M.log.info = function(s)
+		logger:info(s)
+	end
+	M.log.warn = function(s)
+		logger:warn(s)
+	end
+	M.log.error = function(s)
+		logger:error(s)
+	end
+	M.log.fatal = function(s)
+		logger:fatal(s)
+	end
+end
+
 M.on_attach = function(client, bufnr)
 	local map = function(type, key, value)
 		vim.api.nvim_buf_set_keymap(bufnr, type, key, value, { noremap = true, silent = true })
