@@ -22,7 +22,7 @@ return require("packer").startup(function()
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		run = ":TSUpdate",
-		config = [[require("config.treesitter")]],
+		config = [[require("plugins.treesitter")]],
 	})
 
 	-- LSP
@@ -34,7 +34,10 @@ return require("packer").startup(function()
 	use({
 
 		"neovim/nvim-lspconfig",
-		config = [[require("config.lsp")]],
+		requires = {
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = [[require("plugins.lsp")]],
 	})
 	use({
 		"nvim-lua/lsp_extensions.nvim",
@@ -55,16 +58,31 @@ return require("packer").startup(function()
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 		},
-		config = [[require("config.null-ls")]],
+		config = [[require("plugins.null-ls")]],
+	})
+	use({
+		"simrat39/rust-tools.nvim",
+		requires = {
+			"neovim/nvim-lspconfig",
+			"nvim-lua/plenary.nvim",
+			"nvim-lua/popup.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("rust-tools").setup({
+				server = {
+					on_attach = require("plugins.utils").on_attach,
+				},
+			})
+		end,
 	})
 
 	use({
 		"folke/trouble.nvim",
 		config = function()
-			require("trouble").setup({
-				icons = false,
-			})
+			require("trouble").setup({})
 		end,
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
 	--
@@ -77,7 +95,7 @@ return require("packer").startup(function()
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 		},
-		config = [[require("config.cmp")]],
+		config = [[require("plugins.cmp")]],
 	})
 
 	--
@@ -92,7 +110,7 @@ return require("packer").startup(function()
 				"telescope-frecency.nvim",
 				"telescope-fzf-native.nvim",
 			},
-			config = [[require("config.telescope")]],
+			config = [[require("plugins.telescope")]],
 			cmd = "Telescope",
 			module = "telescope",
 		},
@@ -123,20 +141,63 @@ return require("packer").startup(function()
 		},
 	})
 
+	use({
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("neoscroll").setup({
+				easing_function = "cubic",
+			})
+		end,
+	})
+
 	use("editorconfig/editorconfig-vim")
 
-	use("vim-airline/vim-airline")
-	use("vim-airline/vim-airline-themes")
+	-- use("vim-airline/vim-airline")
+	-- use("vim-airline/vim-airline-themes")
+
+	use({
+		"glepnir/galaxyline.nvim",
+		branch = "main",
+		-- your statusline
+		config = function()
+			require("plugins.statusline")
+		end,
+		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+	})
 
 	use("godlygeek/tabular")
 
 	use("junegunn/vim-easy-align")
 
-	use("tpope/vim-commentary")
+	use({
+		"folke/twilight.nvim",
+		config = function()
+			require("twilight").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	})
+
+	use({
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		requires = {
+			"tpope/vim-commentary",
+		},
+		config = function()
+			require("nvim-treesitter.configs").setup({
+				context_commentstring = {
+					enable = true,
+				},
+			})
+		end,
+	})
+
 	use("tpope/vim-repeat")
 	use("tpope/vim-rsi")
 	use("tpope/vim-surround")
 	-- use 'tpope/vim-tbone'
 
-	use("rust-lang/rust.vim")
+	-- use("rust-lang/rust.vim")
 end)

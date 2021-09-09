@@ -9,5 +9,5 @@ null_ls.config({
 	},
 })
 require("lspconfig")["null-ls"].setup({
-	on_attach = require("config.utils").on_attach,
+	on_attach = require("plugins.utils").on_attach,
 })
