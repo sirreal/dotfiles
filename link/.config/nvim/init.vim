@@ -1,6 +1,4 @@
 " Always set in nvim
-" set nocompatible
-filetype off
 
 lua << EOLUA
 vim.g.DEBUG = "ERROR"
@@ -47,10 +45,6 @@ set wildmenu
 " Allow backspace in insert mode
 " DEFAULT IN NVIM
 " set backspace=indent,eol,start
-
-" Optimize for fast terminal connections
-" ALWAYS SET IN NVIM
-" set ttyfast
 
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
