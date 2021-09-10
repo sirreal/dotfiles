@@ -9,27 +9,35 @@ M.log.fatal = function() end
 
 if vim.g.DEBUG then
 	require("packer.luarocks").setup_paths()
-	local logfile = vim.fn.stdpath("cache") .. "config-debug.log"
+	local logfile = vim.fn.stdpath("cache") .. "/config.log"
 	local Logging = require("logging")
 	require("logging.rolling_file")
 	local logger = Logging.rolling_file({ filename = logfile, maxFileSize = 1024 })
 
 	logger:setLevel(vim.g.DEBUG)
-	M.log.debug = function(s)
-		logger:debug(s)
+	M.log.debug = function(...)
+		logger:debug(...)
 	end
-	M.log.info = function(s)
-		logger:info(s)
+	M.log.info = function(...)
+		logger:info(...)
 	end
-	M.log.warn = function(s)
-		logger:warn(s)
+	M.log.warn = function(...)
+		logger:warn(...)
 	end
-	M.log.error = function(s)
-		logger:error(s)
+	M.log.error = function(...)
+		logger:error(...)
 	end
-	M.log.fatal = function(s)
-		logger:fatal(s)
+	M.log.fatal = function(...)
+		logger:fatal(...)
 	end
+end
+
+if false then
+	M.log.debug("d")
+	M.log.info("i")
+	M.log.warn("w")
+	M.log.error("e")
+	M.log.fatal("f")
 end
 
 M.on_attach = function(client, bufnr)
@@ -90,7 +98,7 @@ M.on_attach = function(client, bufnr)
 			true
 		)
 	end
-	print("LSP " .. client.name .. " started.")
+	M.log.info("LSP " .. client.name .. " started.")
 end
 
 return M
