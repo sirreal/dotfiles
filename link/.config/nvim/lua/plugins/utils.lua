@@ -8,7 +8,6 @@ M.log.error = function() end
 M.log.fatal = function() end
 
 if vim.g.DEBUG then
-	require("packer.luarocks").setup_paths()
 	local logfile = vim.fn.stdpath("cache") .. "/config.log"
 	local Logging = require("logging")
 	require("logging.rolling_file")
