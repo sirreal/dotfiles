@@ -5,39 +5,16 @@ vim.g.DEBUG = "ERROR"
 require('init')
 EOLUA
 
-autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
-autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=200, on_visual=true}
+" autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+" autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
+autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
+nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
+inoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
+
+command! EditConfig :e ~/.config/nvim/init.vim
 
 set nojoinspaces
 set termguicolors
-
-" Airline
-let g:airline_theme='papercolor'
-" let g:airline_powerline_fonts = 1
-let g:airline_mode_map = {
-    \ '__' : '-',
-    \ 'n'  : 'N',
-    \ 'i'  : 'I',
-    \ 'R'  : 'R',
-    \ 'c'  : 'C',
-    \ 'v'  : 'V',
-    \ 'V'  : 'V',
-    \ '' : 'V',
-    \ 's'  : 'S',
-    \ 'S'  : 'S',
-    \ '' : 'S',
-\ }
-let g:airline_section_x = "" " Remove filetype section
-let g:airline_section_y = "" " Remove file encoding section
-
-" CtrlP
-" let g:ctrlp_custom_ignore = '\.git\|\.svn\|\.DS_Store\|node_modules\|bower_components'
-" let g:ctrlp_user_command = "fd --full-path '%s' --hidden --follow --exclude '.git' --type file"
-nnoremap <c-p> <cmd>lua require('telescope.builtin').find_files()<cr>
-inoremap <c-p> <cmd>lua require('telescope.builtin').find_files()<cr>
-
-
 
 " Enhance command-line completion
 set wildmenu
