@@ -1,11 +1,17 @@
-local M = {}
+local M = {
+	log = {},
+}
 
-M.log = {}
-M.log.debug = function() end
-M.log.info = function() end
-M.log.warn = function() end
-M.log.error = function() end
-M.log.fatal = function() end
+local debugFuncNames = { "debug", "info", "warn", "error", "fatal" }
+function makeDebugFuncs(maker)
+	local maker = maker or function()
+		return function() end
+	end
+	for _, funcName in ipairs(debugFuncNames) do
+		M.log[funcName] = maker(funcName)
+	end
+end
+makeDebugFuncs()
 
 if vim.g.DEBUG then
 	local logfile = vim.fn.stdpath("cache") .. "/config.log"
@@ -14,29 +20,18 @@ if vim.g.DEBUG then
 	local logger = Logging.rolling_file({ filename = logfile, maxFileSize = 1024 })
 
 	logger:setLevel(vim.g.DEBUG)
-	M.log.debug = function(...)
-		logger:debug(...)
-	end
-	M.log.info = function(...)
-		logger:info(...)
-	end
-	M.log.warn = function(...)
-		logger:warn(...)
-	end
-	M.log.error = function(...)
-		logger:error(...)
-	end
-	M.log.fatal = function(...)
-		logger:fatal(...)
-	end
+	makeDebugFuncs(function(funcName)
+		return function(x)
+			logger[funcName](logger, vim.inspect(x))
+		end
+	end)
 end
 
+-- for debugging logging
 if false then
-	M.log.debug("d")
-	M.log.info("i")
-	M.log.warn("w")
-	M.log.error("e")
-	M.log.fatal("f")
+	for _, funcName in ipairs(debugFuncNames) do
+		M.log[funcName](funcName)
+	end
 end
 
 M.on_attach = function(client, bufnr)
