@@ -1,5 +1,3 @@
-" Always set in nvim
-
 lua << EOLUA
 vim.g.DEBUG = "ERROR"
 require('init')
@@ -18,10 +16,6 @@ set termguicolors
 
 " Enhance command-line completion
 set wildmenu
-
-" Allow backspace in insert mode
-" DEFAULT IN NVIM
-" set backspace=indent,eol,start
 
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
