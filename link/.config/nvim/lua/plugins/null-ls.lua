@@ -157,11 +157,25 @@ local generate_disable_actions = function(message, indentation, params)
 	-- Disable entire file
 	--
 	local file_title = "[DISABLE] ESLint: " .. rule_id .. " for the entire file"
-	-- TODO: check for existing disable and add
-	local first_line = read_line(1)
-	log.debug(first_line)
-	local file_new_text = eslint_disable_prefix .. rule_id .. " */"
-	table.insert(actions, generate_edit_line_action(file_title, file_new_text, 1, params))
+	local first_line = read_line(0)
+	if first_line:match("^" .. escape_string_pattern(eslint_disable_prefix)) then
+		local line_text = first_line:gsub("%s*%*/$", ", " .. rule_id .. " */")
+		disable_action = {
+			title = file_title,
+			action = function()
+				vim.api.nvim_buf_set_lines(params.bufnr, 0, 1, false, { line_text })
+			end,
+		}
+	else
+		local line_text = eslint_disable_prefix .. rule_id .. " */"
+		disable_action = {
+			title = file_title,
+			action = function()
+				vim.api.nvim_buf_set_lines(params.bufnr, 0, 0, false, { line_text })
+			end,
+		}
+	end
+	table.insert(actions, disable_action)
 
 	return actions
 end
