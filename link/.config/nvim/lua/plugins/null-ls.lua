@@ -91,13 +91,25 @@ local generate_suggestion_action = function(suggestion, message, params)
 end
 
 local generate_fix_actions = function(message, indentation, params)
-	if not message.fix then
-		return {}
+	local actions = {}
+
+	if message.fix then
+		local title = "[FIX] ESLint: " .. message.message
+		local new_text = message.fix.text
+		local range = get_fix_range(message, params)
+		table.insert(actions, generate_edit_action(title, new_text, range, params))
 	end
-	local title = "Apply suggested fix for ESLint rule " .. message.ruleId
-	local new_text = message.fix.text
-	local range = get_fix_range(message, params)
-	return { generate_edit_action(title, new_text, range, params) }
+
+	if message.suggestions then
+		for _, suggestion in ipairs(message.suggestions) do
+			local title = "[FIX] ESLint: " .. suggestion.desc
+			local new_text = suggestion.fix.text
+			local range = get_fix_range({ line = message.line, fix = suggestion.fix }, params)
+			table.insert(actions, generate_edit_action(title, new_text, range, params))
+		end
+	end
+
+	return actions
 end
 
 local function escape_string_pattern(s)
@@ -119,7 +131,7 @@ local generate_disable_actions = function(message, indentation, params)
 	--
 	-- Disable for line
 	--
-	local line_title = "ESLint: Disable " .. rule_id .. " for line"
+	local line_title = "[DISABLE] ESLint: " .. rule_id .. " for line"
 	local previous_line = read_line(message.line - 2) -- buffer is 0-indexed, eslint message 1-indexed
 	local disable_line_action
 	if previous_line:match("^%s*" .. escape_string_pattern(eslint_disable_line_prefix)) then
@@ -144,7 +156,7 @@ local generate_disable_actions = function(message, indentation, params)
 	--
 	-- Disable entire file
 	--
-	local file_title = "ESLint: Disable " .. rule_id .. " for the entire file"
+	local file_title = "[DISABLE] ESLint: " .. rule_id .. " for the entire file"
 	-- TODO: check for existing disable and add
 	local first_line = read_line(1)
 	log.debug(first_line)
@@ -160,6 +172,7 @@ local function generate_actions(messages, indentation, params)
 	local observed_rules = {}
 	for _, message in ipairs(messages) do
 		vim.list_extend(actions, generate_fix_actions(message, indentation, params))
+
 		if message.ruleId and not observed_rules[message.ruleId] then
 			vim.list_extend(actions, generate_disable_actions(message, indentation, params))
 			observed_rules[message.ruleId] = true
@@ -247,179 +260,16 @@ local eslint_code_action_source = {
 	}),
 }
 
--- null_ls.setup({ sources = eslint_d_source })
-
 null_ls.config({
 	debug = true,
 	sources = {
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.prettier,
-		-- null_ls.builtins.diagnostics.eslint_d,
 		eslint_diagnostics_source,
 		eslint_code_action_source,
 	},
 })
+
 require("lspconfig")["null-ls"].setup({
-	on_attach = function(...)
-		require("plugins.utils").on_attach(...)
-	end,
+	on_attach = require("plugins.utils").on_attach,
 })
-
--- local api = vim.api
-
--- local root = function(bufname)
--- 	local lsputil = require("lspconfig.util")
--- 	bufname = bufname or api.nvim_buf_get_name(0)
-
--- 	return lsputil.root_pattern("tsconfig.json", "package.json", "jsconfig.json")(bufname)
--- 		or lsputil.root_pattern(".git")(bufname)
--- end
--- local resolve_bin = function(cmd)
--- 	local lsputil = require("lspconfig.util")
-
--- 	local local_bin = lsputil.path.join(root(), "node_modules", ".bin", cmd)
--- 	if lsputil.path.exists(local_bin) then
--- 		log.debug("using local executable " .. local_bin)
--- 		return local_bin
--- 	else
--- 		log.debug("using system executable " .. cmd)
--- 		return cmd
--- 	end
--- end
-
--- local is_fixable = function(problem, row)
--- 	if not problem or not problem.line then
--- 		return false
--- 	end
-
--- 	if problem.endLine then
--- 		return problem.line <= row and problem.endLine >= row
--- 	end
-
--- 	if problem.fix then
--- 		return problem.line - 1 == row
--- 	end
-
--- 	return false
--- end
-
--- local get_message_range = function(problem)
--- 	-- 1-indexed
--- 	local row = problem.line or 1
--- 	local col = problem.column or 1
--- 	local end_row = problem.endLine or 1
--- 	local end_col = problem.endColumn or 1
-
--- 	return { row = row, col = col, end_row = end_row, end_col = end_col }
--- end
-
--- local generate_suggestion_action = function(suggestion, message, params)
--- 	local title = suggestion.desc
--- 	local new_text = suggestion.fix.text
--- 	local range = get_message_range(message)
-
--- 	return generate_edit_action(title, new_text, range, params)
--- end
-
--- local generate_fix_action = function(message, params)
--- 	local title = "Apply suggested fix for ESLint rule " .. message.ruleId
--- 	local new_text = message.fix.text
--- 	local range = get_fix_range(message, params)
-
--- 	return generate_edit_action(title, new_text, range, params)
--- end
-
--- local generate_disable_actions = function(message, indentation, params)
--- 	local rule_id = message.ruleId
-
--- 	local actions = {}
--- 	local line_title = "Disable ESLint rule " .. rule_id .. " for this line"
--- 	local line_new_text = indentation .. "// eslint-disable-next-line " .. rule_id
--- 	table.insert(actions, generate_edit_line_action(line_title, line_new_text, message.line, params))
-
--- 	local file_title = "Disable ESLint rule " .. rule_id .. " for the entire file"
--- 	local file_new_text = "/* eslint-disable " .. rule_id .. " */"
--- 	table.insert(actions, generate_edit_line_action(file_title, file_new_text, 1, params))
-
--- 	return actions
--- end
-
--- -- looks like this
--- -- {
--- --   column = 26,
--- --   line = 20,
--- --   message = "Avoid direct Node access. Prefer using the methods from Testing Library.",
--- --   messageId = "noNodeAccess",
--- --   nodeType = "MemberExpression",
--- --   ruleId = "testing-library/no-node-access",
--- --   severity = 2,
--- -- }
-
--- local code_action_handler = function(params)
--- 	local row = params.row
--- 	local indentation = params.content[row]:match("^%s+") or ""
-
--- 	local rules, actions = {}, {}
--- 	for _, message in ipairs(params.messages) do
--- 		log.debug("")
--- 		log.debug(message)
--- 		if is_fixable(message, row) then
--- 			log.debug("fixable")
--- 			if message.suggestions then
--- 				for _, suggestion in ipairs(message.suggestions) do
--- 					table.insert(actions, generate_suggestion_action(suggestion, message, params))
--- 				end
--- 			end
-
--- 			if message.fix then
--- 				table.insert(actions, generate_fix_action(message, params))
--- 			end
--- 		end
--- 		log.debug(rules)
--- 		if message.ruleId and not rules[message.ruleId] then
--- 			log.debug("gen disable")
--- 			rules[message.ruleId] = true
--- 			vim.list_extend(actions, generate_disable_actions(message, indentation, params))
--- 			log.debug(actions)
--- 		else
--- 			log.debug("no gen disable")
--- 		end
--- 	end
-
--- 	return actions
--- end
-
--- local on_output = function(params)
--- 	local output = params.output
-
--- 	if not (output and output[1] and output[1].messages) then
--- 		return
--- 	end
-
--- 	log.debug(params)
--- 	params.messages = output[1].messages
--- 	log.debug(params)
--- 	return code_action_handler(params)
--- end
-
--- local eslint_bin = "eslint_d"
--- local command = resolve_bin(eslint_bin)
-
--- log.debug("enabling null-ls eslint code actions integration")
--- null_ls.register({
--- 	name = eslint_bin,
--- 	filetypes = tsserver_fts,
--- 	method = null_ls.methods.CODE_ACTION,
--- 	generator = null_ls.generator({
--- 		command = resolve_bin(eslint_bin),
--- 		args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
--- 		format = "json_raw",
--- 		to_stdin = true,
--- 		check_exit_code = { 0, 1 },
--- 		use_cache = true,
--- 		on_output = on_output,
--- 	}),
--- })
-
--- null_ls.register_name(name)
--- log.debug("successfully registered null-ls integrations")
