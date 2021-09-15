@@ -100,8 +100,15 @@ local generate_fix_actions = function(message, indentation, params)
 	return { generate_edit_action(title, new_text, range, params) }
 end
 
+local function escape_string_pattern(s)
+	return s:gsub("[%^%$%(%)%%%.%[%]%*%+%-%?]", "%%%1")
+end
+
+local eslint_disable_line_prefix = "// eslint-disable-next-line "
+local eslint_disable_prefix = "/* eslint-disable "
 local generate_disable_actions = function(message, indentation, params)
 	local rule_id = message.ruleId
+	local row = params.row
 
 	if not rule_id then
 		return {}
@@ -113,11 +120,26 @@ local generate_disable_actions = function(message, indentation, params)
 	-- Disable for line
 	--
 	local line_title = "ESLint: Disable " .. rule_id .. " for line"
-	-- TODO: check for existing disable and add
 	local previous_line = read_line(message.line - 2) -- buffer is 0-indexed, eslint message 1-indexed
-	log.debug(previous_line)
-	local line_new_text = indentation .. "// eslint-disable-next-line " .. rule_id
-	table.insert(actions, generate_edit_line_action(line_title, line_new_text, message.line, params))
+	local disable_line_action
+	if previous_line:match("^%s*" .. escape_string_pattern(eslint_disable_line_prefix)) then
+		local line_text = previous_line .. ", " .. rule_id
+		disable_line_action = {
+			title = line_title,
+			action = function()
+				vim.api.nvim_buf_set_lines(params.bufnr, row - 2, row - 1, false, { line_text })
+			end,
+		}
+	else
+		local line_text = indentation .. eslint_disable_line_prefix .. rule_id
+		disable_line_action = {
+			title = line_title,
+			action = function()
+				vim.api.nvim_buf_set_lines(params.bufnr, row - 1, row - 1, false, { line_text })
+			end,
+		}
+	end
+	table.insert(actions, disable_line_action)
 
 	--
 	-- Disable entire file
@@ -126,7 +148,7 @@ local generate_disable_actions = function(message, indentation, params)
 	-- TODO: check for existing disable and add
 	local first_line = read_line(1)
 	log.debug(first_line)
-	local file_new_text = "/* eslint-disable " .. rule_id .. " */"
+	local file_new_text = eslint_disable_prefix .. rule_id .. " */"
 	table.insert(actions, generate_edit_line_action(file_title, file_new_text, 1, params))
 
 	return actions
