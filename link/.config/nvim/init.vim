@@ -1,5 +1,5 @@
 lua << EOLUA
-vim.g.DEBUG = "ERROR"
+vim.g.DEBUG = "WARN"
 require('init')
 EOLUA
 
