@@ -60,3 +60,5 @@
 
 [init]
 	defaultBranch = main
+[maintenance "gc"]
+	enabled = true
