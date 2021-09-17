@@ -5,7 +5,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require("packer.luarocks").setup_paths()
-return require("packer").startup(function()
+return require("packer").startup(function(use, use_rocks)
 	use("wbthomason/packer.nvim")
 	use_rocks({ "lualogging" })
 
@@ -135,58 +135,36 @@ return require("packer").startup(function()
 		},
 	})
 
+	--
 	-- Git
+	--
 	use({
-		{ "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" }, disable = true },
-		{
-			"lewis6991/gitsigns.nvim",
-			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("gitsigns").setup()
-			end,
-		},
-		{
-			"TimUntersberger/neogit",
-			cmd = "Neogit",
-		},
-	})
-
-	use({
-		"karb94/neoscroll.nvim",
+		"lewis6991/gitsigns.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("neoscroll").setup({
-				easing_function = "cubic",
-			})
+			require("gitsigns").setup()
 		end,
 	})
-
-	use("editorconfig/editorconfig-vim")
-
-	-- use("vim-airline/vim-airline")
-	-- use("vim-airline/vim-airline-themes")
+	use({
+		"TimUntersberger/neogit",
+		cmd = "Neogit",
+		disable = true,
+	})
 
 	use({
 		"glepnir/galaxyline.nvim",
 		branch = "main",
-		-- your statusline
-		config = function()
-			require("plugins.statusline")
-		end,
+		config = [[require("plugins.statusline")]],
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
 	use("godlygeek/tabular")
-
 	use("junegunn/vim-easy-align")
 
 	use({
 		"folke/twilight.nvim",
 		config = function()
-			require("twilight").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
+			require("twilight").setup({})
 		end,
 	})
 
@@ -194,6 +172,7 @@ return require("packer").startup(function()
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		requires = {
 			"tpope/vim-commentary",
+			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -204,10 +183,11 @@ return require("packer").startup(function()
 		end,
 	})
 
+	use({ "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" }, disable = true })
 	use("tpope/vim-repeat")
-	use("tpope/vim-rsi")
+	-- use("tpope/vim-rsi")
 	use("tpope/vim-surround")
-	-- use 'tpope/vim-tbone'
+	use("tpope/vim-eunuch")
 
 	-- use("rust-lang/rust.vim")
 end)

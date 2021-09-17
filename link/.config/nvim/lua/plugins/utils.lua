@@ -1,38 +1,6 @@
-local M = {
-	log = {},
-}
+local log = require("sirreal.log")
 
-local debugFuncNames = { "debug", "info", "warn", "error", "fatal" }
-function makeDebugFuncs(maker)
-	local maker = maker or function()
-		return function() end
-	end
-	for _, funcName in ipairs(debugFuncNames) do
-		M.log[funcName] = maker(funcName)
-	end
-end
-makeDebugFuncs()
-
-if vim.g.DEBUG then
-	local logfile = vim.fn.stdpath("cache") .. "/config.log"
-	local Logging = require("logging")
-	require("logging.rolling_file")
-	local logger = Logging.rolling_file({ filename = logfile, maxFileSize = 1024 })
-
-	logger:setLevel(vim.g.DEBUG)
-	makeDebugFuncs(function(funcName)
-		return function(x)
-			logger[funcName](logger, vim.inspect(x))
-		end
-	end)
-end
-
--- for debugging logging
-if false then
-	for _, funcName in ipairs(debugFuncNames) do
-		M.log[funcName](funcName)
-	end
-end
+local M = {}
 
 M.on_attach = function(client, bufnr)
 	local map = function(type, key, value)
@@ -92,7 +60,7 @@ M.on_attach = function(client, bufnr)
 			true
 		)
 	end
-	M.log.info("LSP " .. client.name .. " started.")
+	log.info("LSP " .. client.name .. " started.")
 end
 
 return M

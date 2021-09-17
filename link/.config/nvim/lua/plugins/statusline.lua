@@ -178,6 +178,7 @@ gls.right[5] = {
 		highlight = { colors.green, colors.bg },
 	},
 }
+
 gls.right[6] = {
 	DiffModified = {
 		provider = "DiffModified",
@@ -186,6 +187,7 @@ gls.right[6] = {
 		highlight = { colors.orange, colors.bg },
 	},
 }
+
 gls.right[7] = {
 	DiffRemove = {
 		provider = "DiffRemove",

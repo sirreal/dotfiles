@@ -1,9 +1,8 @@
-local log = require("plugins.utils").log
 local helpers = require("null-ls.helpers")
 
 local M = {}
 
-function range_includes_row(message, row)
+local function range_includes_row(message, row)
 	if not message or not message.line then
 		return false
 	end
@@ -13,7 +12,7 @@ function range_includes_row(message, row)
 	return message.line == row
 end
 
-function get_offset_positions(content, window, start_offset, end_offset)
+local function get_offset_positions(content, window, start_offset, end_offset)
 	-- ESLint uses character offsets, so convert to byte indexes to handle multibyte characters
 	local to_string = table.concat(content, "\n")
 	start_offset = vim.str_byteindex(to_string, start_offset + 1)
@@ -36,7 +35,7 @@ function get_offset_positions(content, window, start_offset, end_offset)
 	return col, end_col, end_row
 end
 
-function get_fix_range(problem, params)
+local function get_fix_range(problem, params)
 	-- 1-indexed
 	local row = problem.line
 	local offset = problem.fix.range[1]
@@ -45,7 +44,7 @@ function get_fix_range(problem, params)
 	return { row = row, col = col, end_row = end_row, end_col = end_col }
 end
 
-function generate_edit_action(title, new_text, range, params)
+local function generate_edit_action(title, new_text, range, params)
 	return {
 		title = title,
 		action = function()
@@ -62,7 +61,7 @@ function generate_edit_action(title, new_text, range, params)
 	}
 end
 
-function generate_fix_actions(message, indentation, params)
+local function generate_fix_actions(message, params)
 	local actions = {}
 	if message.fix then
 		local title = message.message .. " (" .. message.ruleId .. ")"
@@ -82,19 +81,19 @@ function generate_fix_actions(message, indentation, params)
 	return actions
 end
 
-function read_line(line, bufnr)
+local function read_line(line, bufnr)
 	local lines = vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)
 	return lines and lines[1]
 end
 
-function escape_string_pattern(s)
+local function escape_string_pattern(s)
 	return s:gsub("[%^%$%(%)%%%.%[%]%*%+%-%?]", "%%%1")
 end
 
 local eslint_disable_line_prefix = "// eslint-disable-next-line "
 local eslint_disable_prefix = "/* eslint-disable "
 
-function generate_disable_actions(message, indentation, params)
+local function generate_disable_actions(message, indentation, params)
 	local rule_id = message.ruleId
 	local row = params.row
 
@@ -134,6 +133,7 @@ function generate_disable_actions(message, indentation, params)
 	--
 	local file_title = "Disable " .. rule_id .. " for the entire file"
 	local first_line = read_line(0, params.bufnr)
+	local disable_action
 	if first_line:match("^" .. escape_string_pattern(eslint_disable_prefix)) then
 		local line_text = first_line:gsub("%s*%*/$", ", " .. rule_id .. " */")
 		disable_action = {
@@ -156,11 +156,11 @@ function generate_disable_actions(message, indentation, params)
 	return actions
 end
 
-function generate_actions(messages, indentation, params)
+local function generate_actions(messages, indentation, params)
 	local actions = {}
 	local observed_rules = {}
 	for _, message in ipairs(messages) do
-		vim.list_extend(actions, generate_fix_actions(message, indentation, params))
+		vim.list_extend(actions, generate_fix_actions(message, params))
 		if message.ruleId and not observed_rules[message.ruleId] then
 			vim.list_extend(actions, generate_disable_actions(message, indentation, params))
 			observed_rules[message.ruleId] = true

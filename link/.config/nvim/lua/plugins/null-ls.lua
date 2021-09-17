@@ -9,7 +9,21 @@ end
 local eslint = require("plugins.eslint")
 local helpers = require("null-ls.helpers")
 
-local tsserver_filetypes = require("lspconfig").tsserver.filetypes
+local tsserver_filetypes
+ok, tsserver_filetypes = pcall(function()
+	return require("lspconfig").tsserver.document_config.default_config.filetypes
+end)
+if not ok then
+	log.warn("could not load tsserver filetypes")
+	tsserver_filetypes = {
+		"javascript",
+		"javascriptreact",
+		"javascript.jsx",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	}
+end
 
 local eslint_diagnostics_source = {
 	name = "jons-eslint-diagnostics",
