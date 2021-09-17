@@ -3,6 +3,8 @@ local log = require("sirreal.log")
 local M = {}
 
 M.on_attach = function(client, bufnr)
+	require("lsp_signature").on_attach()
+
 	local map = function(type, key, value)
 		vim.api.nvim_buf_set_keymap(bufnr, type, key, value, { noremap = true, silent = true })
 	end
@@ -45,9 +47,6 @@ M.on_attach = function(client, bufnr)
 	map("n", "]d", ":LspDianosticNext<CR>")
 	map("n", "<Leader>a", ":LspDianosticLine<CR>")
 	map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
-
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 	if client.resolved_capabilities.document_formatting then
 		vim.api.nvim_exec(

@@ -27,17 +27,17 @@ return require("packer").startup(function(use, use_rocks)
 		config = [[require("plugins.treesitter")]],
 	})
 
+	--
 	-- LSP
 	--
-	-- 'onsails/lspkind-nvim',
-	-- '~/projects/personal/lsp-status.nvim',
-	-- 'ray-x/lsp_signature.nvim',
-	-- 'kosayoda/nvim-lightbulb',
+
+	-- "onsails/lspkind-nvim" try??
 	use({
 
 		"neovim/nvim-lspconfig",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
+			"ray-x/lsp_signature.nvim",
 		},
 		config = [[require("plugins.lsp")]],
 	})
@@ -185,7 +185,7 @@ return require("packer").startup(function(use, use_rocks)
 
 	use({ "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" }, disable = true })
 	use("tpope/vim-repeat")
-	-- use("tpope/vim-rsi")
+	use("tpope/vim-rsi")
 	use("tpope/vim-surround")
 	use("tpope/vim-eunuch")
 
