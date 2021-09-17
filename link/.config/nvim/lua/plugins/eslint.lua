@@ -84,7 +84,7 @@ end
 
 function read_line(line, bufnr)
 	local lines = vim.api.nvim_buf_get_lines(bufnr, line, line + 1, false)
-	return lines[1]
+	return lines and lines[1]
 end
 
 function escape_string_pattern(s)
@@ -110,7 +110,7 @@ function generate_disable_actions(message, indentation, params)
 	local line_title = "Disable " .. rule_id .. " for this line"
 	local previous_line = read_line(message.line - 2, params.bufnr) -- buffer is 0-indexed, eslint message 1-indexed
 	local disable_line_action
-	if previous_line:match("^%s*" .. escape_string_pattern(eslint_disable_line_prefix)) then
+	if previous_line and previous_line:match("^%s*" .. escape_string_pattern(eslint_disable_line_prefix)) then
 		local line_text = previous_line .. ", " .. rule_id
 		disable_line_action = {
 			title = line_title,
