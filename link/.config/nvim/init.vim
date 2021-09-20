@@ -6,6 +6,10 @@ EOLUA
 " autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 " autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
 autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
+
+" No ex mode
+nnoremap Q <nop>
+
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
 inoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
 
