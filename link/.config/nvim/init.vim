@@ -119,7 +119,7 @@ endfunction
 " noremap <leader>ss :call StripWhitespace()<CR>
 "
 " Enter cleans the search highlight
-nnoremap <CR> :nohlsearch<CR>
+" nnoremap <CR> :nohlsearch<CR>
 
 " Reset worthwhie title (not "Thanks for flying Vim")
 let &titleold=getcwd()
