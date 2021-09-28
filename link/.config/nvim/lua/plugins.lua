@@ -75,7 +75,7 @@ return require("packer").startup(function(use, use_rocks)
 		config = function()
 			require("rust-tools").setup({
 				server = {
-					on_attach = require("plugins.utils").on_attach,
+					on_attach = require("plugins.lsp-attach")
 				},
 			})
 		end,

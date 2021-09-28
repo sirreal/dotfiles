@@ -1,4 +1,4 @@
-local log = require("plugins.utils").log
+local log = require("sirreal.log")
 
 local ok, null_ls = pcall(require, "null-ls")
 if not ok then
@@ -76,5 +76,5 @@ null_ls.config({
 })
 
 require("lspconfig")["null-ls"].setup({
-	on_attach = require("plugins.utils").on_attach,
+	on_attach = require("plugins.lsp-attach"),
 })

@@ -1,6 +1,6 @@
 ---@diagnostic disable-next-line: unused-local
 local log = require("sirreal.log")
-local on_attach = require("plugins.utils").on_attach
+local on_attach = require("plugins.lsp-attach")
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()

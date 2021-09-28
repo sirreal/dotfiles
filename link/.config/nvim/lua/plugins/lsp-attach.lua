@@ -1,8 +1,6 @@
 local log = require("sirreal.log")
 
-local M = {}
-
-M.on_attach = function(client, bufnr)
+return function(client, bufnr)
 	require("lsp_signature").on_attach()
 
 	local map = function(type, key, value)
@@ -16,8 +14,8 @@ M.on_attach = function(client, bufnr)
 	vim.cmd("command! LspFormatting lua vim.lsp.buf.formatting_sync()")
 	vim.cmd("command! LspTypeDefinition lua vim.lsp.buf.type_definition()")
 	vim.cmd("command! LspImplementation lua vim.lsp.buf.implementation()")
-	-- vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
-	-- vim.cmd("command! LspCodeActionRange lua vim.lsp.buf.range_code_action()")
+	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
+	vim.cmd("command! LspCodeActionRange lua vim.lsp.buf.range_code_action()")
 	-- vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
 	-- vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
 	-- vim.cmd("command! LspReferences lua vim.lsp.buf.references()")
@@ -26,8 +24,8 @@ M.on_attach = function(client, bufnr)
 	-- vim.cmd("command! LspDianosticLine lua vim.lsp.diagnostic.show_line_diagnostics()")
 	-- vim.cmd("command! LspSignatureHelp lua vim.lsp.buf.signature_help()")
 
-	vim.cmd("command! LspCodeAction lua require('lspsaga.codeaction').code_action()")
-	vim.cmd("command! LspCodeActionRange lua require('lspsaga.codeaction').range_code_action()")
+	-- vim.cmd("command! LspCodeAction lua require('lspsaga.codeaction').code_action()")
+	-- vim.cmd("command! LspCodeActionRange lua require('lspsaga.codeaction').range_code_action()")
 	vim.cmd("command! LspHover lua require('lspsaga.hover').render_hover_doc()")
 	vim.cmd("command! LspRename lua require('lspsaga.rename').rename()")
 	vim.cmd("command! LspDianosticPrev lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()")
@@ -48,6 +46,9 @@ M.on_attach = function(client, bufnr)
 	map("n", "<Leader>a", ":LspDianosticLine<CR>")
 	map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
 
+	vim.api.nvim_command([[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
+	vim.api.nvim_command([[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
+	vim.api.nvim_command([[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
 	if client.resolved_capabilities.document_formatting then
 		vim.api.nvim_exec(
 			[[
@@ -61,5 +62,3 @@ M.on_attach = function(client, bufnr)
 	end
 	log.info("LSP " .. client.name .. " started.")
 end
-
-return M
