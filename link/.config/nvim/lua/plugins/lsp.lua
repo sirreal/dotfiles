@@ -13,18 +13,18 @@ local ignored_ts_diagnostic_codes = {
 require("lspconfig").tsserver.setup({
 	capabilities = capabilities,
 	handlers = {
-		["textDocument/publishDiagnostics"] = function(_, _, params, client_id, _, config)
-			if params.diagnostics ~= nil then
+		["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+			if result.diagnostics ~= nil then
 				local idx = 1
-				while idx <= #params.diagnostics do
-					if ignored_ts_diagnostic_codes[params.diagnostics[idx].code] then
-						table.remove(params.diagnostics, idx)
+				while idx <= #result.diagnostics do
+					if ignored_ts_diagnostic_codes[result.diagnostics[idx].code] then
+						table.remove(result.diagnostics, idx)
 					else
 						idx = idx + 1
 					end
 				end
 			end
-			vim.lsp.diagnostic.on_publish_diagnostics(_, _, params, client_id, _, config)
+			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
 	on_attach = function(client)
