@@ -25,43 +25,43 @@ if not ok then
 	}
 end
 
--- local eslint_diagnostics_source = {
--- 	name = "jons-eslint-diagnostics",
--- 	method = null_ls.methods.DIAGNOSTICS,
--- 	filetypes = tsserver_filetypes,
--- 	generator = helpers.generator_factory({
--- 		command = "eslint_d",
--- 		args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
--- 		to_stdin = true,
--- 		format = "json_raw",
--- 		check_exit_code = function(code)
--- 			return code <= 1
--- 		end,
--- 		use_cache = false,
--- 		on_output = eslint.handle_eslint_output,
--- 	}),
--- }
+local eslint_diagnostics_source = {
+	name = "jons-eslint-diagnostics",
+	method = null_ls.methods.DIAGNOSTICS,
+	filetypes = tsserver_filetypes,
+	generator = helpers.generator_factory({
+		command = "eslint_d",
+		args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
+		to_stdin = true,
+		format = "json_raw",
+		check_exit_code = function(code)
+			return code <= 1
+		end,
+		use_cache = false,
+		on_output = eslint.handle_eslint_output,
+	}),
+}
 
--- local eslint_code_action_source = {
--- 	name = "jons-eslint-code-action",
--- 	method = null_ls.methods.CODE_ACTION,
--- 	filetypes = tsserver_filetypes,
--- 	generator = helpers.generator_factory({
--- 		command = "eslint_d",
--- 		args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
--- 		to_stdin = true,
--- 		format = "json_raw",
--- 		check_exit_code = function(code)
--- 			return code <= 1
--- 		end,
--- 		use_cache = false,
--- 		on_output = function(params)
--- 			local win = vim.api.nvim_get_current_win()
--- 			params.win = win
--- 			return eslint.code_action_handler(params)
--- 		end,
--- 	}),
--- }
+local eslint_code_action_source = {
+	name = "jons-eslint-code-action",
+	method = null_ls.methods.CODE_ACTION,
+	filetypes = tsserver_filetypes,
+	generator = helpers.generator_factory({
+		command = "eslint_d",
+		args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
+		to_stdin = true,
+		format = "json_raw",
+		check_exit_code = function(code)
+			return code <= 1
+		end,
+		use_cache = false,
+		on_output = function(params)
+			local win = vim.api.nvim_get_current_win()
+			params.win = win
+			return eslint.code_action_handler(params)
+		end,
+	}),
+}
 
 null_ls.config({
 	debug = true,
@@ -70,9 +70,9 @@ null_ls.config({
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.diagnostics.stylelint,
 		null_ls.builtins.formatting.stylelint,
-		null_ls.builtins.diagnostics.eslint_d,
-		-- eslint_diagnostics_source,
-		-- eslint_code_action_source,
+		-- null_ls.builtins.diagnostics.eslint_d,
+		eslint_diagnostics_source,
+		eslint_code_action_source,
 	},
 })
 
