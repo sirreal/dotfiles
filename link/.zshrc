@@ -22,17 +22,6 @@ setopt \
 
 bindkey -v
 
-# Powerline
-# POWERLINE_COMMAND=$HOME/.local/bin/powerline-hs
-# POWERLINE_CONFIG_COMMAND=true
-# source "$HOME/jon/powerline-hs/powerline/powerline/bindings/zsh/powerline.zsh"
-
-# History substring
-source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-
-# Syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # Completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
