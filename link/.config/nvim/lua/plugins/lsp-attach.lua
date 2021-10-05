@@ -46,13 +46,24 @@ return function(client, bufnr)
 	map("n", "<Leader>a", ":LspDianosticLine<CR>")
 	map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
 
-	vim.api.nvim_command([[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]])
-	vim.api.nvim_command([[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]])
-	vim.api.nvim_command([[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]])
+	if client.resolved_capabilities.document_highlight then
+		vim.api.nvim_exec(
+			[[
+				augroup LspAutohighlight
+				autocmd! * <buffer>
+				autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+				autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+				augroup END
+			]],
+			true
+		)
+	end
+
 	if client.resolved_capabilities.document_formatting then
 		vim.api.nvim_exec(
 			[[
-				augroup LspAutocommands
+				augroup LspAutoformat
 				autocmd! * <buffer>
 				autocmd BufWrite <buffer> LspFormatting
 				augroup END
@@ -60,5 +71,6 @@ return function(client, bufnr)
 			true
 		)
 	end
+
 	log.info("LSP " .. client.name .. " started.")
 end
