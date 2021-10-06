@@ -3,12 +3,27 @@ vim.g.DEBUG = "WARN"
 require('init')
 EOLUA
 
+" Map W[a|A] Q[a|A] E to their lower-case variants
+" https://blog.sanctum.geek.nz/vim-command-typos/
+if has("user_commands")
+    command! -bang -nargs=? -complete=file E e<bang> <args>
+    command! -bang -nargs=? -complete=file W w<bang> <args>
+    command! -bang -nargs=? -complete=file Wq wq<bang> <args>
+    command! -bang -nargs=? -complete=file WQ wq<bang> <args>
+    command! -bang Wa wa<bang>
+    command! -bang WA wa<bang>
+    command! -bang Q q<bang>
+    command! -bang QA qa<bang>
+    command! -bang Qa qa<bang>
+endif
+
+" No ex mode
+nnoremap Q <nop>
+
 " autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 " autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
 autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 
-" No ex mode
-nnoremap Q <nop>
 
 nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
 inoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
