@@ -96,7 +96,7 @@ local function generate_disable_actions(message, indentation, params)
 	local rule_id = message.ruleId
 	local row = params.row
 
-	if not rule_id then
+	if not rule_id or rule_id == vim.NIL then
 		return {}
 	end
 
@@ -184,7 +184,9 @@ M.handle_eslint_output = function(params)
 		},
 	})
 	for _, message in ipairs(params.messages) do
-		message.message = message.message .. " (" .. message.ruleId .. ")"
+		if message.ruleId and message.ruleId ~= vim.NIL then
+			message.message = message.message .. " (" .. message.ruleId .. ")"
+		end
 	end
 	return parser({ output = params.messages })
 end
