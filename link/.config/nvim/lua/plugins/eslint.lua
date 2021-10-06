@@ -30,17 +30,16 @@ local function get_offset_positions(content, window, start_offset, end_offset)
 	-- restore state
 	vim.fn.winrestview(view)
 	vim.opt.virtualedit = virtualedit
-	local col = cursor_start[2] + 1
+	local start_row, start_col = cursor_start[1], cursor_start[2] + 1
 	local end_row, end_col = cursor_end[1], cursor_end[2] + 1
-	return col, end_col, end_row
+	return start_row, start_col, end_col, end_row
 end
 
 local function get_fix_range(problem, params)
 	-- 1-indexed
-	local row = problem.line
 	local offset = problem.fix.range[1]
 	local end_offset = problem.fix.range[2]
-	local col, end_col, end_row = get_offset_positions(params.content, params.window, offset, end_offset)
+	local row, col, end_col, end_row = get_offset_positions(params.content, params.window, offset, end_offset)
 	return { row = row, col = col, end_row = end_row, end_col = end_col }
 end
 
