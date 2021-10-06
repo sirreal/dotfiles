@@ -183,6 +183,9 @@ M.handle_eslint_output = function(params)
 			helpers.diagnostics.severities["error"],
 		},
 	})
+	for _, message in ipairs(params.messages) do
+		message.message = message.message .. " (" .. message.ruleId .. ")"
+	end
 	return parser({ output = params.messages })
 end
 
