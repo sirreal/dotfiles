@@ -37,7 +37,7 @@ local eslint_diagnostics_source = {
 		check_exit_code = function(code)
 			return code <= 1
 		end,
-		use_cache = false,
+		use_cache = true,
 		on_output = eslint.handle_eslint_output,
 	}),
 }
@@ -54,7 +54,7 @@ local eslint_code_action_source = {
 		check_exit_code = function(code)
 			return code <= 1
 		end,
-		use_cache = false,
+		use_cache = true,
 		on_output = function(params)
 			local win = vim.api.nvim_get_current_win()
 			params.win = win
