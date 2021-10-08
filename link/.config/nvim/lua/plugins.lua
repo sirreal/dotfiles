@@ -119,8 +119,8 @@ return require("packer").startup(function(use, use_rocks)
 			requires = {
 				"nvim-lua/popup.nvim",
 				"nvim-lua/plenary.nvim",
-				"telescope-frecency.nvim",
-				"telescope-fzf-native.nvim",
+				"nvim-telescope/telescope-frecency.nvim",
+				"nvim-telescope/telescope-fzf-native.nvim",
 			},
 			config = [[require("plugins.telescope")]],
 			cmd = "Telescope",
@@ -128,7 +128,6 @@ return require("packer").startup(function(use, use_rocks)
 		},
 		{
 			"nvim-telescope/telescope-frecency.nvim",
-			after = "telescope.nvim",
 			requires = "tami5/sql.nvim",
 		},
 		{

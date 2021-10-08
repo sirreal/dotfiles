@@ -1,7 +1,7 @@
 require("telescope").setup({
 	extensions = {
 		frecency = {
-			show_scores = false,
+			show_scores = true,
 			show_unindexed = true,
 			ignore_patterns = { "*.git/*", "*/tmp/*" },
 			workspaces = {
@@ -13,3 +13,5 @@ require("telescope").setup({
 		},
 	},
 })
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("frecency")
