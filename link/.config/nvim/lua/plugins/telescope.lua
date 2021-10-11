@@ -1,15 +1,21 @@
+local ok, workspaces = pcall(require, "sirreal.local-frecency-workspaces")
+if not ok then
+	workspaces = {}
+end
+
 require("telescope").setup({
 	extensions = {
 		frecency = {
 			show_scores = true,
 			show_unindexed = true,
-			ignore_patterns = { "*.git/*", "*/tmp/*" },
-			workspaces = {
-				-- ["conf"] = "/home/my_username/.config",
-				-- ["data"] = "/home/my_username/.local/share",
-				-- ["project"] = "/home/my_username/projects",
-				-- ["wiki"] = "/home/my_username/wiki",
-			},
+			workspaces = workspaces,
+		},
+		fzf = {
+			-- DEFAULTS --
+			-- fuzzy = true,
+			-- override_generic_sorter = true,
+			-- override_file_sorter = true,
+			-- case_mode = "smart_case",
 		},
 	},
 })
