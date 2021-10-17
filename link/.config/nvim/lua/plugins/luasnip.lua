@@ -20,7 +20,7 @@ local conds = require("luasnip.extras.conditions")
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config({
-	history = true,
+	history = false,
 	-- Update more often, :h events for more info.
 	updateevents = "TextChanged,TextChangedI",
 	ext_opts = {
@@ -34,7 +34,7 @@ ls.config.set_config({
 	ext_base_prio = 300,
 	-- minimal increase in priority.
 	ext_prio_increase = 1,
-	enable_autosnippets = true,
+	enable_autosnippets = false,
 })
 
 -- args is a table, where 1 is the text in Placeholder 1, 2 the text in
@@ -157,25 +157,6 @@ ls.snippets = {
 	--     - luasnip.all
 	-- are searched in that order.
 	all = {
-		-- trigger is fn.
-		s("fn", {
-			-- Simple static text.
-			t("//Parameters: "),
-			-- function, first parameter is the function, second the Placeholders
-			-- whose text it gets as input.
-			f(copy, 2),
-			t({ "", "function " }),
-			-- Placeholder/Insert.
-			i(1),
-			t("("),
-			-- Placeholder with initial text.
-			i(2, "int foo"),
-			-- Linebreak
-			t({ ") {", "\t" }),
-			-- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
-			i(0),
-			t({ "", "}" }),
-		}),
 		s("class", {
 			-- Choice: Switch between two different Nodes, first parameter is its position, second a list of nodes.
 			c(1, {
