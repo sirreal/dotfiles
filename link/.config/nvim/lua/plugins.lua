@@ -48,6 +48,7 @@ return require("packer").startup(function(use, use_rocks)
 	use({
 		-- "glepnir/lspsaga.nvim",
 		"tami5/lspsaga.nvim", -- temporary maintenance fork
+		branch = "nvim51", -- neovim 0.5.1
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("lspsaga").init_lsp_saga()
