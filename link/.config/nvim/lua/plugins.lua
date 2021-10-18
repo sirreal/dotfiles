@@ -10,9 +10,10 @@ return require("packer").startup(function(use, use_rocks)
 	use_rocks({ "lualogging" })
 
 	use({
-		"navarasu/onedark.nvim",
+		"folke/tokyonight.nvim",
 		config = function()
-			require("onedark").setup()
+			vim.g.tokyonight_style = "night"
+			vim.cmd([[colorscheme tokyonight]])
 		end,
 	})
 
