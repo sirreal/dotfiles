@@ -1,3 +1,16 @@
+window:
+  padding:
+    x: 5
+    y: 5
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - transparent: Title bar, transparent background and title bar buttons
+  #     - buttonless: Title bar, transparent background, but no title bar buttons
+  decorations: none
+
 gtk_theme_variant: dark
 
 #
