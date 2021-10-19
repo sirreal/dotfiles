@@ -57,7 +57,16 @@ return require("packer").startup(function(use, use_rocks)
 		branch = "nvim51", -- neovim 0.5.1
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
-			require("lspsaga").init_lsp_saga()
+			require("lspsaga").init_lsp_saga({
+				debug = false,
+				use_saga_diagnostic_sign = true,
+				error_sign = "",
+				warn_sign = "",
+				hint_sign = "",
+				infor_sign = "",
+				-- code_action_icon = "\u{fd1e}",
+				dianostic_header_icon = "  ",
+			})
 		end,
 	})
 

@@ -2,6 +2,17 @@
 local log = require("sirreal.log")
 local on_attach = require("plugins.lsp-attach")
 
+local opd = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = {
+		prefix = "",
+		spacing = 0,
+	},
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = opd
+
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
@@ -24,7 +35,7 @@ require("lspconfig").tsserver.setup({
 					end
 				end
 			end
-			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+			opd(err, result, ctx, config)
 		end,
 	},
 	on_attach = function(client)
