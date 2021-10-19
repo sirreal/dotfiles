@@ -45,6 +45,11 @@ return require("packer").startup(function(use, use_rocks)
 		"nvim-lua/lsp_extensions.nvim",
 		requires = { "neovim/nvim-lspconfig" },
 	})
+	use({
+		"simrat39/symbols-outline.nvim",
+		cmd = { "SymbolsOutline" },
+		requires = { "neovim/nvim-lspconfig" },
+	})
 
 	use({
 		-- "glepnir/lspsaga.nvim",
