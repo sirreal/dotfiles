@@ -96,6 +96,7 @@ return require("packer").startup(function(use, use_rocks)
 
 	use({
 		"folke/trouble.nvim",
+		cmd = "Trouble",
 		config = function()
 			require("trouble").setup({})
 		end,
@@ -171,6 +172,7 @@ return require("packer").startup(function(use, use_rocks)
 
 	use({
 		"folke/twilight.nvim",
+		cmd = { "Twilight", "TwilightEnable" },
 		config = function()
 			require("twilight").setup({})
 		end,
@@ -191,7 +193,7 @@ return require("packer").startup(function(use, use_rocks)
 		end,
 	})
 
-	use({ "tpope/vim-fugitive", cmd = { "Git", "Gstatus", "Gblame", "Gpush", "Gpull" }, disable = true })
+	use({ "tpope/vim-fugitive", cmd = { "Git" } })
 	use("tpope/vim-repeat")
 	use("tpope/vim-rsi")
 	use("tpope/vim-surround")
