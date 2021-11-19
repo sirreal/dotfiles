@@ -3,7 +3,15 @@ if not ok then
 	workspaces = {}
 end
 
+-- local actions = require("telescope.actions")
 require("telescope").setup({
+	defaults = {
+		mappings = {
+			-- i = {
+			-- 	["<esc>"] = actions.close,
+			-- },
+		},
+	},
 	extensions = {
 		frecency = {
 			show_scores = true,
