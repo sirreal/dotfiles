@@ -422,6 +422,6 @@ ls.autosnippets = {
 	},
 }
 
--- in a lua file: search lua-, then c-, then all-snippets.
 ls.filetype_extend("typescript", { "javascript" })
-ls.filetype_extend("typescriptreact", { "typescript", "javascriptreact" })
+ls.filetype_extend("javascriptreact", { "javascript" })
+ls.filetype_extend("typescriptreact", { "javascriptreact", "javascript", "typescript" })
