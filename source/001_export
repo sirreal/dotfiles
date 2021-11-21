@@ -10,7 +10,7 @@ else
 fi
 
 # Visual editor vim: noswap, nocompat, norc/plugins
-export EDITOR="$_VIM -nN -u NONE"
+export EDITOR="$_VIM --clean"
 export VISUAL="$EDITOR"
 
 # Git editor
