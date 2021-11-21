@@ -2,22 +2,24 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
-# Set neovim as editor
+# Set shell editors
 if hash nvim 2>/dev/null; then
-    export EDITOR=nvim
+    export _VIM=nvim
 else
-    export EDITOR=vim
+    export _VIM=vim
 fi
 
-
 # Visual editor vim: noswap, nocompat, norc/plugins
-export VISUAL="$EDITOR -nN -u NONE"
+export EDITOR="$_VIM -nN -u NONE"
+export VISUAL="$EDITOR"
 
 # Git editor
-export GIT_EDITOR="$EDITOR -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
+export GIT_EDITOR="$_VIM -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
 
 # SVN editor
 export SVN_EDITOR="$VISUAL"
+
+unset _VIM
 
 # don't put duplicate lines or lines starting with space in the history.
 export HISTCONTROL=ignoreboth
