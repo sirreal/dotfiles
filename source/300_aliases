@@ -27,3 +27,7 @@ unset method
 # Git
 # Branch cleanup
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+
+alias ghw='gh pr view --web'
+alias ghu='gh pr view --json url --jq .url'
+alias ghpr='gh pr create'
