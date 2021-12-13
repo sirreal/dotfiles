@@ -54,7 +54,6 @@ return require("packer").startup(function(use, use_rocks)
 	use({
 		-- "glepnir/lspsaga.nvim",
 		"tami5/lspsaga.nvim", -- temporary maintenance fork
-		branch = "nvim51", -- neovim 0.5.1
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("lspsaga").init_lsp_saga({
@@ -65,7 +64,7 @@ return require("packer").startup(function(use, use_rocks)
 				hint_sign = "",
 				infor_sign = "",
 				-- code_action_icon = "\u{fd1e}",
-				dianostic_header_icon = "  ",
+				diagnostic_header_icon = "  ",
 			})
 		end,
 	})
@@ -79,6 +78,7 @@ return require("packer").startup(function(use, use_rocks)
 		},
 		config = [[require("plugins.null-ls")]],
 	})
+
 	use({
 		"simrat39/rust-tools.nvim",
 		requires = {

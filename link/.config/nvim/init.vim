@@ -25,8 +25,8 @@ nnoremap Q <nop>
 autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
 
 
-nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
-inoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
+inoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 
 command! EditConfig :e ~/.config/nvim/init.vim
 
