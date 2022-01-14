@@ -14,11 +14,14 @@ _paths=(
   $HOME/bin \
 )
 
+_newpath="$PATH"
 for _p in ${_paths[@]}; do
-  if [[ -d $_p ]] && [[ ":$PATH:" != *":$_p:"* ]]; then
-    export PATH="$_p:$PATH"
+  if [[ -d $_p ]] && [[ ":$_newpath:" != "*:$_p:*" ]]; then
+    _newpath="$_p:$_newpath"
   fi
 done
+export PATH="$_newpath"
+unset _newpath
 unset _p
 unset _paths
 
