@@ -13,7 +13,8 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-alias ls="exa"
+alias ls="gls --classify=auto --color=auto --hyperlink=auto"
+alias rg='kitty +kitten hyperlinked_grep'
 
 # Subversion
 alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
