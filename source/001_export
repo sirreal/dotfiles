@@ -14,7 +14,7 @@ export EDITOR="$_VIM --clean"
 export VISUAL="$EDITOR"
 
 # Git editor
-export GIT_EDITOR="$_VIM -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
+export GIT_EDITOR="$_VIM -n -u NONE -i NONE -S $HOME/.dotfiles/config/gitcommit.nvimrc"
 
 # SVN editor
 export SVN_EDITOR="$VISUAL"
