@@ -37,14 +37,9 @@ ls.config.set_config({
 	enable_autosnippets = false,
 })
 
-ls.snippets = {
-	javascript = {
-		s("ts-err", { t("// @ts-expect-error"), i(1, " reason…") }),
-	},
-}
-
--- autotriggered snippets have to be defined in a separate table, luasnip.autosnippets.
-ls.autosnippets = {}
+ls.add_snippets("javascript", {
+	s("tserr", { t("// @ts-expect-error"), i(1, " reason…") }),
+})
 
 ls.filetype_extend("typescript", { "javascript" })
 ls.filetype_extend("javascriptreact", { "javascript" })
