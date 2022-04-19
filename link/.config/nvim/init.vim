@@ -30,6 +30,8 @@ inoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 
 command! EditConfig :e ~/.config/nvim/init.vim
 
+set laststatus=3
+
 set nojoinspaces
 set termguicolors
 
