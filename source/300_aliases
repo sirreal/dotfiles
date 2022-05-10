@@ -1,3 +1,11 @@
+# use gls (gnu ls) via homebrew on mac
+if command -v gls &> /dev/null
+then
+  _ls_command="gls"
+else
+  _ls_command="ls"
+fi
+
 # Grep history
 alias hig='history | grep'
 
@@ -13,7 +21,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-alias ls="gls --classify=auto --color=auto --hyperlink=auto"
+alias ls="${_ls_command} --classify=auto --color=auto --hyperlink=auto"
 alias rg='kitty +kitten hyperlinked_grep'
 
 # Subversion
@@ -32,3 +40,5 @@ alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: 
 alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
+
+unset _ls_command
