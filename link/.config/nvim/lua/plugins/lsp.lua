@@ -15,7 +15,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = opd
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- See https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
 local ignored_ts_diagnostic_codes = {
@@ -39,7 +39,7 @@ require("lspconfig").tsserver.setup({
 		end,
 	},
 	on_attach = function(client, bufnr)
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.document_formatting = false
 		on_attach(client, bufnr)
 	end,
 })

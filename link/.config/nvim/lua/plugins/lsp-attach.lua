@@ -52,7 +52,7 @@ return function(client, bufnr)
 	map("n", "<Leader>a", ":LspDianosticLine<CR>")
 	map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")
 
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.document_highlight then
 		vim.api.nvim_exec(
 			[[
 				augroup LspAutohighlight
@@ -66,7 +66,7 @@ return function(client, bufnr)
 		)
 	end
 
-	if client.resolved_capabilities.document_formatting then
+	if client.server_capabilities.document_formatting then
 		vim.api.nvim_exec(
 			[[
 				augroup LspAutoformat
