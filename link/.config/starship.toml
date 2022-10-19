@@ -24,6 +24,9 @@ disabled = true
 [elixir]
 disabled = true
 
+[erlang]
+disabled = true
+
 [gcloud]
 disabled = true
 
@@ -59,7 +62,6 @@ disabled = true
 
 [perl]
 disabled = true
-
 
 [red]
 disabled = true
