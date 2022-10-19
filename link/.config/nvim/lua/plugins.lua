@@ -12,7 +12,7 @@ return require("packer").startup(function(use, use_rocks)
 	use({
 		"folke/tokyonight.nvim",
 		config = function()
-			vim.g.tokyonight_style = "night"
+			require("tokyonight").setup({ style = "night" })
 			vim.cmd([[colorscheme tokyonight]])
 		end,
 	})
