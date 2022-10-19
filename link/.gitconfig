@@ -16,6 +16,8 @@
 	st = status
 	subs = submodule update --init --recursive
 	unstage = reset HEAD
+	lmod = diff --name-only --diff-filter=M
+	lum = diff --name-only --diff-filter=UX
 [color]
 	branch = auto
 	diff = auto
@@ -32,6 +34,8 @@
 [difftool]
 [github]
 	user = sirreal
+[init]
+	defaultBranch = main
 [merge]
 	conflictstyle = diff3
 [mergetool]
