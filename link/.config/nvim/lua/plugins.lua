@@ -6,7 +6,7 @@ end
 
 require("packer.luarocks").setup_paths()
 return require("packer").startup(function(use, use_rocks)
-	use("wbthomason/packer.nvim")
+	use({ "wbthomason/packer.nvim" })
 	use_rocks({ "lualogging" })
 
 	use({
@@ -45,6 +45,7 @@ return require("packer").startup(function(use, use_rocks)
 		"nvim-lua/lsp_extensions.nvim",
 		requires = { "neovim/nvim-lspconfig" },
 	})
+
 	use({
 		"simrat39/symbols-outline.nvim",
 		cmd = { "SymbolsOutline" },
@@ -53,7 +54,7 @@ return require("packer").startup(function(use, use_rocks)
 
 	use({
 		-- "glepnir/lspsaga.nvim",
-		"tami5/lspsaga.nvim", -- temporary maintenance fork
+		"kkharji/lspsaga.nvim", -- temporary maintenance fork
 		requires = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("lspsaga").init_lsp_saga({
@@ -169,11 +170,23 @@ return require("packer").startup(function(use, use_rocks)
 		disable = true,
 	})
 
+	-- use({
+	-- 	-- "glepnir/galaxyline.nvim",
+	-- 	"NTBBloodbath/galaxyline.nvim",
+	-- 	branch = "main",
+	-- 	config = [[require("plugins.statusline")]],
+	-- 	requires = { "kyazdani42/nvim-web-devicons", opt = true },
+	-- })
 	use({
-		"glepnir/galaxyline.nvim",
-		branch = "main",
-		config = [[require("plugins.statusline")]],
+		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		config = function()
+			require("lualine").setup({
+				options = {
+					theme = "tokyonight",
+				},
+			})
+		end,
 	})
 
 	use("godlygeek/tabular")

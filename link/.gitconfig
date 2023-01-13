@@ -16,9 +16,9 @@ pushf = push --force-with-lease
 st = status
 subs = submodule update --init --recursive
 unstage = reset HEAD
-list-mod = diff --name-only --diff-filter=M
 lmod = diff --name-only --diff-filter=M
 lum = diff --name-only --diff-filter=UX
+ld = git diff --name-only --diff-filter=
 
 [color]
 branch = auto

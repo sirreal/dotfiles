@@ -39,7 +39,10 @@ require("lspconfig").tsserver.setup({
 		end,
 	},
 	on_attach = function(client, bufnr)
-		client.server_capabilities.document_formatting = false
+		-- Let null-ls handle formatting
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
+		client.server_capabilities.documentOnTypeFormattingProvider = false
 		on_attach(client, bufnr)
 	end,
 })
