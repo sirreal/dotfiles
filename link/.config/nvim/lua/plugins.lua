@@ -29,6 +29,11 @@ return require("packer").startup(function(use, use_rocks)
 	})
 
 	--
+	-- Copilot
+	--
+	use({ "github/copilot.vim", git_branch = "release" })
+
+	--
 	-- LSP
 	--
 

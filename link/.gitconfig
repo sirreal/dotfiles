@@ -18,7 +18,6 @@ subs = submodule update --init --recursive
 unstage = reset HEAD
 lmod = diff --name-only --diff-filter=M
 lum = diff --name-only --diff-filter=UX
-ld = git diff --name-only --diff-filter=
 
 [color]
 branch = auto
@@ -52,8 +51,6 @@ user = sirreal
 [init]
 defaultBranch = main
 
-[include]
-path = ~/.gitconfig.local
 
 [maintenance "gc"]
 enabled = true
@@ -89,3 +86,6 @@ enabled = true
 email = sirreal@users.noreply.github.com
 name = Jon Surrell
 useConfigOnly = true
+
+[include]
+path = ~/.gitconfig.local
