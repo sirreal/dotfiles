@@ -1,6 +1,8 @@
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "bash",
+    "diff",
+    "git_rebase",
     "gitcommit",
     "graphql",
     "html",
