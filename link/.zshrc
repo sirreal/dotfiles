@@ -1,7 +1,28 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
+
+_coreutils_dir="$(brew --prefix)/opt/coreutils"
+if [[ -d $_coreutils_dir ]]; then
+  PATH="$_coreutils_dir/libexec/gnubin:$PATH"
+  MANPATH="$_coreutils_dir/libexec/gnuman:$MANPATH"
+fi
+
+if [[ -d "$HOME/.volta" ]]; then
+  PATH="$HOME/.volta/bin:$PATH"
+fi
+
+# Completions
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete # _ignored _correct _approximate
 zstyle :compinstall filename '/Users/jonsurrell/.zshrc'
+
 
 autoload -Uz compinit
 compinit
@@ -22,11 +43,6 @@ setopt \
 
 bindkey -v
 
-# Completions
-fpath=(/usr/local/share/zsh-completions $fpath)
-if [ -f ~/.config/exercism/exercism_completion.zsh ]; then
-  . ~/.config/exercism/exercism_completion.zsh
-fi
 
 #
 # Key bindings
@@ -65,59 +81,71 @@ export npm_config_progress=true
 
 export KEYTIMEOUT=1
 
-alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias "cd.."='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+
 alias gettestemail='echo "jon.surrell+$( openssl rand -hex 10 )@gmail.com" | pbcopy'
+alias ghw='gh pr view --web'
+alias ghu='gh pr view --json url --jq .url'
+alias ghpr='gh pr create'
+
+alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
+alias rg='kitty +kitten hyperlinked_grep'
+
+# Subversion
+alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
+
+# Git
+# Branch cleanup
+alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+
+alias ghw='gh pr view --web'
+alias ghu='gh pr view --json url --jq .url'
+alias ghpr='gh pr create'
+
+unset _ls_command
 
 
-_paths=(
-  /usr/local/bin \
-  /usr/local/sbin \
-  /usr/local/opt/ruby/bin \
-  /usr/local/share/npm/bin \
-  ~/go/bin \
-  ~/.cabal/bin \
-  ~/.composer/vendor/bin \
-  ~/Library/Python/*/bin \
-  ~/.cargo/bin \
-  ~/.local/bin \
-  ~/bin \
-)
-
-for _p in ${_paths[@]}; do
-  if [[ -d $_p ]] && [[ ":$PATH:" != *":$_p:"* ]]; then
-    export PATH="$_p:$PATH"
-  fi
-done
-unset _p
-unset _paths
 
 # Set UTF-8 and English
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Set neovim as editor
+# Set shell editors
 if hash nvim 2>/dev/null; then
-    export EDITOR=nvim
+    export _VIM=nvim
 else
-    export EDITOR=vim
+    export _VIM=vim
 fi
 
 # Visual editor vim: noswap, nocompat, norc/plugins
-export VISUAL="$EDITOR -nN -u NONE"
+export EDITOR="$_VIM --clean"
+export VISUAL="$EDITOR"
+
+# Fix for GPG signing (git signed commits) "Inappropriate ioctl for device"
+export GPG_TTY=$(tty)
+
 
 # Git editor
-export GIT_EDITOR="$EDITOR -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
+export GIT_EDITOR="$_VIM -n -u NONE -i NONE -S $HOME/.dotfiles/config/gitcommit.nvimrc"
 
 # SVN editor
 export SVN_EDITOR="$VISUAL"
 
-# NPM config settings
-# Don't version .npmrc which may contain passwords
-export npm_config_spin=false
-export npm_config_progress=true
+unset _VIM
 
-# OPAM configuration
-. /Users/jonsurrell/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# Node / npm / yarn stuff
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export CHROMEDRIVER_SKIP_DOWNLOAD=true
+export PUPPETEER_SKIP_DOWNLOAD=true
 
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Source local shell config file
+[[ -f ~/.zshrc.local ]] && . ~/.zshrc.local
+
+# vi et sw=4 ts=4 sts=4
