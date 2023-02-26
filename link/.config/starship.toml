@@ -1,3 +1,6 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 [status]
 disabled = false
 
@@ -6,10 +9,25 @@ disabled = false
 [aws]
 disabled = true
 
+[azure]
+disabled = true
+
+[bun]
+disabled = true
+
+[c]
+disabled = true
+
 [cmake]
 disabled = true
 
+[cobol]
+disabled = true
+
 [conda]
+disabled = true
+
+[container]
 disabled = true
 
 [crystal]
@@ -18,10 +36,22 @@ disabled = true
 [dart]
 disabled = true
 
+[deno]
+disabled = true
+
+[docker_context]
+disabled = true
+
 [dotnet]
 disabled = true
 
 [elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[env_var]
 disabled = true
 
 [erlang]
@@ -30,7 +60,22 @@ disabled = true
 [gcloud]
 disabled = true
 
+[golang]
+disabled = true
+
+[guix_shell]
+disabled = true
+
+[haskell]
+disabled = true
+
+[haxe]
+disabled = true
+
 [helm]
+disabled = true
+
+[hg_branch]
 disabled = true
 
 [hostname]
@@ -48,7 +93,7 @@ disabled = true
 [lua]
 disabled = true
 
-[hg_branch]
+[meson]
 disabled = true
 
 [nim]
@@ -57,19 +102,49 @@ disabled = true
 [nix_shell]
 disabled = true
 
+[ocaml]
+disabled = true
+
 [openstack]
+disabled = true
+
+[package]
 disabled = true
 
 [perl]
 disabled = true
 
+[php]
+disabled = true
+
+[pulumi]
+disabled = true
+
+[purescript]
+disabled = true
+
+[python]
+disabled = true
+
+[raku]
+disabled = true
+
 [red]
+disabled = true
+
+[rlang]
 disabled = true
 
 [ruby]
 disabled = true
 
+[scala]
+disabled = true
+
 [singularity]
+disabled = true
+
+[spack]
 disabled = true
 
 [swift]
@@ -78,13 +153,16 @@ disabled = true
 [terraform]
 disabled = true
 
+[username]
+disabled = true
+
 [vagrant]
 disabled = true
 
-[vlang]
+[vcsh]
 disabled = true
 
-[vcsh]
+[vlang]
 disabled = true
 
 [zig]

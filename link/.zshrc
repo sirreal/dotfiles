@@ -1,5 +1,6 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(starship init zsh)"
+autoload -U promptinit; promptinit
+prompt pure
 
 _coreutils_dir="$(brew --prefix)/opt/coreutils"
 if [[ -d $_coreutils_dir ]]; then
@@ -108,9 +109,7 @@ alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
 
-unset _ls_command
-
-
+alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9"
 
 # Set UTF-8 and English
 export LC_ALL="en_US.UTF-8"
