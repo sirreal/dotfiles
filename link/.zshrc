@@ -7,7 +7,7 @@ autoload -U promptinit; promptinit
 if prompt -l | grep '\bpure\b' &> /dev/null; then
   prompt pure
 else
-  prompt elite
+  prompt redhat
 fi
 
 
