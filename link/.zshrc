@@ -1,34 +1,36 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [[ -x "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 autoload -U promptinit; promptinit
 prompt pure
 
-_coreutils_dir="$(brew --prefix)/opt/coreutils"
-if [[ -d $_coreutils_dir ]]; then
-  PATH="$_coreutils_dir/libexec/gnubin:$PATH"
-  MANPATH="$_coreutils_dir/libexec/gnuman:$MANPATH"
-fi
 
 if [[ -d "$HOME/.volta" ]]; then
   PATH="$HOME/.volta/bin:$PATH"
 fi
 
-# Completions
+# Brew stuff (macOS-specific)
 if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-    autoload -Uz compinit
-    compinit
+  _coreutils_dir="$(brew --prefix)/opt/coreutils"
+  if [[ -d $_coreutils_dir ]]; then
+    PATH="$_coreutils_dir/libexec/gnubin:$PATH"
+    MANPATH="$_coreutils_dir/libexec/gnuman:$MANPATH"
+  fi
+  unset _coreutils_dir
 fi
-# The following lines were added by compinstall
 
+# The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete # _ignored _correct _approximate
 zstyle :compinstall filename '/Users/jonsurrell/.zshrc'
-
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-#
+
+
 HISTFILE=~/.histfile
 HISTSIZE=3000
 SAVEHIST=3000
@@ -60,25 +62,6 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 # ctrl-w delete word back
 bindkey '^W' backward-kill-word
-
-# Set neovim as editor
-if hash nvim 2>/dev/null; then
-    export EDITOR=nvim
-else
-    export EDITOR=vim
-fi
-
-# Visual editor vim: noswap, nocompat, norc/plugins
-export VISUAL="$EDITOR -nN -u NONE"
-
-# Git editor
-export GIT_EDITOR="$EDITOR -nN -u $HOME/.dotfiles/config/gitcommit.nvimrc"
-
-# SVN editor
-export SVN_EDITOR="$VISUAL"
-
-export npm_config_spin=false
-export npm_config_progress=true
 
 export KEYTIMEOUT=1
 
@@ -115,6 +98,9 @@ alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} net
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
+# Fix for GPG signing (git signed commits) "Inappropriate ioctl for device"
+export GPG_TTY=$(tty)
+
 # Set shell editors
 if hash nvim 2>/dev/null; then
     export _VIM=nvim
@@ -125,10 +111,6 @@ fi
 # Visual editor vim: noswap, nocompat, norc/plugins
 export EDITOR="$_VIM --clean"
 export VISUAL="$EDITOR"
-
-# Fix for GPG signing (git signed commits) "Inappropriate ioctl for device"
-export GPG_TTY=$(tty)
-
 
 # Git editor
 export GIT_EDITOR="$_VIM -n -u NONE -i NONE -S $HOME/.dotfiles/config/gitcommit.nvimrc"
@@ -145,6 +127,8 @@ export PUPPETEER_SKIP_DOWNLOAD=true
 
 
 # Source local shell config file
-[[ -f ~/.zshrc.local ]] && . ~/.zshrc.local
+if [[ -f ~/.zshrc.local ]]; then
+  . ~/.zshrc.local
+fi
 
 # vi et sw=4 ts=4 sts=4
