@@ -3,7 +3,12 @@ if [[ -x "/opt/homebrew/bin/brew" ]]; then
 fi
 
 autoload -U promptinit; promptinit
-prompt pure
+
+if prompt -l | grep '\bpure\b' &> /dev/null; then
+  prompt pure
+else
+  prompt elite
+fi
 
 
 if [[ -d "$HOME/.volta" ]]; then
@@ -11,7 +16,7 @@ if [[ -d "$HOME/.volta" ]]; then
 fi
 
 # Brew stuff (macOS-specific)
-if type brew &>/dev/null; then
+if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
   _coreutils_dir="$(brew --prefix)/opt/coreutils"
