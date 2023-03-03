@@ -97,7 +97,9 @@ alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
 
-alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9"
+alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"'
+alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
+
 
 # Set UTF-8 and English
 export LC_ALL="en_US.UTF-8"
