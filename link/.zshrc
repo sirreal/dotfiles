@@ -13,6 +13,8 @@ fi
 
 if [[ -d "$HOME/.volta" ]]; then
   PATH="$HOME/.volta/bin:$PATH"
+else
+  echo "Couldn't find volta. You may want to install."
 fi
 
 # Brew stuff (macOS-specific)
@@ -23,12 +25,16 @@ if type brew &> /dev/null; then
   if [[ -d $_dir ]]; then
     PATH="$_dir/libexec/gnubin:$PATH"
     MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  else
+    echo 'You may want to `brew install coreutils`.'
   fi
 
   _dir="$(brew --prefix)/opt/grep"
   if [[ -d $_dir ]]; then
     PATH="$_dir/libexec/gnubin:$PATH"
     MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  else
+    echo 'You may want to `brew install grep`.'
   fi
 
   unset _dir
@@ -117,9 +123,10 @@ export GPG_TTY=$(tty)
 
 # Set shell editors
 if hash nvim 2>/dev/null; then
-    export _VIM=nvim
+  export _VIM=nvim
 else
-    export _VIM=vim
+  echo 'You may want to `brew install neovim`.'
+  export _VIM=vim
 fi
 
 # Visual editor vim: noswap, nocompat, norc/plugins
