@@ -19,12 +19,19 @@ fi
 if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-  _coreutils_dir="$(brew --prefix)/opt/coreutils"
-  if [[ -d $_coreutils_dir ]]; then
-    PATH="$_coreutils_dir/libexec/gnubin:$PATH"
-    MANPATH="$_coreutils_dir/libexec/gnuman:$MANPATH"
+  _dir="$(brew --prefix)/opt/coreutils"
+  if [[ -d $_dir ]]; then
+    PATH="$_dir/libexec/gnubin:$PATH"
+    MANPATH="$_dir/libexec/gnuman:$MANPATH"
   fi
-  unset _coreutils_dir
+
+  _dir="$(brew --prefix)/opt/grep"
+  if [[ -d $_dir ]]; then
+    PATH="$_dir/libexec/gnubin:$PATH"
+    MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  fi
+
+  unset _dir
 fi
 
 # The following lines were added by compinstall
