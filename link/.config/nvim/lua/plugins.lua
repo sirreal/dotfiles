@@ -9,13 +9,18 @@ return require("packer").startup(function(use, use_rocks)
 	use({ "wbthomason/packer.nvim" })
 	use_rocks({ "lualogging" })
 
-	use({
-		"folke/tokyonight.nvim",
-		config = function()
-			require("tokyonight").setup({ style = "night" })
-			vim.cmd([[colorscheme tokyonight]])
-		end,
-	})
+  use({
+    "folke/tokyonight.nvim",
+    config = function()
+      if "Dark" == io.popen("defaults read -g AppleInterfaceStyle", "r"):read() then
+        require("tokyonight").setup({ style = "storm" })
+        vim.cmd([[colorscheme tokyonight-storm]])
+      else
+        require("tokyonight").setup({ style = "day" })
+        vim.cmd([[colorscheme tokyonight-day]])
+      end
+    end,
+  })
 
 	-- Highlights
 	use({
