@@ -113,6 +113,10 @@ alias ghpr='gh pr create'
 alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'
 alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
 
+alias darkmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to true'"'"'; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$6 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys; import neovim as n; c="colorscheme tokyonight-storm"; servers = sys.stdin.read().splitlines(); list(map(lambda s: n.attach("socket",path=s).command(c, async_=True), servers))'"'"') &|'
+alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"';  pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys; import neovim as n; c="colorscheme tokyonight-day"; servers = sys.stdin.read().splitlines(); list(map(lambda s: n.attach("socket",path=s).command(c, async_=True), servers))'"'"') &|'
+
+
 
 # Set UTF-8 and English
 export LC_ALL="en_US.UTF-8"
