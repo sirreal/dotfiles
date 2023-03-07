@@ -1,6 +1,5 @@
 " Vim config specific for commit messages
 set tw=72
-set background=dark
 syntax on
 set syntax=gitcommit
 set colorcolumn=53
