@@ -96,7 +96,11 @@ alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
 
-alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
+if [[ "$(ls --version | head -n1)" =~ '^ls \(GNU coreutils\) 9\.' ]]; then
+  alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
+else
+  alias ls="ls --classify --color=auto --group-directories-first"
+fi
 
 if hash kitty 2>/dev/null; then
   alias rg='kitty +kitten hyperlinked_grep'
