@@ -97,7 +97,10 @@ alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
 
 alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
-alias rg='kitty +kitten hyperlinked_grep'
+
+if hash kitty 2>/dev/null; then
+  alias rg='kitty +kitten hyperlinked_grep'
+fi
 
 # Subversion
 alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
