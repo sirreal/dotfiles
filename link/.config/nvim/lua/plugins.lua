@@ -179,13 +179,6 @@ return require("packer").startup(function(use, use_rocks)
     disable = true,
   })
 
-  -- use({
-  -- 	-- "glepnir/galaxyline.nvim",
-  -- 	"NTBBloodbath/galaxyline.nvim",
-  -- 	branch = "main",
-  -- 	config = [[require("plugins.statusline")]],
-  -- 	requires = { "kyazdani42/nvim-web-devicons", opt = true },
-  -- })
   use({
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -205,14 +198,6 @@ return require("packer").startup(function(use, use_rocks)
 
   use("godlygeek/tabular")
   use("junegunn/vim-easy-align")
-
-  use({
-    "folke/twilight.nvim",
-    cmd = { "Twilight", "TwilightEnable" },
-    config = function()
-      require("twilight").setup({})
-    end,
-  })
 
   use({
     "JoosepAlviste/nvim-ts-context-commentstring",
