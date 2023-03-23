@@ -91,7 +91,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-alias gettestemail='echo "jon.surrell+$( openssl rand -hex 10 )@gmail.com" | pbcopy'
 alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 alias ghpr='gh pr create'
