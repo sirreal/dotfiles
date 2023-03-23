@@ -91,10 +91,6 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-alias ghw='gh pr view --web'
-alias ghu='gh pr view --json url --jq .url'
-alias ghpr='gh pr create'
-
 if [[ "$(ls --version | head -n1)" =~ '^ls \(GNU coreutils\) 9\.' ]]; then
   alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
 else
@@ -108,12 +104,17 @@ fi
 # Subversion
 alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
 
+#
 # Git
+# #
 # Branch cleanup
 alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
 
+# Open current PR in browser
 alias ghw='gh pr view --web'
+# Print the current PR URL - handy to share, e.g. `ghu | pbcopy`
 alias ghu='gh pr view --json url --jq .url'
+# Create a new PR for the current branch
 alias ghpr='gh pr create'
 
 alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'

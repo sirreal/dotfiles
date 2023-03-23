@@ -7,6 +7,7 @@ dc = diff --cached
 f = fetch --prune
 graph = log --graph --oneline --decorate=short --all
 l = log
+# Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
 ll = log --oneline --format='%H' -1
 lo = log --oneline
 lp = log --patch-with-stat
@@ -16,8 +17,11 @@ pushf = push --force-with-lease
 st = status
 subs = submodule update --init --recursive
 unstage = reset HEAD
+# List modified files
 lmod = diff --name-only --diff-filter=M
+# List unmerged files
 lum = diff --name-only --diff-filter=UX
+# Pretty print local branches sorted by most recently updated
 local-branches = for-each-ref --sort='-committerdate' --format='%(align:18,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short)' refs/heads/
 
 [color]
