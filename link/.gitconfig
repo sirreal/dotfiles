@@ -18,6 +18,7 @@ subs = submodule update --init --recursive
 unstage = reset HEAD
 lmod = diff --name-only --diff-filter=M
 lum = diff --name-only --diff-filter=UX
+local-branches = for-each-ref --sort='-committerdate' --format='%(align:18,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short)' refs/heads/
 
 [color]
 branch = auto
