@@ -4,10 +4,8 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd("packadd packer.nvim")
 end
 
-require("packer.luarocks").setup_paths()
-return require("packer").startup(function(use, use_rocks)
+return require("packer").startup(function(use)
   use({ "wbthomason/packer.nvim" })
-  use_rocks({ "lualogging" })
 
   use({
     "folke/tokyonight.nvim",
