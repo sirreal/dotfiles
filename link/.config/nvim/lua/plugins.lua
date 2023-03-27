@@ -10,7 +10,9 @@ return require("packer").startup(function(use)
 	use({
 		"folke/tokyonight.nvim",
 		config = function()
-			if "Dark" == io.popen("defaults read -g AppleInterfaceStyle", "r"):read() then
+			if
+				"Dark" == io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read()
+			then
 				require("tokyonight").setup({ style = "storm" })
 				vim.cmd([[colorscheme tokyonight-storm]])
 			else
