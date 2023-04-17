@@ -77,5 +77,5 @@ return function(client, bufnr)
 		})
 	end
 
-	vim.notify("LSP " .. client.name .. " started.", vim.log.levels.INFO)
+	-- vim.notify("LSP " .. client.name .. " started.", vim.log.levels.INFO)
 end
