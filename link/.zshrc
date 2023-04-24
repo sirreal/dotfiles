@@ -37,6 +37,14 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install grep`.'
   fi
 
+  _dir="$(brew --prefix)/opt/gnu-sed"
+  if [[ -d $_dir ]]; then
+    PATH="$_dir/libexec/gnubin:$PATH"
+    MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  else
+    echo 'You may want to `brew install gnu-sed`.'
+  fi
+
   unset _dir
 fi
 
