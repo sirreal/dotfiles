@@ -22,7 +22,7 @@ lmod = diff --name-only --diff-filter=M
 # List unmerged files
 lum = diff --name-only --diff-filter=UX
 # Pretty print local branches sorted by most recently updated
-local-branches = for-each-ref --sort='-committerdate' --format='%(align:18,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short)' refs/heads/
+local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
 
 [color]
 branch = auto
