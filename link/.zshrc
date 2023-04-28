@@ -116,7 +116,7 @@ alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
 # Git
 # #
 # Branch cleanup
-alias git-clean-branches='git fetch -p && git branch -vv | grep '"'"'origin/.*: gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias git-clean-branches='git fetch -p && git branch -l --format="%(if)%(worktreepath)%(then)%(worktreepath) %(upstream:track)%(end)" | awk '"'"'/\[gone\]/ { print $1 }'"'"' | xargs -n 1 git worktree remove --force ; git branch -l --format="%(refname:short) %(upstream:track)" |  awk '"'"'/\[gone\]/ {print $1 }'"'"' | xargs git branch -D'
 
 # Open current PR in browser
 alias ghw='gh pr view --web'
