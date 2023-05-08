@@ -145,18 +145,18 @@ import neovim as n
 servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
-  #nvim.command("lua require('"'"'tokyonight'"'"').setup({ style = '"'"'storm'"'"' })")
+  nvim.command("set background='"'"'dark'"'"'")
   nvim.command("colorscheme tokyonight-storm")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
-alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "Tokyo Night Day"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/extras/tmux/tokyonight_day.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
+alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "Everforest Light Medium"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/extras/tmux/tokyonight_day.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
 import neovim as n
 servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
-  #nvim.command("lua require('"'"'tokyonight'"'"').setup({ style = '"'"'day'"'"' })")
-  nvim.command("colorscheme tokyonight-day")
+  nvim.command("set background='"'"'light'"'"'")
+  nvim.command("colorscheme everforest")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
