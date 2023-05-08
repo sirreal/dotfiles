@@ -71,9 +71,9 @@ return require("packer").startup(function(use)
 				use_saga_diagnostic_sign = true,
 				error_sign = "",
 				warn_sign = "",
-				hint_sign = "",
-				infor_sign = "",
-				-- code_action_icon = "\u{fd1e}",
+				hint_sign = "󰋼",
+				infor_sign = "󰋼",
+				code_action_icon = "󰏬",
 				diagnostic_header_icon = "  ",
 			})
 		end,
