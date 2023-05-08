@@ -1,3 +1,9 @@
+if "Dark" == io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read() then
+	vim.o.background = "dark"
+else
+	vim.o.background = "light"
+end
+
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
@@ -15,9 +21,17 @@ return require("packer").startup(function(use)
 			then
 				require("tokyonight").setup({ style = "storm" })
 				vim.cmd([[colorscheme tokyonight-storm]])
-			else
-				require("tokyonight").setup({ style = "day" })
-				vim.cmd([[colorscheme tokyonight-day]])
+			end
+		end,
+	})
+	use({
+		"neanias/everforest-nvim",
+		config = function()
+			if
+				"Dark" ~= io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read()
+			then
+				require("everforest").setup()
+				vim.cmd([[colorscheme everforest]])
 			end
 		end,
 	})
