@@ -77,14 +77,26 @@ bindkey -v
 # Key bindings
 #
 
-# ctrl-p previous
-bindkey '^P' up-line-or-history
+# Atuin - sqlite shell history https://atuin.sh/
+if type atuin &> /dev/null; then
+  export ATUIN_NOBIND="true"
+  eval "$(atuin init zsh)"
+  bindkey '^r'   _atuin_search_widget      # ctrl-r
+  bindkey '^[[A' _atuin_up_search_widget   # up arrow
+  bindkey '^p'   _atuin_up_search_widget   # ctrl-p
+fi
 
-# ctrl-n next
-bindkey '^N' down-line-or-history
-
-# ctrl-r history search
-bindkey '^R' history-incremental-pattern-search-backward
+## DISABLE FOR ATUIN HISTORY
+##
+## # ctrl-p previous
+## bindkey '^P' up-line-or-history
+##
+## # ctrl-n next
+## bindkey '^N' down-line-or-history
+##
+## # ctrl-r history search
+## bindkey '^R' history-incremental-pattern-search-backward
+## /DISABLE FOR ATUIN
 
 # ctrl-w delete word back
 bindkey '^W' backward-kill-word
