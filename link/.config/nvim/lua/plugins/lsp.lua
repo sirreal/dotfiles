@@ -3,7 +3,7 @@ local on_attach = require("plugins.lsp-attach")
 
 local opd = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = {
-		prefix = "",
+		prefix = "",
 		spacing = 0,
 	},
 	signs = true,
