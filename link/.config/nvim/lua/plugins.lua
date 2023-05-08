@@ -107,7 +107,7 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-		"kyazdani42/nvim-web-devicons",
+		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
@@ -119,7 +119,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("trouble").setup({})
 		end,
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
 
 	--
@@ -181,7 +181,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 		config = function()
 			require("lualine").setup({
 				options = {
