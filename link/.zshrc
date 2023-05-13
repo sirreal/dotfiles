@@ -81,22 +81,19 @@ bindkey -v
 if type atuin &> /dev/null; then
   export ATUIN_NOBIND="true"
   eval "$(atuin init zsh)"
-  bindkey '^r'   _atuin_search_widget      # ctrl-r
-  bindkey '^[[A' _atuin_up_search_widget   # up arrow
-  bindkey '^p'   _atuin_up_search_widget   # ctrl-p
+  bindkey '^R'   _atuin_search_widget      # ctrl-r
+  # bindkey '^[[A' _atuin_up_search_widget   # up arrow
+  # bindkey '^p'   _atuin_up_search_widget   # ctrl-p
+else
+  # ctrl-n next
+  bindkey '^N' down-line-or-history
+
+  # ctrl-r history search
+  bindkey '^R' history-incremental-pattern-search-backward
 fi
 
-## DISABLE FOR ATUIN HISTORY
-##
-## # ctrl-p previous
-## bindkey '^P' up-line-or-history
-##
-## # ctrl-n next
-## bindkey '^N' down-line-or-history
-##
-## # ctrl-r history search
-## bindkey '^R' history-incremental-pattern-search-backward
-## /DISABLE FOR ATUIN
+# ctrl-p previous
+bindkey '^P' up-line-or-history
 
 # ctrl-w delete word back
 bindkey '^W' backward-kill-word
@@ -117,9 +114,9 @@ else
   alias ls="ls --classify --color=auto --group-directories-first"
 fi
 
-if hash kitty 2>/dev/null; then
-  alias rg='kitty +kitten hyperlinked_grep'
-fi
+# if hash kitty 2>/dev/null; then
+#   alias rg='kitty +kitten hyperlinked_grep'
+# fi
 
 # Subversion
 alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
