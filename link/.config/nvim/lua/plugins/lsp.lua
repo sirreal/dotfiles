@@ -1,6 +1,21 @@
 ---@diagnostic disable-next-line: unused-local
 local on_attach = require("plugins.lsp-attach")
 
+local signs = {
+	Error = "",
+	Warn = "",
+	Hint = "󰋼",
+	Info = "󰋼",
+}
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+vim.diagnostic.config({
+	update_in_insert = false,
+	severity_sort = true,
+})
+
 local opd = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = {
 		prefix = "",

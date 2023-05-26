@@ -76,20 +76,11 @@ return require("packer").startup(function(use)
 	})
 
 	use({
-		-- "glepnir/lspsaga.nvim",
-		"kkharji/lspsaga.nvim", -- temporary maintenance fork
-		requires = { "neovim/nvim-lspconfig" },
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		requires = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
 		config = function()
-			require("lspsaga").init_lsp_saga({
-				debug = false,
-				use_saga_diagnostic_sign = true,
-				error_sign = "",
-				warn_sign = "",
-				hint_sign = "󰋼",
-				infor_sign = "󰋼",
-				code_action_icon = "󰏬",
-				diagnostic_header_icon = "  ",
-			})
+			require("lspsaga").setup({})
 		end,
 	})
 
