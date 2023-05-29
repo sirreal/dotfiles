@@ -39,12 +39,21 @@ return require("packer").startup(function(use)
 	-- Highlights
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		requires = {
-			"nvim-treesitter/nvim-treesitter-refactor",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
 		run = ":TSUpdate",
 		config = [[require("plugins.treesitter")]],
+	})
+
+	use({
+		"nvim-treesitter/nvim-treesitter-refactor",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+		config = [[require("plugins.treesitter-textobjects")]],
 	})
 
 	--
