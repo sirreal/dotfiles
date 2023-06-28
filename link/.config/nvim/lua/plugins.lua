@@ -142,11 +142,11 @@ return require("packer").startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
+			"neovim/nvim-lspconfig",
 			"onsails/lspkind-nvim",
+			"saadparwaiz1/cmp_luasnip",
 		},
 		config = [[require("plugins.cmp")]],
 	})
