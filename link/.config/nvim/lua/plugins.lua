@@ -59,7 +59,7 @@ return require("packer").startup(function(use)
 	--
 	-- Copilot
 	--
-	use({ "github/copilot.vim", git_branch = "release" })
+	-- use({ "github/copilot.vim", git_branch = "release" })
 
 	--
 	-- LSP
