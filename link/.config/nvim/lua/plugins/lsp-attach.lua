@@ -12,7 +12,7 @@ return function(client, bufnr)
 	--
 	-- core lsp
 	--
-	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
+	-- vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
 	vim.cmd("command! LspCodeActionRange lua vim.lsp.buf.range_code_action()")
 	vim.cmd("command! LspDeclaration lua vim.lsp.buf.declaration()")
 	vim.cmd("command! LspDefinition lua vim.lsp.buf.definition()")
@@ -32,9 +32,10 @@ return function(client, bufnr)
 	--
 	-- vim.cmd("command! LspCodeAction lua require('lspsaga.codeaction').code_action()")
 	-- vim.cmd("command! LspCodeActionRange lua require('lspsaga.codeaction').range_code_action()")
+	vim.cmd("command! LspCodeAction Lspsaga code_action")
 	vim.cmd("command! LspDianosticLine Lspsaga show_line_diagnostics")
-	vim.cmd("command! LspDianosticNext Lspsaga diagnostic_jump_prev")
-	vim.cmd("command! LspDianosticPrev Lspsaga diagnostic_jump_next")
+	vim.cmd("command! LspDianosticNext Lspsaga diagnostic_jump_next")
+	vim.cmd("command! LspDianosticPrev Lspsaga diagnostic_jump_prev")
 	vim.cmd("command! LspHover Lspsaga hover_doc")
 	vim.cmd("command! LspReferences Lspsaga lsp_finder")
 	vim.cmd("command! LspRename Lspsaga rename ++project")
