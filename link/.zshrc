@@ -125,7 +125,7 @@ alias svn-remove-missing='svn rm $(svn st | grep "^!" | cut -c 9-)'
 # Git
 # #
 # Branch cleanup
-alias git-clean-branches='git fetch -p && git branch -l --format="%(if)%(worktreepath)%(then)%(worktreepath) %(upstream:track)%(end)" | awk '"'"'/\[gone\]/ { print $1 }'"'"' | xargs -n 1 git worktree remove --force ; git branch -l --format="%(refname:short) %(upstream:track)" |  awk '"'"'/\[gone\]/ {print $1 }'"'"' | xargs git branch -D'
+alias git-clean-branches='git fetch -p && git branch -l --format="%(if)%(worktreepath)%(then)%(worktreepath) %(upstream:track)%(end)" | awk '"'"'/\[gone\]/ { print $1 }'"'"' | xargs -r -n 1 git worktree remove --force ; git branch -l --format="%(refname:short) %(upstream:track)" | awk '"'"'/\[gone\]/ {print $1 }'"'"' | xargs -r git branch -D'
 
 # Open current PR in browser
 alias ghw='gh pr view --web'
@@ -134,8 +134,8 @@ alias ghu='gh pr view --json url --jq .url'
 # Create a new PR for the current branch
 alias ghpr='gh pr create'
 
-alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'
-alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
+alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'
+alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
 
 alias darkmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to true'"'"'; kitty +kitten themes --reload-in=all "Tokyo Night Storm"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/extras/tmux/tokyonight_storm.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
 import neovim as n
