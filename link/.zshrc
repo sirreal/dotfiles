@@ -45,6 +45,14 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install gnu-sed`.'
   fi
 
+  _dir="$(brew --prefix)/opt/curl"
+  if [[ -d $_dir ]]; then
+    PATH="$_dir/bin:$PATH"
+    MANPATH="$_dir/share/man:$MANPATH"
+  else
+    echo 'You may want to `brew install curl`.'
+  fi
+
   unset _dir
 fi
 
