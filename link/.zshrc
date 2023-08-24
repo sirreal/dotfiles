@@ -116,7 +116,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
-if [[ "$(ls --version | head -n1)" =~ '^ls \(GNU coreutils\) 9\.' ]]; then
+if [[ "$(\ls --version | head -n1)" =~ '^ls \(GNU coreutils\) 9\.' ]]; then
   alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
 else
   alias ls="ls --classify --color=auto --group-directories-first"
