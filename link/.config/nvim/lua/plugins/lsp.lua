@@ -34,6 +34,33 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local ignored_ts_diagnostic_codes = {
 	[80001] = true, -- "File is a CommonJS module; it may be converted to an ES6 module."
 }
+
+require("lspconfig").jsonls.setup({
+	capabilities = capabilities,
+	filetypes = { "json", "jsonc", "json5" },
+	init_options = {
+		provideFormatter = false,
+	},
+	handlers = {
+		["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+			-- jsonls doesn't really support json5
+			-- remove some annoying errors
+			if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
+				local idx = 1
+				while idx <= #result.diagnostics do
+					-- "Comments are not permitted in JSON."
+					if result.diagnostics[idx].code == 521 then
+						table.remove(result.diagnostics, idx)
+					else
+						idx = idx + 1
+					end
+				end
+			end
+			opd(err, result, ctx, config)
+		end,
+	},
+})
+
 require("lspconfig").tsserver.setup({
 	capabilities = capabilities,
 	handlers = {
