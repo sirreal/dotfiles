@@ -38,7 +38,7 @@ return function(client, bufnr)
 	vim.cmd("command! LspDianosticPrev Lspsaga diagnostic_jump_prev")
 	vim.cmd("command! LspHover Lspsaga hover_doc")
 	vim.cmd("command! LspReferences Lspsaga lsp_finder")
-	vim.cmd("command! LspRename Lspsaga rename ++project")
+	vim.cmd("command! LspRename Lspsaga rename project")
 
 	map("n", "gd", "<cmd>LspDefinition<CR>")
 	map("n", "gi", "<cmd>LspImplementation<CR>")

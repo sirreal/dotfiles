@@ -86,8 +86,8 @@ return require("packer").startup(function(use)
 
 	use({
 		"nvimdev/lspsaga.nvim",
-		event = "LspAttach",
-		requires = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
+		after = "nvim-lspconfig",
+		-- requires = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("lspsaga").setup({})
 		end,

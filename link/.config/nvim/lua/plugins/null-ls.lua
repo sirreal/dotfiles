@@ -6,10 +6,12 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.dprint.with({
 			extra_filetypes = {
-				"dockerfile",
-				"scss",
-				"sass",
 				"css",
+				"dockerfile",
+				"json5",
+				"jsonc",
+				"sass",
+				"scss",
 			},
 		}),
 		null_ls.builtins.diagnostics.stylelint,

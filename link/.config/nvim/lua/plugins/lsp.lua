@@ -1,4 +1,3 @@
----@diagnostic disable-next-line: unused-local
 local on_attach = require("plugins.lsp-attach")
 
 local signs = {
