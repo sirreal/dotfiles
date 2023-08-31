@@ -75,6 +75,7 @@ setopt \
     HIST_FIND_NO_DUPS      \
     HIST_IGNORE_DUPS       \
     HIST_IGNORE_SPACE      \
+    INTERACTIVE_COMMENTS   \
     NO_AUTO_CD             \
     SHARE_HISTORY
 
