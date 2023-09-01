@@ -37,7 +37,6 @@ local ignored_ts_diagnostic_codes = {
 
 -- requires npm:vscode-langservers-extracted
 require("lspconfig").jsonls.setup({
-	capabilities = capabilities,
 	filetypes = { "json", "jsonc", "json5" },
 	init_options = {
 		provideFormatter = false,
@@ -60,12 +59,12 @@ require("lspconfig").jsonls.setup({
 			on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- requires npm:typescript
 require("lspconfig").tsserver.setup({
-	capabilities = capabilities,
 	handlers = {
 		["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
 			if result.diagnostics ~= nil then
@@ -88,10 +87,17 @@ require("lspconfig").tsserver.setup({
 		client.server_capabilities.documentOnTypeFormattingProvider = false
 		on_attach(client, bufnr)
 	end,
+	capabilities = capabilities,
 })
 
 -- requires npm:vscode-langservers-extracted
 require("lspconfig").cssls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- requires npm:cssmodules-language-server
+require("lspconfig").cssmodules_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
