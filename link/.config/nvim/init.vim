@@ -105,7 +105,7 @@ set nostartofline
 set ruler
 
 " Don’t show the intro message when starting Vim
-set shortmess=attI
+set shortmess=aotT
 
 " Show the current mode
 set showmode
