@@ -15,7 +15,7 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
-local opd = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+local on_publish_diagnostics = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = {
 		prefix = "",
 		spacing = 0,
@@ -24,7 +24,7 @@ local opd = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
 	update_in_insert = false,
 })
-vim.lsp.handlers["textDocument/publishDiagnostics"] = opd
+vim.lsp.handlers["textDocument/publishDiagnostics"] = on_publish_diagnostics
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -35,6 +35,7 @@ local ignored_ts_diagnostic_codes = {
 	[80001] = true, -- "File is a CommonJS module; it may be converted to an ES6 module."
 }
 
+-- requires npm:vscode-langservers-extracted
 require("lspconfig").jsonls.setup({
 	capabilities = capabilities,
 	filetypes = { "json", "jsonc", "json5" },
@@ -56,11 +57,12 @@ require("lspconfig").jsonls.setup({
 					end
 				end
 			end
-			opd(err, result, ctx, config)
+			on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
 })
 
+-- requires npm:typescript
 require("lspconfig").tsserver.setup({
 	capabilities = capabilities,
 	handlers = {
@@ -75,7 +77,7 @@ require("lspconfig").tsserver.setup({
 					end
 				end
 			end
-			opd(err, result, ctx, config)
+			on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
 	on_attach = function(client, bufnr)
