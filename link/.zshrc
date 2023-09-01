@@ -156,13 +156,13 @@ def set_theme(s):
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
-alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "Everforest Light Medium"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/extras/tmux/tokyonight_day.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
+alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "zenbones_light"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/zenbones.nvim/extras/tmux/zenbones_light.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
 import neovim as n
 servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
   nvim.command("set background='"'"'light'"'"'")
-  nvim.command("colorscheme everforest")
+  nvim.command("colorscheme zenbones")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 

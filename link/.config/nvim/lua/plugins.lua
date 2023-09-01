@@ -25,13 +25,14 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use({
-		"neanias/everforest-nvim",
+		"mcchrish/zenbones.nvim",
+		requires = "rktjmp/lush.nvim",
 		config = function()
 			if
 				"Dark" ~= io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read()
 			then
-				require("everforest").setup()
-				vim.cmd([[colorscheme everforest]])
+				require("zenbones")
+				vim.cmd([[colorscheme zenbones]])
 			end
 		end,
 	})
