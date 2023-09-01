@@ -60,6 +60,7 @@ require("lspconfig").jsonls.setup({
 			on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
+	on_attach = on_attach,
 })
 
 -- requires npm:typescript
@@ -92,8 +93,10 @@ require("lspconfig").tsserver.setup({
 -- requires npm:vscode-langservers-extracted
 require("lspconfig").cssls.setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
+-- requires brew:rust-analyzer
 require("lspconfig").rust_analyzer.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
