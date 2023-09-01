@@ -102,6 +102,19 @@ require("lspconfig").cssmodules_ls.setup({
 	on_attach = on_attach,
 })
 
+-- requires npm:yaml-language-server
+require("lspconfig").yamlls.setup({
+	settings = {
+		yaml = {
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*.{yml,yaml}",
+			},
+		},
+	},
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- requires brew:rust-analyzer
 require("lspconfig").rust_analyzer.setup({
 	capabilities = capabilities,
