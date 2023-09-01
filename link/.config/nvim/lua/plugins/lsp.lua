@@ -89,6 +89,11 @@ require("lspconfig").tsserver.setup({
 	end,
 })
 
+-- requires npm:vscode-langservers-extracted
+require("lspconfig").cssls.setup({
+	capabilities = capabilities,
+})
+
 require("lspconfig").rust_analyzer.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
