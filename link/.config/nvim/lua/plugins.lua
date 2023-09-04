@@ -14,26 +14,42 @@ return require("packer").startup(function(use)
 	use({ "wbthomason/packer.nvim" })
 
 	use({
-		"folke/tokyonight.nvim",
+		"catppuccin/nvim",
+		as = "catppuccin",
 		config = function()
-			if
-				"Dark" == io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read()
-			then
-				require("tokyonight").setup({ style = "storm" })
-				vim.cmd([[colorscheme tokyonight-storm]])
-			end
-		end,
-	})
-	use({
-		"mcchrish/zenbones.nvim",
-		requires = "rktjmp/lush.nvim",
-		config = function()
-			if
-				"Dark" ~= io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read()
-			then
-				require("zenbones")
-				vim.cmd([[colorscheme zenbones]])
-			end
+			require("catppuccin").setup({
+				background = {
+					light = "latte",
+					dark = "frappe",
+				},
+				integrations = {
+					cmp = true,
+					gitsigns = true,
+					lsp_trouble = true,
+					native_lsp = {
+						enabled = true,
+						virtual_text = {
+							errors = { "italic" },
+							hints = { "italic" },
+							warnings = { "italic" },
+							information = { "italic" },
+						},
+						underlines = {
+							errors = { "undercurl" },
+							hints = { "underdotted" },
+							warnings = { "undercurl" },
+							information = { "underdotted" },
+						},
+						inlay_hints = {
+							background = true,
+						},
+					},
+					telescope = { enabled = true },
+					treesitter = true,
+				},
+			})
+			vim.cmd([[colorscheme catppuccin]])
+			-- end
 		end,
 	})
 
@@ -90,7 +106,13 @@ return require("packer").startup(function(use)
 		after = "nvim-lspconfig",
 		-- requires = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
 		config = function()
-			require("lspsaga").setup({})
+			require("lspsaga").setup({
+				require("lspsaga").setup({
+					ui = {
+						kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+					},
+				}),
+			})
 		end,
 	})
 
@@ -202,7 +224,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "tokyonight",
+					theme = "catppuccin",
 				},
 				sections = {
 					lualine_c = {

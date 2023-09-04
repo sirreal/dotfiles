@@ -146,23 +146,23 @@ alias ghpr='gh pr create'
 alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'
 alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
 
-alias darkmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to true'"'"'; kitty +kitten themes --reload-in=all "Tokyo Night Storm"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/extras/tmux/tokyonight_storm.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
+alias darkmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to true'"'"'; kitty +kitten themes --reload-in=all "Catppuccin-Frappe"; [[ -n $TMUX ]] && (tmux set-option -g @catppuccin_flavour frappe; tmux run-shell ~/jon/catppuccin-tmux/catppuccin.tmux); pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
 import neovim as n
 servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
   nvim.command("set background='"'"'dark'"'"'")
-  nvim.command("colorscheme tokyonight-storm")
+  nvim.command("colorscheme catppuccin")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
-alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "zenbones_light"; [[ -n $TMUX ]] && tmux source  ~/.local/share/nvim/site/pack/packer/start/zenbones.nvim/extras/tmux/zenbones_light.tmux; pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
+alias lightmode='osascript -e '"'"'tell app "System Events" to tell appearance preferences to set dark mode to false'"'"'; kitty +kitten themes --reload-in=all "Catppuccin-Latte"; [[ -n $TMUX ]] && (tmux set-option -g @catppuccin_flavour latte; tmux run-shell ~/jon/catppuccin-tmux/catppuccin.tmux); pgrep nvim >/dev/null && (setopt NO_NOTIFY NO_MONITOR; lsof -p $(pgrep nvim | tr "\n" ",") | awk '"'"'$5 == "unix" && $8 ~ /nvim/ { print $8 } '"'"' | python -c '"'"'import sys
 import neovim as n
 servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
   nvim.command("set background='"'"'light'"'"'")
-  nvim.command("colorscheme zenbones")
+  nvim.command("colorscheme catppuccin")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
