@@ -1,0 +1,5 @@
+# ctrl-{{NUMBER}} to select from history
+ctrl_n_shortcuts = true
+
+# Turn on workspaces / segment command search by versioned directory
+workspaces = true

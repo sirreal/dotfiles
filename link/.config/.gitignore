@@ -1,6 +1,7 @@
 /*
 !/.gitignore
 !/alacritty/
+!/atuin/
 !/kitty/
 !/nvim/
 !/starship.toml

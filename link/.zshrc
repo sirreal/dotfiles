@@ -90,9 +90,7 @@ bindkey -v
 if type atuin &> /dev/null; then
   export ATUIN_NOBIND="true"
   eval "$(atuin init zsh)"
-  bindkey '^R'   _atuin_search_widget      # ctrl-r
-  # bindkey '^[[A' _atuin_up_search_widget   # up arrow
-  # bindkey '^p'   _atuin_up_search_widget   # ctrl-p
+  bindkey '^R' _atuin_search_widget # ctrl-r
 else
   # ctrl-n next
   bindkey '^N' down-line-or-history
