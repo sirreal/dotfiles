@@ -116,12 +116,96 @@ return require("packer").startup(function(use)
 
 	-- Linting, autoformatting…
 	use({
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimdev/guard.nvim",
 		requires = {
-			"neovim/nvim-lspconfig",
-			"nvim-lua/plenary.nvim",
+			"nvimdev/guard-collection",
 		},
-		config = [[require("plugins.null-ls")]],
+		config = function()
+			local ft = require("guard.filetype")
+			local lint = require("guard.lint")
+
+			local dprint_setup = {
+				cmd = "dprint",
+				args = { "fmt", "--stdin" },
+				stdin = true,
+				fname = true,
+			}
+
+			ft("lua"):fmt(require("guard-collection.formatter").stylua)
+			-- :lint(require("guard-collection.linter").luacheck)
+
+			ft(table.concat({
+				"dockerfile",
+				"json",
+				"json5",
+				"jsonc",
+				"markdown",
+				"toml",
+			}, ",")):fmt(dprint_setup)
+
+			ft(table.concat({
+				"css",
+				"sass",
+				"scss",
+			}, ",")):fmt(dprint_setup):lint({
+				cmd = "stylelint",
+				args = { "--formatter", "json", "--stdin", "--stdin-filename" },
+				stdin = true,
+				fname = true,
+				parse = lint.from_json({
+					get_diagnostics = function(...)
+						return vim.json.decode(...)[1].warnings
+					end,
+					attributes = {
+						lnum = "line",
+						end_lnum = "endLine",
+						col = "column",
+						end_col = "endColumn",
+						message = "text",
+						code = "rule",
+					},
+					severities = {
+						warning = lint.severities.warning,
+						error = lint.severities.error,
+					},
+					source = "stylelint",
+				}),
+			})
+
+			ft(table.concat({
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+			}, ",")):fmt(dprint_setup):lint({
+				cmd = "eslint_d",
+				args = { "--format", "json", "--stdin", "--stdin-filename" },
+				stdin = true,
+				fname = true,
+				parse = lint.from_json({
+					get_diagnostics = function(...)
+						return vim.json.decode(...)[1].messages
+					end,
+					attributes = {
+						lnum = "line",
+						end_lnum = "endLine",
+						col = "column",
+						end_col = "endColumn",
+						message = "message",
+						code = "ruleId",
+					},
+					severities = {
+						lint.severities.warning,
+						lint.severities.error,
+					},
+					source = "eslint_d",
+				}),
+			})
+
+			require("guard").setup({
+				fmt_on_save = true,
+			})
+		end,
 	})
 
 	use({
