@@ -81,7 +81,7 @@ require("lspconfig").tsserver.setup({
 		end,
 	},
 	on_attach = function(client, bufnr)
-		-- Let null-ls handle formatting
+		-- Don't format
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
 		client.server_capabilities.documentOnTypeFormattingProvider = false
@@ -132,6 +132,9 @@ require("lspconfig").lua_ls.setup({
 	capabilities = capabilities,
 	settings = {
 		Lua = {
+			format = {
+				enable = false,
+			},
 			runtime = {
 				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
 				version = "LuaJIT",
