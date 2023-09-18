@@ -90,21 +90,10 @@ return require("packer").startup(function(use)
 		},
 		config = [[require("plugins.lsp")]],
 	})
-	use({
-		"nvim-lua/lsp_extensions.nvim",
-		requires = { "neovim/nvim-lspconfig" },
-	})
-
-	use({
-		"simrat39/symbols-outline.nvim",
-		cmd = { "SymbolsOutline" },
-		requires = { "neovim/nvim-lspconfig" },
-	})
 
 	use({
 		"nvimdev/lspsaga.nvim",
 		after = "nvim-lspconfig",
-		-- requires = { "neovim/nvim-lspconfig", "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("lspsaga").setup({
 				ui = {
@@ -263,23 +252,11 @@ return require("packer").startup(function(use)
 		-- {
 		"nvim-telescope/telescope.nvim",
 		requires = {
-			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
-			-- "nvim-telescope/telescope-frecency.nvim",
-			-- "nvim-telescope/telescope-fzf-native.nvim",
 		},
 		config = [[require("plugins.telescope")]],
 		cmd = "Telescope",
 		module = "telescope",
-		-- },
-		-- {
-		--   "nvim-telescope/telescope-frecency.nvim",
-		--   requires = "tami5/sql.nvim",
-		-- },
-		-- {
-		--   "nvim-telescope/telescope-fzf-native.nvim",
-		--   run = "make",
-		-- },
 	})
 
 	--
