@@ -1,7 +1,15 @@
 local lsp_format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
 
 return function(client, bufnr)
-	require("lsp_signature").on_attach()
+	local lsp_signature_module_available, lsp_signature = pcall(require, "lsp_signature")
+	if lsp_signature_module_available then
+		lsp_signature.on_attach({
+			bind = true,
+			handler_opts = {
+				hint_enable = false,
+			},
+		})
+	end
 
 	local map = function(type, key, value)
 		vim.api.nvim_buf_set_keymap(bufnr, type, key, value, { noremap = true, silent = true })
