@@ -1,15 +1,24 @@
 local on_attach = require("plugins.lsp-attach")
 
+local on_attach_without_formatting = function(client, bufnr)
+	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentRangeFormattingProvider = false
+	client.server_capabilities.documentOnTypeFormattingProvider = false
+	on_attach(client, bufnr)
+end
+
 local signs = {
 	Error = "",
 	Warn = "",
 	Hint = "󰋼",
 	Info = "󰋼",
 }
+
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
 vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
@@ -34,6 +43,29 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local ignored_ts_diagnostic_codes = {
 	[80001] = true, -- "File is a CommonJS module; it may be converted to an ES6 module."
 }
+
+-- requires npm:vscode-langservers-extracted
+require("lspconfig").eslint.setup({
+	settings = {
+		format = false,
+		packageManager = "yarn",
+	},
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+-- requires npm:stylelint-lsp
+require("lspconfig").stylelint_lsp.setup({
+	settings = {
+		reportDescriptionlessDisables = true,
+		reportInvalidScopeDisables = true,
+		reportNeedlessDisables = true,
+		stylelintplus = {},
+	},
+	filetypes = { "css", "scss" },
+	capabilities = capabilities,
+	on_attach = on_attach_without_formatting,
+})
 
 -- requires npm:vscode-langservers-extracted
 require("lspconfig").jsonls.setup({
@@ -91,13 +123,7 @@ require("lspconfig").tsserver.setup({
 			on_publish_diagnostics(err, result, ctx, config)
 		end,
 	},
-	on_attach = function(client, bufnr)
-		-- Don't format
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
-		client.server_capabilities.documentOnTypeFormattingProvider = false
-		on_attach(client, bufnr)
-	end,
+	on_attach = on_attach_without_formatting,
 	capabilities = capabilities,
 })
 
