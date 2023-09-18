@@ -84,4 +84,8 @@ return function(client, bufnr)
 	end
 
 	-- vim.notify("LSP " .. client.name .. " started.", vim.log.levels.INFO)
+
+	if vim.lsp.inlay_hint and client.supports_method("textDocument/inlayHint") then
+		vim.lsp.inlay_hint(bufnr, true)
+	end
 end
