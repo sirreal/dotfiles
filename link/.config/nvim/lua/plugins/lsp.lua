@@ -158,6 +158,11 @@ require("lspconfig").rust_analyzer.setup({
 	on_attach = on_attach,
 })
 
+require("lspconfig").biome.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
