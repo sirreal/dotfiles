@@ -129,7 +129,7 @@ return require("packer").startup(function(use)
 				"toml",
 				"typescript",
 				"typescriptreact",
-			}, ",")):fmt(guard_formatters.dprint)
+			}, ",")):fmt(guard_formatters.dprint):append(guard_formatters.prettier)
 
 			require("guard").setup({
 				fmt_on_save = true,
