@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
 local on_attach = require("plugins.lsp-attach")
+local util = require("lspconfig.util")
 
 local on_attach_without_formatting = function(client, bufnr)
 	client.server_capabilities.documentFormattingProvider = false
@@ -162,6 +163,7 @@ lspconfig.rust_analyzer.setup({
 lspconfig.biome.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	root_dir = util.root_pattern("biome.json"),
 })
 
 -- Make runtime files discoverable to the server
