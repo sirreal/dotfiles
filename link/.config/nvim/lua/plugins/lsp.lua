@@ -1,3 +1,4 @@
+local lspconfig = require("lspconfig")
 local on_attach = require("plugins.lsp-attach")
 
 local on_attach_without_formatting = function(client, bufnr)
@@ -45,7 +46,7 @@ local ignored_ts_diagnostic_codes = {
 }
 
 -- requires npm:vscode-langservers-extracted
-require("lspconfig").eslint.setup({
+lspconfig.eslint.setup({
 	settings = {
 		format = false,
 		packageManager = "yarn",
@@ -55,7 +56,7 @@ require("lspconfig").eslint.setup({
 })
 
 -- requires npm:stylelint-lsp
-require("lspconfig").stylelint_lsp.setup({
+lspconfig.stylelint_lsp.setup({
 	settings = {
 		reportDescriptionlessDisables = true,
 		reportInvalidScopeDisables = true,
@@ -68,7 +69,7 @@ require("lspconfig").stylelint_lsp.setup({
 })
 
 -- requires npm:vscode-langservers-extracted
-require("lspconfig").jsonls.setup({
+lspconfig.jsonls.setup({
 	filetypes = { "json", "jsonc", "json5" },
 	init_options = {
 		provideFormatter = false,
@@ -96,7 +97,7 @@ require("lspconfig").jsonls.setup({
 })
 
 -- requires npm:typescript
-require("lspconfig").tsserver.setup({
+lspconfig.tsserver.setup({
 	init_options = {
 		preferences = {
 			includeInlayParameterNameHints = "all",
@@ -128,19 +129,19 @@ require("lspconfig").tsserver.setup({
 })
 
 -- requires npm:vscode-langservers-extracted
-require("lspconfig").cssls.setup({
+lspconfig.cssls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- requires npm:cssmodules-language-server
-require("lspconfig").cssmodules_ls.setup({
+lspconfig.cssmodules_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- requires npm:yaml-language-server
-require("lspconfig").yamlls.setup({
+lspconfig.yamlls.setup({
 	settings = {
 		yaml = {
 			schemas = {
@@ -153,12 +154,12 @@ require("lspconfig").yamlls.setup({
 })
 
 -- requires brew:rust-analyzer
-require("lspconfig").rust_analyzer.setup({
+lspconfig.rust_analyzer.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
-require("lspconfig").biome.setup({
+lspconfig.biome.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -168,7 +169,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
 	-- cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
 	on_attach = on_attach,
 	capabilities = capabilities,
