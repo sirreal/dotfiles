@@ -96,6 +96,7 @@ return require("packer").startup(function(use)
 		after = "nvim-lspconfig",
 		config = function()
 			require("lspsaga").setup({
+				lightbulb = { enable = false },
 				ui = {
 					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 				},
@@ -142,7 +143,6 @@ return require("packer").startup(function(use)
 		requires = {
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
-			"nvim-lua/popup.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
@@ -176,6 +176,7 @@ return require("packer").startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
+			"nvim-telescope/telescope.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 			"neovim/nvim-lspconfig",

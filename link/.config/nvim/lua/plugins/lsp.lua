@@ -154,25 +154,29 @@ lspconfig.yamlls.setup({
 	on_attach = on_attach,
 })
 
+-- DO NOT USE - conflicts with rust-tools
 -- requires brew:rust-analyzer
-lspconfig.rust_analyzer.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- lspconfig.rust_analyzer.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- })
 
-lspconfig.biome.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	root_dir = util.root_pattern("biome.json"),
-})
+-- lspconfig.biome.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- 	root_dir = util.root_pattern("biome.json"),
+-- })
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
--- requires composer:vimeo/psalm
-lspconfig.psalm.setup({})
+-- requires npm:intelephense
+lspconfig.intelephense.setup({
+	on_attach = on_attach_without_formatting,
+	capabilities = capabilities,
+})
 
 -- requires brew:lua-language-server
 lspconfig.lua_ls.setup({
