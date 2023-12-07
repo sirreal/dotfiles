@@ -176,6 +176,23 @@ table.insert(runtime_path, "lua/?/init.lua")
 lspconfig.intelephense.setup({
 	on_attach = on_attach_without_formatting,
 	capabilities = capabilities,
+	settings = {
+		-- See https://github.com/bmewburn/intelephense-docs/blob/master/installation.md
+		intelephense = {
+			files = {
+				maxSize = 1000000,
+			},
+			stubs = {
+				"wordpress",
+			},
+			format = {
+				enable = false,
+			},
+			diagnostics = {
+				embeddedLanguages = false,
+			},
+		},
+	},
 })
 
 -- requires brew:lua-language-server
