@@ -106,36 +106,12 @@ return require("packer").startup(function(use)
 
 	-- Linting, autoformatting…
 	use({
-		"nvimdev/guard.nvim",
+		"jose-elias-alvarez/null-ls.nvim",
 		requires = {
-			"nvimdev/guard-collection",
+			"neovim/nvim-lspconfig",
+			"nvim-lua/plenary.nvim",
 		},
-		config = function()
-			local ft = require("guard.filetype")
-			local guard_formatters = require("guard-collection.formatter")
-
-			ft("lua"):fmt(guard_formatters.stylua)
-
-			ft(table.concat({
-				"css",
-				"dockerfile",
-				"javascript",
-				"javascriptreact",
-				"json",
-				"json5",
-				"jsonc",
-				"markdown",
-				"sass",
-				"scss",
-				"toml",
-				"typescript",
-				"typescriptreact",
-			}, ",")):fmt(guard_formatters.dprint):append(guard_formatters.prettier)
-
-			require("guard").setup({
-				fmt_on_save = true,
-			})
-		end,
+		config = [[require("plugins.null-ls")]],
 	})
 
 	use({
