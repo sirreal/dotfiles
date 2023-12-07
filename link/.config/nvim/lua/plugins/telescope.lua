@@ -1,10 +1,6 @@
--- local ok, workspaces = pcall(require, "sirreal.local-frecency-workspaces")
--- if not ok then
--- 	workspaces = {}
--- end
+local telescope = require("telescope")
 
--- local actions = require("telescope.actions")
-require("telescope").setup({
+telescope.setup({
 	defaults = {
 		mappings = {
 			-- i = {
@@ -13,19 +9,7 @@ require("telescope").setup({
 		},
 	},
 	extensions = {
-		-- frecency = {
-		-- 	show_scores = true,
-		-- 	show_unindexed = true,
-		-- 	workspaces = workspaces,
-		-- },
-		-- fzf = {
-		-- 	-- DEFAULTS --
-		-- 	-- fuzzy = true,
-		-- 	-- override_generic_sorter = true,
-		-- 	-- override_file_sorter = true,
-		-- 	-- case_mode = "smart_case",
-		-- },
+		package_info = {},
 	},
 })
--- require("telescope").load_extension("fzf")
--- require("telescope").load_extension("frecency")
+telescope.load_extension("package_info")
