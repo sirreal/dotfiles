@@ -170,6 +170,33 @@ return require("packer").startup(function(use)
 		requires = { "nvim-tree/nvim-web-devicons", opt = true },
 	})
 
+	use({
+		"saecki/crates.nvim",
+		tag = "v0.4.0",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("crates").setup({
+				-- src = {
+				-- 	cmp = {
+				-- 		enabled = true,
+				-- 	},
+				-- },
+				null_ls = {
+					enabled = true,
+					name = "crates.nvim",
+				},
+			})
+		end,
+	})
+
+	use({
+		"vuki656/package-info.nvim",
+		requires = "MunifTanjim/nui.nvim",
+		config = function()
+			require("package-info").setup({})
+		end,
+	})
+
 	--
 	-- Completion
 	--
@@ -194,6 +221,7 @@ return require("packer").startup(function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
+			"vuki656/package-info.nvim",
 		},
 		config = [[require("plugins.telescope")]],
 		cmd = "Telescope",
