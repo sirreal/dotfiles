@@ -244,13 +244,6 @@ return require("packer").startup(function(use)
 			"tpope/vim-commentary",
 			"nvim-treesitter/nvim-treesitter",
 		},
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				context_commentstring = {
-					enable = true,
-				},
-			})
-		end,
 	})
 
 	use({ "tpope/vim-fugitive", cmd = { "Git" } })
