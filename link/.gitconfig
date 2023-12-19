@@ -13,6 +13,7 @@ lo = log --oneline
 lp = log --patch-with-stat
 ls = log --stat
 p = pull --prune --rebase
+pa = p --autostash
 pushf = push --force-with-lease
 st = status
 subs = submodule update --init --recursive
