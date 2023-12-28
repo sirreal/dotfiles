@@ -4,18 +4,24 @@ else
 	vim.o.background = "light"
 end
 
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-	vim.cmd("packadd packer.nvim")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-return require("packer").startup(function(use)
-	use({ "wbthomason/packer.nvim" })
+require("lazy").setup({
 
-	use({
+	{
 		"catppuccin/nvim",
-		as = "catppuccin",
+		name = "catppuccin",
 		config = function()
 			require("catppuccin").setup({
 				background = {
@@ -51,49 +57,55 @@ return require("packer").startup(function(use)
 			vim.cmd([[colorscheme catppuccin]])
 			-- end
 		end,
-	})
+	},
 
 	-- Highlights
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-		config = [[require("plugins.treesitter")]],
-	})
+		build = ":TSUpdate",
+		config = function()
+			require("plugins.treesitter")
+		end,
+	},
 
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter-refactor",
-		after = "nvim-treesitter",
-		requires = "nvim-treesitter/nvim-treesitter",
-	})
+		dependencies = "nvim-treesitter/nvim-treesitter",
+	},
 
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		after = "nvim-treesitter",
-		requires = "nvim-treesitter/nvim-treesitter",
-		config = [[require("plugins.treesitter-textobjects")]],
-	})
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("plugins.treesitter-textobjects")
+		end,
+	},
 
 	--
 	-- Copilot
 	--
-	-- use({ "github/copilot.vim", git_branch = "release" })
+	-- { "github/copilot.vim", git_branch = "release" },
 
 	--
 	-- LSP
 	--
 
-	use({
+	{
 		"neovim/nvim-lspconfig",
-		requires = {
+		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"ray-x/lsp_signature.nvim",
 		},
-		config = [[require("plugins.lsp")]],
-	})
+		config = function()
+			require("plugins.lsp")
+		end,
+	},
 
-	use({
+	{
 		"nvimdev/lspsaga.nvim",
-		after = "nvim-lspconfig",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
 		config = function()
 			require("lspsaga").setup({
 				lightbulb = { enable = false },
@@ -102,21 +114,23 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
 	-- Linting, autoformatting…
-	use({
+	{
 		"jose-elias-alvarez/null-ls.nvim",
-		requires = {
+		dependencies = {
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 		},
-		config = [[require("plugins.null-ls")]],
-	})
+		config = function()
+			require("plugins.null-ls")
+		end,
+	},
 
-	use({
+	{
 		"simrat39/rust-tools.nvim",
-		requires = {
+		dependencies = {
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope.nvim",
@@ -128,28 +142,28 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
-	})
+	},
 
-	use({
+	{
 		"folke/trouble.nvim",
 		cmd = "Trouble",
 		config = function()
 			require("trouble").setup({})
 		end,
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
-	})
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
+	},
 
-	use({
+	{
 		"saecki/crates.nvim",
-		tag = "v0.4.0",
-		requires = "nvim-lua/plenary.nvim",
+		version = "v0.4.0",
+		dependencies = "nvim-lua/plenary.nvim",
 		config = function()
 			require("crates").setup({
 				-- src = {
@@ -163,22 +177,22 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"vuki656/package-info.nvim",
-		requires = "MunifTanjim/nui.nvim",
+		dependencies = "MunifTanjim/nui.nvim",
 		config = function()
 			require("package-info").setup({})
 		end,
-	})
+	},
 
 	--
 	-- Completion
 	--
-	use({
+	{
 		"hrsh7th/nvim-cmp",
-		requires = {
+		dependencies = {
 			"nvim-telescope/telescope.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
@@ -186,45 +200,47 @@ return require("packer").startup(function(use)
 			"onsails/lspkind-nvim",
 			"saadparwaiz1/cmp_luasnip",
 		},
-		config = [[require("plugins.cmp")]],
-	})
+		config = function()
+			require("plugins.cmp")
+		end,
+	},
 
 	--
 	-- Finding stuff
 	--
-	use({
-		-- {
+	{
 		"nvim-telescope/telescope.nvim",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"vuki656/package-info.nvim",
 		},
-		config = [[require("plugins.telescope")]],
+		config = function()
+			require("plugins.telescope")
+		end,
 		cmd = "Telescope",
-		module = "telescope",
-	})
+	},
 
 	--
 	-- Git
 	--
 
-	use({
+	{
 		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("gitsigns").setup()
 		end,
-	})
+	},
 
-	-- use({
+	-- {
 	--   "TimUntersberger/neogit",
 	--   cmd = "Neogit",
 	--   disable = true,
-	-- })
+	-- },
 
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 		config = function()
 			require("lualine").setup({
 				options = {
@@ -237,24 +253,22 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use("godlygeek/tabular")
-	use("junegunn/vim-easy-align")
+	"godlygeek/tabular",
+	"junegunn/vim-easy-align",
 
-	use({
+	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		requires = {
+		dependencies = {
 			"tpope/vim-commentary",
 			"nvim-treesitter/nvim-treesitter",
 		},
-	})
+	},
 
-	use({ "tpope/vim-fugitive", cmd = { "Git" } })
-	use("tpope/vim-repeat")
-	use("tpope/vim-rsi")
-	use("tpope/vim-surround")
-	use("tpope/vim-eunuch")
-
-	-- use("rust-lang/rust.vim")
-end)
+	{ "tpope/vim-fugitive", cmd = { "Git" } },
+	"tpope/vim-repeat",
+	"tpope/vim-rsi",
+	"tpope/vim-surround",
+	"tpope/vim-eunuch",
+})
