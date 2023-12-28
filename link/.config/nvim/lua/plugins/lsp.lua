@@ -167,6 +167,12 @@ lspconfig.yamlls.setup({
 -- 	root_dir = util.root_pattern("biome.json"),
 -- })
 
+-- lspconfig.oxc.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- 	-- root_dir = util.root_pattern("biome.json"),
+-- })
+
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
