@@ -18,7 +18,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -58,6 +57,8 @@ require("lazy").setup({
 			-- end
 		end,
 	},
+
+	"subnut/nvim-ghost.nvim",
 
 	-- Highlights
 	{
@@ -118,7 +119,7 @@ require("lazy").setup({
 
 	-- Linting, autoformatting…
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"nvim-lua/plenary.nvim",

@@ -187,8 +187,33 @@ lspconfig.intelephense.setup({
 		intelephense = {
 			files = {
 				maxSize = 1000000,
+				exclude = {
+					--
+					-- Defaults
+					--
+					"**/.git/**",
+					"**/.svn/**",
+					"**/.DS_Store/**",
+					"**/node_modules/**",
+					"**/vendor/**/{Tests,tests}/**",
+					"**/.history/**",
+					"**/vendor/**/vendor/**",
+
+					--
+					-- Disabled defaults
+					--
+					"**/.hg/**",
+					"**/CVS/**",
+					"**/bower_components/**",
+
+					--
+					-- Additions
+					--
+					"**/build/**",
+				},
 			},
 			stubs = {
+				-- defaults
 				"Core",
 				"FFI",
 				"Phar",
@@ -267,7 +292,7 @@ lspconfig.intelephense.setup({
 				-- "soap",
 
 				--
-				-- Added stubs
+				-- Additions
 				--
 
 				"wordpress",
