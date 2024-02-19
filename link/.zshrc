@@ -22,39 +22,39 @@ fi
 if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-  _dir="$(brew --prefix)/opt/coreutils"
-  if [[ -d $_dir ]]; then
-    PATH="$_dir/libexec/gnubin:$PATH"
-    MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  _target="$(brew --prefix)/opt/coreutils"
+  if [[ -d $_target ]]; then
+    PATH="$_target/libexec/gnubin:$PATH"
+    MANPATH="$_target/libexec/gnuman:$MANPATH"
   else
     echo 'You may want to `brew install coreutils`.'
   fi
 
-  _dir="$(brew --prefix)/opt/grep"
-  if [[ -d $_dir ]]; then
-    PATH="$_dir/libexec/gnubin:$PATH"
-    MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  _target="$(brew --prefix)/opt/grep"
+  if [[ -d $_target ]]; then
+    PATH="$_target/libexec/gnubin:$PATH"
+    MANPATH="$_target/libexec/gnuman:$MANPATH"
   else
     echo 'You may want to `brew install grep`.'
   fi
 
-  _dir="$(brew --prefix)/opt/gnu-sed"
-  if [[ -d $_dir ]]; then
-    PATH="$_dir/libexec/gnubin:$PATH"
-    MANPATH="$_dir/libexec/gnuman:$MANPATH"
+  _target="$(brew --prefix)/opt/gnu-sed"
+  if [[ -d $_target ]]; then
+    PATH="$_target/libexec/gnubin:$PATH"
+    MANPATH="$_target/libexec/gnuman:$MANPATH"
   else
     echo 'You may want to `brew install gnu-sed`.'
   fi
 
-  _dir="$(brew --prefix)/opt/curl"
-  if [[ -d $_dir ]]; then
-    PATH="$_dir/bin:$PATH"
-    MANPATH="$_dir/share/man:$MANPATH"
+  _target="$(brew --prefix)/opt/curl"
+  if [[ -d $_target ]]; then
+    PATH="$_target/bin:$PATH"
+    MANPATH="$_target/share/man:$MANPATH"
   else
     echo 'You may want to `brew install curl`.'
   fi
 
-  unset _dir
+  unset _target
 fi
 
 # The following lines were added by compinstall
