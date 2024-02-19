@@ -205,4 +205,8 @@ if [[ -f ~/.zshrc.local ]]; then
   . ~/.zshrc.local
 fi
 
+function serveitphp {
+  php -S localhost:9090
+}
+
 # vi et sw=4 ts=4 sts=4
