@@ -5,6 +5,7 @@ fi
 autoload -U promptinit; promptinit
 
 if prompt -l | grep '\bpure\b' &> /dev/null; then
+  export PURE_GIT_PULL=0
   prompt pure
 else
   prompt redhat
