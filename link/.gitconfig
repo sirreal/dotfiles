@@ -25,12 +25,18 @@ lum = diff --name-only --diff-filter=UX
 # Pretty print local branches sorted by most recently updated
 local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
 
+[branch]
+sort = -committerdate
+
 [color]
 branch = auto
 diff = auto
 grep = auto
 interactive = auto
 status = auto
+ui = auto
+
+[column]
 ui = auto
 
 [core]
