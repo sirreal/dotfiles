@@ -1,6 +1,6 @@
 [alias]
 	ap = add --patch
-	ci = commit -v
+	ci = commit
 	co = checkout
 	d = diff
 	dc = diff --cached
@@ -36,18 +36,23 @@
 	status = auto
 	ui = auto
 
+[commit]
+	verbose = true
+
 [column]
 	ui = auto
+	status = never
 
 [core]
 	autocrlf = input
 	excludesfile = ~/.dotfiles/config/global.gitignore
-	pager = less
+	pager = delta
 
 [diff]
 	algorithm = histogram
 	tool = difftastic
 	renames = copy
+	colorMoved = default
 
 [difftool]
 	prompt = false
@@ -71,11 +76,14 @@
 [init]
 	defaultBranch = main
 
+[interactive]
+	diffFilter = delta --color-only
+
 [maintenance "gc"]
 	enabled = true
 
 [merge]
-	conflictstyle = diff3
+	conflictStyle = zdiff3
 
 [mergetool]
 	keepBackup = false
@@ -115,3 +123,7 @@
 
 [include]
 	path = ~/.gitconfig.local
+
+# Non-standard options for delta diff viewer
+[delta]
+	navigate = true
