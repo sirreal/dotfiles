@@ -1,104 +1,117 @@
 [alias]
-ap = add --patch
-ci = commit -v
-co = checkout
-d = diff
-dc = diff --cached
-f = fetch --prune
-graph = log --graph --oneline --decorate=short --all
-l = log
-# Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
-ll = log --oneline --format='%H' -1
-lo = log --oneline
-lp = log --patch-with-stat
-ls = log --stat
-p = pull --prune --rebase
-pa = p --autostash
-pushf = push --force-with-lease
-st = status
-subs = submodule update --init --recursive
-unstage = reset HEAD
-# List modified files
-lmod = diff --name-only --diff-filter=M
-# List unmerged files
-lum = diff --name-only --diff-filter=UX
-# Pretty print local branches sorted by most recently updated
-local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
+	ap = add --patch
+	ci = commit -v
+	co = checkout
+	d = diff
+	dc = diff --cached
+	f = fetch --prune
+	graph = log --graph --oneline --decorate=short --all
+	l = log
+	# "log last" Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
+	ll = log --oneline --format='%H' -1
+	# "list modified" List modified files
+	lmod = diff --name-only --diff-filter=M
+	lo = log --oneline
+	# Pretty print local branches sorted by most recently updated
+	local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
+	lp = log --patch-with-stat
+	ls = log --stat
+	# "list unmerged"
+	lum = diff --name-only --diff-filter=UX
+	p = pull --prune
+	pa = p --autostash
+	pushf = push --force-with-lease
+	st = status
+	subs = submodule update --init --recursive
+	unstage = reset HEAD
 
 [branch]
-sort = -committerdate
+	sort = -committerdate
 
 [color]
-branch = auto
-diff = auto
-grep = auto
-interactive = auto
-status = auto
-ui = auto
+	branch = auto
+	diff = auto
+	grep = auto
+	interactive = auto
+	status = auto
+	ui = auto
 
 [column]
-ui = auto
+	ui = auto
 
 [core]
-autocrlf = input
-excludesfile = ~/.dotfiles/config/global.gitignore
-pager = less
+	autocrlf = input
+	excludesfile = ~/.dotfiles/config/global.gitignore
+	pager = less
 
 [diff]
-algorithm = histogram
-tool = difftastic
+	algorithm = histogram
+	tool = difftastic
+	renames = copy
 
 [difftool]
-prompt = false
+	prompt = false
 
 [difftool "difftastic"]
-cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [difftool "Kaleidoscope"]
-cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[fetch]
+	prune = true
+	pruneTags = true
 
 [github]
-user = sirreal
+	user = sirreal
+
+[grep]
+	extendedregexp = true
 
 [init]
-defaultBranch = main
-
+	defaultBranch = main
 
 [maintenance "gc"]
-enabled = true
+	enabled = true
 
 [merge]
-conflictstyle = diff3
+	conflictstyle = diff3
 
 [mergetool]
-keepBackup = false
+	keepBackup = false
 
 [mergetool "Kaleidoscope"]
-cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-trustExitCode = true
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [mergetool "vimdiff"]
-trustExitCode = false
+	trustExitCode = false
 
 [pager]
-difftool = true
+	difftool = true
+
+[pull]
+	ff = only
+	rebase = true
 
 [push]
-default = simple
-followTags = true
-autoSetupRemote = true
+	default = simple
+	followTags = true
+	autoSetupRemote = true
 
 [rebase]
-autosquash = true
-stat = true
+	autosquash = true
+	rebaseMerges = true
+	stat = true
+	updateRefs = true
 
 [rerere]
-enabled = true
+	enabled = true
 
 [user]
-email = sirreal@users.noreply.github.com
-name = Jon Surrell
-useConfigOnly = true
+	email = sirreal@users.noreply.github.com
+	name = Jon Surrell
+	useConfigOnly = true
 
 [include]
-path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
