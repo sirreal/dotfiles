@@ -2,7 +2,6 @@ local gl = require("galaxyline")
 local colors = require("galaxyline.themes.colors").dracula
 local condition = require("galaxyline.condition")
 local gls = gl.section
-gl.short_line_list = { "packer" }
 
 gls.left = {
 	{
