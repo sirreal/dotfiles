@@ -4,7 +4,7 @@
 	co = checkout
 	d = diff
 	dc = diff --cached
-	f = fetch --prune
+	f = fetch
 	graph = log --graph --oneline --decorate=short --all
 	l = log
 	# "log last" Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
@@ -18,7 +18,7 @@
 	ls = log --stat
 	# "list unmerged"
 	lum = diff --name-only --diff-filter=UX
-	p = pull --prune
+	p = pull
 	pa = p --autostash
 	pushf = push --force-with-lease
 	st = status
