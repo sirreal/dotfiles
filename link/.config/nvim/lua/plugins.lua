@@ -1,4 +1,9 @@
-if "Dark" == io.popen("defaults read -g AppleInterfaceStyle 2> /dev/null", "r"):read() then
+local function isDarkMode()
+	return os.execute("defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null")
+		== 0
+end
+
+if isDarkMode() then
 	vim.o.background = "dark"
 else
 	vim.o.background = "light"
