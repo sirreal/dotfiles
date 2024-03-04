@@ -209,4 +209,23 @@ function serveitphp {
   php -S localhost:9090
 }
 
+function volta-install {
+  volta install \
+    node@lts \
+    npm \
+    yarn \
+    neovim \
+    stylelint \
+    typescript \
+    typescript-language-server \
+    vscode-langservers-extracted \
+    cssmodules-language-server \
+    yaml-language-server \
+    stylelint-lsp \
+    intelephense \
+    @wordpress/env \
+    @wp-now/wp-now \
+    @typescript/analyze-trace
+}
+
 # vi et sw=4 ts=4 sts=4
