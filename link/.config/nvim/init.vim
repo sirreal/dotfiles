@@ -178,7 +178,7 @@ autocmd Filetype haskell setlocal tabstop=4 shiftwidth=5 softtabstop=4 expandtab
 autocmd Filetype purescript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab colorcolumn+=81
 autocmd Filetype markdown setlocal colorcolumn=101 textwidth=100 spell
 
-autocmd Filetype php setlocal tabstop=4 shiftwidth=4 softtabstop=4 noet colorcolumn+=101
+autocmd Filetype php setlocal autoindent tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab colorcolumn+=101
 
 autocmd Filetype python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab colorcolumn+=81
 
