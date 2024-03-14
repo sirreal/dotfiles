@@ -1,14 +1,24 @@
+local cmd_resolver = require("null-ls.helpers.command_resolver")
 local null_ls = require("null-ls")
+local util = require("null-ls.utils")
+
+local from_composer_vendor = function()
+	local resolver = cmd_resolver.generic(util.path.join("vendor", "bin"))
+	return function(params)
+		return resolver(params) or params.command
+	end
+end
 
 null_ls.setup({
 	sources = {
 		null_ls.builtins.diagnostics.phpcs.with({
-			command = "composer",
-			extra_args = { "exec", "--", "phpcs" },
-			prepend_extra_args = true,
+			dynamic_command = from_composer_vendor(),
 		}),
 		null_ls.builtins.diagnostics.stylelint,
 
+		null_ls.builtins.formatting.phpcbf.with({
+			dynamic_command = from_composer_vendor(),
+		}),
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.formatting.stylua,
 
@@ -22,26 +32,6 @@ null_ls.setup({
 		-- 		"sass",
 		-- 		"scss",
 		-- 	},
-		-- }),
-
-		--
-		-- This _almost_ works, but phpcbf exits with 1 which causes composer to error and not print the formatting to stdout 😖
-		--
-		-- null_ls.builtins.formatting.phpcbf.with({
-		-- 	command = "composer",
-		-- 	extra_args = { "exec", "--", "phpcbf" },
-		-- 	prepend_extra_args = true,
-		-- 	check_exit_code = function(code, stderr)
-		-- 		local success = code <= 1
-		-- 		print("exit code", code, success, stderr)
-		-- 		return false
-
-		-- 		-- if not success then
-		-- 		-- 	print(stderr)
-		-- 		-- end
-
-		-- 		-- return success
-		-- 	end,
 		-- }),
 	},
 	on_attach = require("plugins.lsp-attach"),
