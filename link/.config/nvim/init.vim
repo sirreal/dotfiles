@@ -174,14 +174,13 @@ highlight ColorColumn ctermbg=lightred ctermfg=black guibg=lightred guifg=black
 autocmd Filetype css setlocal iskeyword+=-
 autocmd Filetype scss setlocal iskeyword+=-
 
-autocmd Filetype haskell setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
-autocmd Filetype purescript setlocal ts=2 sw=2 sts=2 et colorcolumn+=81
+autocmd Filetype haskell setlocal tabstop=4 shiftwidth=5 softtabstop=4 expandtab colorcolumn+=81
+autocmd Filetype purescript setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab colorcolumn+=81
+autocmd Filetype markdown setlocal colorcolumn=101 textwidth=100 spell
 
-autocmd Filetype markdown setlocal colorcolumn=101 tw=100 spell
+autocmd Filetype php setlocal tabstop=4 shiftwidth=4 softtabstop=4 noet colorcolumn+=101
 
-autocmd Filetype php setlocal ts=4 sw=4 sts=4 noet colorcolumn+=101
-
-autocmd Filetype python setlocal ts=4 sw=4 sts=4 et colorcolumn+=81
+autocmd Filetype python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab colorcolumn+=81
 
 autocmd Filetype javascript setlocal colorcolumn+=101 iskeyword+=-
 autocmd Filetype typescript setlocal colorcolumn+=101
