@@ -18,6 +18,10 @@ else
   echo "Couldn't find volta. You may want to install."
 fi
 
+if [[ -d "$HOME/.composer/vendor/bin" ]]; then
+  PATH="$PATH:$HOME/.composer/vendor/bin"
+fi
+
 # Brew stuff (macOS-specific)
 if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
