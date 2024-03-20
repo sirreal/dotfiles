@@ -5,15 +5,18 @@ local util = require("null-ls.utils")
 local from_composer_vendor = function()
 	local resolver = cmd_resolver.generic(util.path.join("vendor", "bin"))
 	return function(params)
-		return resolver(params) or params.command
+		return resolver(params) -- or params.command
 	end
 end
 
 null_ls.setup({
 	sources = {
 		null_ls.builtins.diagnostics.phpcs.with({
-			dynamic_command = from_composer_vendor(),
+			command = "composer",
+			extra_args = { "exec", "--", "phpcs" },
+			prepend_extra_args = true,
 		}),
+		null_ls.builtins.diagnostics.phpstan,
 		null_ls.builtins.diagnostics.stylelint,
 
 		null_ls.builtins.formatting.phpcbf.with({
