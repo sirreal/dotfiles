@@ -183,6 +183,6 @@ autocmd Filetype php setlocal autoindent tabstop=4 shiftwidth=4 softtabstop=4 no
 
 autocmd Filetype python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab colorcolumn+=81
 
-autocmd Filetype javascript setlocal colorcolumn+=101 iskeyword+=-
-autocmd Filetype typescript setlocal colorcolumn+=101
-autocmd Filetype typescriptreact setlocal colorcolumn+=101
+autocmd Filetype javascript setlocal autoindent colorcolumn+=101
+autocmd Filetype typescript setlocal autoindent colorcolumn+=101
+autocmd Filetype typescriptreact setlocal autoindent colorcolumn+=101
