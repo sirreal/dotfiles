@@ -7,17 +7,26 @@
 	f = fetch
 	graph = log --graph --oneline --decorate=short --all
 	l = log
+
 	# "log last" Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
 	ll = log --oneline --format='%H' -1
+
 	# "list modified" List modified files
 	lmod = diff --name-only --diff-filter=M
 	lo = log --oneline
+
 	# Pretty print local branches sorted by most recently updated
-	local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
+	local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:cyan)%(upstream:trackshort)%(color:reset) %(color:magenta)%(upstream:remotename)%(color:reset) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
+
 	lp = log --patch-with-stat
 	ls = log --stat
+
 	# "list unmerged"
 	lum = diff --name-only --diff-filter=UX
+
+	# "new branch"
+	nb = switch --no-track origin/trunk --create
+
 	p = pull
 	pa = p --autostash
 	pushf = push --force-with-lease
@@ -46,23 +55,18 @@
 [core]
 	autocrlf = input
 	excludesfile = ~/.dotfiles/config/global.gitignore
-	pager = delta --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
+	# pager = delta --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
 
 
 [diff]
 	algorithm = histogram
-	tool = difftastic
 	renames = copy
 	colorMoved = default
+	srcPrefix = before/
+	dstPrefix = after/
 
 [difftool]
 	prompt = false
-
-[difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
-
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [fetch]
 	prune = true
@@ -78,21 +82,18 @@
 	defaultBranch = main
 
 [interactive]
-	diffFilter = delta --color-only --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
+#	diffFilter = delta --color-only --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
 
 [maintenance "gc"]
 	enabled = true
 
 [merge]
 	conflictStyle = zdiff3
+	ff = false
 
 [mergetool]
 	keepBackup = false
 	keepTemporaries = false
-
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
 
 [mergetool "vimdiff"]
 	trustExitCode = false
@@ -137,3 +138,8 @@
 [delta "dark-mode"]
 	light = false
 	syntax-theme = 1337
+
+[bitmapPseudoMerge "all"]
+	pattern = refs/(heads|tags)/
+	threshold = now
+	stableThreshold = never
