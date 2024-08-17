@@ -214,22 +214,34 @@ function serveitphp {
 }
 
 function volta-install {
-  volta install \
-    node@lts \
-    npm \
-    yarn \
-    neovim \
-    stylelint \
-    typescript \
-    typescript-language-server \
+  volta install                  \
+    @typescript/analyze-trace    \
+    @wordpress/env               \
+    @wp-now/wp-now               \
+    cssmodules-language-server   \
+    intelephense                 \
+    neovim                       \
+    node@lts                     \
+    npm                          \
+    oxlint                       \
+    pnpm                         \
+    stylelint                    \
+    stylelint-lsp                \
+    typescript                   \
+    typescript-language-server   \
     vscode-langservers-extracted \
-    cssmodules-language-server \
-    yaml-language-server \
-    stylelint-lsp \
-    intelephense \
-    @wordpress/env \
-    @wp-now/wp-now \
-    @typescript/analyze-trace
+    yaml-language-server         \
+    yarn
+}
+
+function update-wp-stubs {
+  _DIR="/Users/jonsurrell/.volta/tools/image/packages/intelephense/lib/node_modules/intelephense/lib/stub/wordpress"
+  gh release -R php-stubs/wordpress-stubs download --archive=tar.gz -O - | tar xzvf - --directory "$_DIR" '*/wordpress-stubs.php'
+  gh release -R php-stubs/wordpress-globals download --archive=tar.gz -O - | tar xzvf - --directory "$_DIR" '*/wordpress-globals.php'
+  mv "$_DIR/"*/*.php "$_DIR"
+  rmdir "$_DIR/"*/
+
+  unset _DIR
 }
 
 # vi et sw=4 ts=4 sts=4
