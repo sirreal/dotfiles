@@ -99,17 +99,21 @@ lspconfig.jsonls.setup({
 
 -- requires npm:typescript
 lspconfig.tsserver.setup({
-	init_options = {
-		preferences = {
-			includeInlayParameterNameHints = "all",
-			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-			includeInlayFunctionParameterTypeHints = true,
-			includeInlayVariableTypeHints = true,
-			includeInlayPropertyDeclarationTypeHints = true,
-			includeInlayFunctionLikeReturnTypeHints = true,
-			includeInlayEnumMemberValueHints = true,
-		},
-	},
+	-- init_options = {
+	-- 	preferences = {
+	-- 		-- https://github.com/microsoft/TypeScript/blob/79a851426c514a12a75b342e8dd2460ee6615f73/tests/cases/fourslash/fourslash.ts#L683
+	--
+	-- 		includeInlayParameterNameHints = "all",
+	-- 		includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+	-- 		includeInlayFunctionParameterTypeHints = true,
+	-- 		includeInlayVariableTypeHints = true,
+	-- 		includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+	-- 		includeInlayPropertyDeclarationTypeHints = true,
+	-- 		includeInlayFunctionLikeReturnTypeHints = true,
+	-- 		includeInlayEnumMemberValueHints = true,
+	-- 		interactiveInlayHints = true,
+	-- 	},
+	-- },
 	handlers = {
 		["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
 			if result.diagnostics ~= nil then
@@ -185,8 +189,9 @@ lspconfig.intelephense.setup({
 	settings = {
 		-- See https://github.com/bmewburn/intelephense-docs/blob/master/installation.md
 		intelephense = {
+			environment = { phpVersion = "7.2" },
 			files = {
-				maxSize = 1000000,
+				maxSize = 200000,
 				exclude = {
 					--
 					-- Defaults
@@ -295,7 +300,7 @@ lspconfig.intelephense.setup({
 				-- Additions
 				--
 
-				"wordpress",
+				-- "wordpress",
 			},
 			format = {
 				enable = false,
