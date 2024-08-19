@@ -191,7 +191,7 @@ lspconfig.intelephense.setup({
 		intelephense = {
 			environment = { phpVersion = "7.2" },
 			files = {
-				maxSize = 200000,
+				maxSize = 350000,
 				exclude = {
 					--
 					-- Defaults
