@@ -55,6 +55,7 @@
 [core]
 	autocrlf = input
 	excludesfile = ~/.dotfiles/config/global.gitignore
+	sparseCheckoutCone = true
 	# pager = delta --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
 
 
