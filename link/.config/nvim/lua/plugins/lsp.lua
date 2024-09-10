@@ -98,7 +98,7 @@ lspconfig.jsonls.setup({
 })
 
 -- requires npm:typescript
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	-- init_options = {
 	-- 	preferences = {
 	-- 		-- https://github.com/microsoft/TypeScript/blob/79a851426c514a12a75b342e8dd2460ee6615f73/tests/cases/fourslash/fourslash.ts#L683
