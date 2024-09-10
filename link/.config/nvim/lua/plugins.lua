@@ -268,8 +268,7 @@ require("lazy").setup({
 
 	"godlygeek/tabular",
 	"junegunn/vim-easy-align",
-
-	{ "tpope/vim-fugitive", cmd = { "Git" } },
+	"tpope/vim-fugitive",
 	"tpope/vim-repeat",
 	"tpope/vim-rsi",
 	"tpope/vim-surround",
