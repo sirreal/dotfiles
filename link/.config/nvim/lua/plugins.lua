@@ -22,6 +22,33 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.rustaceanvim = function()
+	-- Update this path
+	local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
+	local codelldb_path = extension_path .. "adapter/codelldb"
+	local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+	local cfg = require("rustaceanvim.config")
+
+	return {
+		-- Plugin configuration
+		tools = {
+			enable_clippy = true,
+		},
+		-- LSP configuration
+		server = {
+			on_attach = require("plugins.lsp-attach"),
+			-- default_settings = {
+			-- 	-- rust-analyzer language server configuration
+			-- 	["rust-analyzer"] = {},
+			-- },
+		},
+		-- DAP configuration
+		dap = {
+			adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+		},
+	}
+end
+
 require("lazy").setup({
 	{
 		"catppuccin/nvim",
@@ -120,19 +147,12 @@ require("lazy").setup({
 	},
 
 	{
-		"simrat39/rust-tools.nvim",
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
 		dependencies = {
-			"neovim/nvim-lspconfig",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
+			"mfussenegger/nvim-dap",
 		},
-		config = function()
-			require("rust-tools").setup({
-				server = {
-					on_attach = require("plugins.lsp-attach"),
-				},
-			})
-		end,
 	},
 
 	{
