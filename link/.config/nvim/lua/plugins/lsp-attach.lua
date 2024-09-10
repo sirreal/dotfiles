@@ -1,7 +1,5 @@
 local lsp_format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
 
-local use_lsp_saga = false
-
 return function(client, bufnr)
 	local lsp_signature_module_available, lsp_signature = pcall(require, "lsp_signature")
 	if lsp_signature_module_available then
@@ -43,26 +41,12 @@ return function(client, bufnr)
 	vim.cmd("command! LspImplementation Telescope lsp_implementations")
 	vim.cmd("command! LspReferences Telescope lsp_references")
 
-	--
-	-- lspsaga variants
-	--
-	if use_lsp_saga then
-		vim.cmd("command! LspCodeAction Lspsaga code_action")
-		vim.cmd("command! LspDiagnosticLine Lspsaga show_line_diagnostics")
-		vim.cmd("command! LspDiagnosticNext Lspsaga diagnostic_jump_next")
-		vim.cmd("command! LspDiagnosticPrev Lspsaga diagnostic_jump_prev")
-		vim.cmd("command! LspHover Lspsaga hover_doc")
-		vim.cmd("command! LspRename Lspsaga rename project")
-
-		-- vim.cmd("command! LspReferences Lspsaga lsp_finder")
-	else
-		vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
-		vim.cmd("command! LspDiagnosticLine lua vim.diagnostic.open_float()")
-		vim.cmd("command! LspDiagnosticNext lua vim.diagnostic.goto_next()")
-		vim.cmd("command! LspDiagnosticPrev lua vim.diagnostic.goto_prev()")
-		vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
-		vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
-	end
+	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
+	vim.cmd("command! LspDiagnosticLine lua vim.diagnostic.open_float()")
+	vim.cmd("command! LspDiagnosticNext lua vim.diagnostic.goto_next()")
+	vim.cmd("command! LspDiagnosticPrev lua vim.diagnostic.goto_prev()")
+	vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
+	vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
 
 	map("n", "gd", "<cmd>LspDefinition<CR>")
 	map("n", "gi", "<cmd>LspImplementation<CR>")
