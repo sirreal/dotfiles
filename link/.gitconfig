@@ -25,7 +25,7 @@
 	lum = diff --name-only --diff-filter=UX
 
 	# "new branch"
-	nb = switch --no-track origin/trunk --create
+	nb = switch --no-track origin/main --create
 
 	p = pull
 	pa = p --autostash
