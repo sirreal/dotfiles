@@ -29,7 +29,7 @@ inoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 nnoremap <Leader>p <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
 nnoremap <Leader>] <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
 
-command! EditConfig :e ~/.config/nvim/init.vim
+set formatoptions-=o
 
 set laststatus=3
 
