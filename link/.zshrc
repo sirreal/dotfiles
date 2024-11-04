@@ -26,6 +26,8 @@ fi
 if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
+  alias brewup='brew update && brew upgrade --greedy && brew upgrade --cask'
+
   _target="$(brew --prefix)/opt/coreutils"
   if [[ -d $_target ]]; then
     PATH="$_target/libexec/gnubin:$PATH"
@@ -97,12 +99,12 @@ if type atuin &> /dev/null; then
   eval "$(atuin init zsh)"
   bindkey '^R' _atuin_search_widget # ctrl-r
 else
-  # ctrl-n next
-  bindkey '^N' down-line-or-history
-
   # ctrl-r history search
   bindkey '^R' history-incremental-pattern-search-backward
 fi
+
+# ctrl-n next
+bindkey '^N' down-line-or-history
 
 # ctrl-p previous
 bindkey '^P' up-line-or-history
