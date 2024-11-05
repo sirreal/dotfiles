@@ -7,7 +7,7 @@ local function on_attach_formatting(client, bufnr)
 			group = lsp_format_augroup,
 			buffer = bufnr,
 			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr })
+				vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
 			end,
 		})
 	end
