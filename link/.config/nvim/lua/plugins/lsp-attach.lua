@@ -1,6 +1,19 @@
 local lsp_format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
 
-return function(client, bufnr)
+local function on_attach_formatting(client, bufnr)
+	if client.supports_method("textDocument/formatting") then
+		vim.api.nvim_clear_autocmds({ group = lsp_format_augroup, buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = lsp_format_augroup,
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format({ bufnr = bufnr })
+			end,
+		})
+	end
+end
+
+local function on_attach(client, bufnr)
 	local lsp_signature_module_available, lsp_signature = pcall(require, "lsp_signature")
 	if lsp_signature_module_available then
 		lsp_signature.on_attach({
@@ -74,16 +87,7 @@ return function(client, bufnr)
 	-- 	)
 	-- end
 
-	if client.supports_method("textDocument/formatting") then
-		vim.api.nvim_clear_autocmds({ group = lsp_format_augroup, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = lsp_format_augroup,
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr })
-			end,
-		})
-	end
+	on_attach_formatting(client, bufnr)
 
 	-- vim.notify("LSP " .. client.name .. " started.", vim.log.levels.INFO)
 
@@ -91,3 +95,8 @@ return function(client, bufnr)
 		vim.lsp.inlay_hint.enable(true, { bufnr })
 	end
 end
+
+return {
+	on_attach = on_attach,
+	on_attach_formatting = on_attach_formatting,
+}

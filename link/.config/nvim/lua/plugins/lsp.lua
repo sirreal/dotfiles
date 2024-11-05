@@ -1,12 +1,12 @@
 local lspconfig = require("lspconfig")
-local on_attach = require("plugins.lsp-attach")
+local on_attach_module = require("plugins.lsp-attach")
 local util = require("lspconfig.util")
 
 local on_attach_without_formatting = function(client, bufnr)
 	client.server_capabilities.documentFormattingProvider = false
 	client.server_capabilities.documentRangeFormattingProvider = false
 	client.server_capabilities.documentOnTypeFormattingProvider = false
-	on_attach(client, bufnr)
+	on_attach_module.on_attach(client, bufnr)
 end
 
 local signs = {
@@ -53,7 +53,7 @@ lspconfig.eslint.setup({
 		packageManager = "yarn",
 	},
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = on_attach_module.on_attach,
 })
 
 -- requires npm:stylelint-lsp
@@ -94,7 +94,7 @@ lspconfig.jsonls.setup({
 		end,
 	},
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = on_attach_module.on_attach,
 })
 
 -- requires npm:typescript
@@ -134,16 +134,22 @@ lspconfig.ts_ls.setup({
 })
 
 -- requires npm:vscode-langservers-extracted
+lspconfig.html.setup({
+	capabilities = capabilities,
+	on_attach = on_attach_module.on_attach,
+})
+
+-- requires npm:vscode-langservers-extracted
 lspconfig.cssls.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = on_attach_module.on_attach,
 })
 
 -- requires npm:cssmodules-language-server
-lspconfig.cssmodules_ls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- lspconfig.cssmodules_ls.setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach_module.on_attach,
+-- })
 
 -- requires npm:yaml-language-server
 lspconfig.yamlls.setup({
@@ -155,25 +161,25 @@ lspconfig.yamlls.setup({
 		},
 	},
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = on_attach_module.on_attach,
 })
 
 -- DO NOT USE - conflicts with rust-tools
 -- requires brew:rust-analyzer
 -- lspconfig.rust_analyzer.setup({
 -- 	capabilities = capabilities,
--- 	on_attach = on_attach,
+-- 	on_attach = on_attach_module.on_attach,
 -- })
 
 -- lspconfig.biome.setup({
 -- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- 	root_dir = util.root_pattern("biome.json"),
+-- 	on_attach = on_attach_module.on_attach,
+-- 	-- root_dir = util.root_pattern("biome.json"),
 -- })
 
 -- lspconfig.oxc.setup({
 -- 	capabilities = capabilities,
--- 	on_attach = on_attach,
+-- 	on_attach = on_attach_module.on_attach,
 -- 	-- root_dir = util.root_pattern("biome.json"),
 -- })
 
@@ -203,6 +209,7 @@ lspconfig.intelephense.setup({
 					"**/vendor/**/{Tests,tests}/**",
 					"**/.history/**",
 					"**/vendor/**/vendor/**",
+					"**/wp-content/languages/**",
 
 					--
 					-- Disabled defaults
@@ -314,7 +321,7 @@ lspconfig.intelephense.setup({
 
 -- requires brew:lua-language-server
 lspconfig.lua_ls.setup({
-	on_attach = on_attach,
+	on_attach = on_attach_module.on_attach,
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -341,4 +348,53 @@ lspconfig.lua_ls.setup({
 			},
 		},
 	},
+})
+
+local efm_fs = require("efmls-configs.fs")
+local phpcbf_executable = efm_fs.executable("phpcbf", efm_fs.Scope.COMPOSER)
+
+local efm_php = {
+	require("efmls-configs.linters.phpcs"),
+}
+
+if phpcbf_executable ~= "phpcbf" then
+	vim.list_extend(efm_php, {
+		{
+			formatCommand = string.format(
+				-- phpcbf returns exit code 1 when formatting, pipe through cat to ignore exit code.
+				"%s -q --stdin-path='${INPUT}' - | cat",
+				phpcbf_executable
+			),
+			formatStdin = true,
+		},
+	})
+end
+
+local efm_languages = {
+	lua = {
+		require("efmls-configs.formatters.stylua"),
+	},
+	php = efm_php,
+	javascript = { require("efmls-configs.formatters.prettier") },
+	typescript = { require("efmls-configs.formatters.prettier") },
+	typescriptreact = { require("efmls-configs.formatters.prettier") },
+}
+
+-- requires brew:efm-langserver
+lspconfig.efm.setup({
+	filetypes = vim.tbl_keys(efm_languages),
+	settings = {
+		languages = efm_languages,
+	},
+	init_options = {
+		codeAction = true,
+		completion = true,
+		documentFormatting = true,
+		documentRangeFormatting = true,
+		documentSymbol = true,
+		hover = true,
+	},
+	capabilities = capabilities,
+
+	on_attach = on_attach_module.on_attach_formatting,
 })

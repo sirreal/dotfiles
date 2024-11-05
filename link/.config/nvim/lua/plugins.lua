@@ -124,25 +124,14 @@ require("lazy").setup({
 	--
 
 	{
-		"neovim/nvim-lspconfig",
+		"creativenull/efmls-configs-nvim",
 		dependencies = {
+			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
 			"ray-x/lsp_signature.nvim",
 		},
 		config = function()
 			require("plugins.lsp")
-		end,
-	},
-
-	-- Linting, autoformatting…
-	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("plugins.null-ls")
 		end,
 	},
 
