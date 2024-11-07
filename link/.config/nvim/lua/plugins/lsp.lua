@@ -1,3 +1,4 @@
+local efm_fs_util = require("efmls-configs.fs")
 local lspconfig = require("lspconfig")
 local on_attach_module = require("plugins.lsp-attach")
 local util = require("lspconfig.util")
@@ -350,35 +351,47 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-local efm_fs = require("efmls-configs.fs")
-local phpcbf_executable = efm_fs.executable("phpcbf", efm_fs.Scope.COMPOSER)
-
-local efm_php = {
-	require("efmls-configs.linters.phpcs"),
-}
-
-if phpcbf_executable ~= "phpcbf" then
-	vim.list_extend(efm_php, {
-		{
-			formatCommand = string.format(
-				-- phpcbf returns exit code 1 when formatting, pipe through cat to ignore exit code.
-				"%s -q --stdin-path='${INPUT}' - | cat",
-				phpcbf_executable
-			),
-			formatStdin = true,
-		},
-	})
-end
-
 local efm_languages = {
 	lua = {
 		require("efmls-configs.formatters.stylua"),
 	},
-	php = efm_php,
-	javascript = { require("efmls-configs.formatters.prettier") },
-	typescript = { require("efmls-configs.formatters.prettier") },
-	typescriptreact = { require("efmls-configs.formatters.prettier") },
+	php = {
+		require("efmls-configs.linters.phpcs"),
+	},
 }
+
+local phpcbf_executable = efm_fs_util.executable("phpcbf", efm_fs_util.Scope.COMPOSER)
+if phpcbf_executable ~= "phpcbf" then
+	vim.list_extend(efm_languages.php, {
+		{
+			formatCommand = string.format("%s -q --stdin-path='${INPUT}' - | cat", phpcbf_executable),
+			formatStdin = true,
+			formatIgnoreExitCode = true,
+		},
+	})
+end
+
+local has_prettier = string.sub(efm_fs_util.executable("prettier", efm_fs_util.Scope.NODE), -27)
+	== "/node_modules/.bin/prettier"
+if has_prettier then
+	efm_languages = vim.tbl_extend("force", efm_languages, {
+		javascript = { require("efmls-configs.formatters.prettier") },
+		typescript = { require("efmls-configs.formatters.prettier") },
+		typescriptreact = { require("efmls-configs.formatters.prettier") },
+
+		css = { require("efmls-configs.formatters.prettier") },
+		sass = { require("efmls-configs.formatters.prettier") },
+		scss = { require("efmls-configs.formatters.prettier") },
+
+		json = { require("efmls-configs.formatters.prettier") },
+		json5 = { require("efmls-configs.formatters.prettier") },
+		jsonc = { require("efmls-configs.formatters.prettier") },
+
+		markdown = { require("efmls-configs.formatters.prettier") },
+
+		yaml = { require("efmls-configs.formatters.prettier") },
+	})
+end
 
 -- requires brew:efm-langserver
 lspconfig.efm.setup({
