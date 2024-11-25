@@ -1,14 +1,11 @@
 local efm_fs_util = require("efmls-configs.fs")
 local lspconfig = require("lspconfig")
-local on_attach_module = require("plugins.lsp-attach")
 local util = require("lspconfig.util")
 
-local on_attach_without_formatting = function(client, bufnr)
-	client.server_capabilities.documentFormattingProvider = false
-	client.server_capabilities.documentRangeFormattingProvider = false
-	client.server_capabilities.documentOnTypeFormattingProvider = false
-	on_attach_module.on_attach(client, bufnr)
-end
+local on_attach_module = require("plugins.lsp-attach")
+local on_attach = on_attach_module.on_attach
+local on_attach_formatting = on_attach_module.on_attach_formatting
+local on_attach_without_formatting = on_attach_module.on_attach_without_formatting
 
 local signs = {
 	Error = "",
@@ -54,7 +51,7 @@ lspconfig.eslint.setup({
 		packageManager = "yarn",
 	},
 	capabilities = capabilities,
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 })
 
 -- requires npm:stylelint-lsp
@@ -95,7 +92,7 @@ lspconfig.jsonls.setup({
 		end,
 	},
 	capabilities = capabilities,
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 })
 
 -- requires npm:typescript
@@ -137,19 +134,19 @@ lspconfig.ts_ls.setup({
 -- requires npm:vscode-langservers-extracted
 lspconfig.html.setup({
 	capabilities = capabilities,
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 })
 
 -- requires npm:vscode-langservers-extracted
 lspconfig.cssls.setup({
 	capabilities = capabilities,
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 })
 
 -- requires npm:cssmodules-language-server
 -- lspconfig.cssmodules_ls.setup({
 -- 	capabilities = capabilities,
--- 	on_attach = on_attach_module.on_attach,
+-- 	on_attach = on_attach,
 -- })
 
 -- requires npm:yaml-language-server
@@ -162,7 +159,7 @@ lspconfig.yamlls.setup({
 		},
 	},
 	capabilities = capabilities,
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 })
 
 -- DO NOT USE - conflicts with rust-tools
@@ -180,7 +177,7 @@ lspconfig.yamlls.setup({
 
 -- lspconfig.oxc.setup({
 -- 	capabilities = capabilities,
--- 	on_attach = on_attach_module.on_attach,
+-- 	on_attach = on_attach,
 -- 	-- root_dir = util.root_pattern("biome.json"),
 -- })
 
@@ -309,6 +306,7 @@ lspconfig.intelephense.setup({
 				--
 
 				-- "wordpress",
+				"xdebug",
 			},
 			format = {
 				enable = false,
@@ -322,7 +320,7 @@ lspconfig.intelephense.setup({
 
 -- requires brew:lua-language-server
 lspconfig.lua_ls.setup({
-	on_attach = on_attach_module.on_attach,
+	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -408,6 +406,26 @@ lspconfig.efm.setup({
 		hover = true,
 	},
 	capabilities = capabilities,
+	on_attach = on_attach_formatting,
+})
 
-	on_attach = on_attach_module.on_attach_formatting,
+-- requires brew:gopls
+lspconfig.gopls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = {
+		gopls = {
+			hints = {},
+		},
+	},
+})
+
+--requires cargo:harper-ls
+lspconfig.harper_ls.setup({
+	settings = {
+		["harper-ls"] = {
+			userDictPath = "~/.config/harper-user-dict.txt",
+			fileDictPath = "~/.config/harper/",
+		},
+	},
 })

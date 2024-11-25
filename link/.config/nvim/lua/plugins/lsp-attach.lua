@@ -96,7 +96,15 @@ local function on_attach(client, bufnr)
 	end
 end
 
+local on_attach_without_formatting = function(client, bufnr)
+	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentRangeFormattingProvider = false
+	client.server_capabilities.documentOnTypeFormattingProvider = false
+	on_attach(client, bufnr)
+end
+
 return {
 	on_attach = on_attach,
 	on_attach_formatting = on_attach_formatting,
+	on_attach_without_formatting = on_attach_without_formatting,
 }
