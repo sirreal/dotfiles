@@ -1,9 +1,15 @@
 require("nvim-treesitter.configs").setup({
+	modules = {},
+	sync_install = true,
+	ignore_install = {},
+	auto_install = true,
+
 	ensure_installed = {
 		"bash",
 		"diff",
 		"git_rebase",
 		"gitcommit",
+		"go",
 		"graphql",
 		"html",
 		"ini",
