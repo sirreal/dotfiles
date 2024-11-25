@@ -11,6 +11,9 @@ else
   prompt redhat
 fi
 
+if [[ -d "$HOME/.bin" ]]; then
+  PATH="$HOME/.bin:$PATH"
+fi
 
 if [[ -d "$HOME/.volta" ]]; then
   PATH="$HOME/.volta/bin:$PATH"
