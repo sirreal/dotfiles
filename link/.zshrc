@@ -150,6 +150,7 @@ alias ghw='gh pr view --web'
 alias ghu='gh pr view --json url --jq .url'
 # Create a new PR for the current branch
 alias ghpr='gh pr create'
+alias ghr='gh repo view --web'
 
 alias fixdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"printf 'Setting DNS for service: {}'; networksetup -setdnsservers '{}' 9.9.9.9 149.112.112.112 2620:fe::fe 2620:fe::9 && echo ' ✅ OK!' || echo ' ⛔️ Non-zero exit!'"'"; sudo -p "Authorize to flush dns caches" sh -c "dscacheutil -flushcache; killall -HUP mDNSResponder"; sudo -K'
 alias checkdns="networksetup -listallnetworkservices | tail -n +2 | xargs -r -I{} sh -c "'"'"echo 'DNS servers for {}:'; networksetup -getdnsservers '{}'; echo"'"'
@@ -241,7 +242,7 @@ function volta-install {
 }
 
 function update-wp-stubs {
-  _DIR="/Users/jonsurrell/.volta/tools/image/packages/intelephense/lib/node_modules/intelephense/lib/stub/wordpress"
+  _DIR="$HOME/.volta/tools/image/packages/intelephense/lib/node_modules/intelephense/lib/stub/wordpress"
   gh release -R php-stubs/wordpress-stubs download --archive=tar.gz -O - | tar xzvf - --directory "$_DIR" '*/wordpress-stubs.php'
   gh release -R php-stubs/wordpress-globals download --archive=tar.gz -O - | tar xzvf - --directory "$_DIR" '*/wordpress-globals.php'
   mv "$_DIR/"*/*.php "$_DIR"
