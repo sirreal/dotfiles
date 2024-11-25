@@ -28,6 +28,8 @@ nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 inoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 nnoremap <Leader>p <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
 nnoremap <Leader>] <cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>
+nnoremap <Leader>o <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>
+nnoremap <Leader>[ <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>
 
 set formatoptions-=o
 
