@@ -20,4 +20,4 @@ font-feature = dlig
 
 adjust-cell-height = 20%
 
-theme = "catppuccin-latte"
+theme = dark:catppuccin-frappe,light:catppuccin-latte
