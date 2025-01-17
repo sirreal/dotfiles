@@ -13,12 +13,16 @@
 
 	# "list modified" List modified files
 	lmod = diff --name-only --diff-filter=M
-	lo = log --oneline
+
+	# "log oneline" not actually oneline, reference is a nice format on one line
+	lo = log --pretty=reference
 
 	# Pretty print local branches sorted by most recently updated
 	local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:cyan)%(upstream:trackshort)%(color:reset) %(color:magenta)%(upstream:remotename)%(color:reset) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
 
+	# "log patch"
 	lp = log --patch-with-stat
+	# "log stat"
 	ls = log --stat
 
 	# "list unmerged"
@@ -144,3 +148,5 @@
 	pattern = refs/(heads|tags)/
 	threshold = now
 	stableThreshold = never
+[log]
+	date = local

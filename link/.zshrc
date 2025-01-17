@@ -252,3 +252,5 @@ function update-wp-stubs {
 }
 
 # vi et sw=4 ts=4 sts=4
+
+export APPLE_SSH_ADD_BEHAVIOR=macos

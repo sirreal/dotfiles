@@ -21,3 +21,6 @@ font-feature = dlig
 adjust-cell-height = 20%
 
 theme = dark:catppuccin-frappe,light:catppuccin-latte
+
+cursor-style-blink = false
+shell-integration-features = no-cursor
