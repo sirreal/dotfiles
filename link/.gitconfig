@@ -7,36 +7,33 @@
 	f = fetch
 	graph = log --graph --oneline --decorate=short --all
 	l = log
-
 	# "log last" Log the full commit hash of the last commit, handy to copy and cherry pick, eg `git ll | pbcopy`
 	ll = log --oneline --format='%H' -1
-
 	# "list modified" List modified files
 	lmod = diff --name-only --diff-filter=M
-
 	# "log oneline" not actually oneline, reference is a nice format on one line
 	lo = log --pretty=reference
-
 	# Pretty print local branches sorted by most recently updated
 	local-branches = for-each-ref --sort='-committerdate' --format='%(align:20,left)%(color:green)%(committerdate:relative)%(color:reset)%(end) %(color:red)%(HEAD)%(color:reset)%(refname:short) %(color:cyan)%(upstream:trackshort)%(color:reset) %(color:magenta)%(upstream:remotename)%(color:reset) %(color:blue)%(worktreepath)%(color:reset)' refs/heads/
-
 	# "log patch"
 	lp = log --patch-with-stat
 	# "log stat"
 	ls = log --stat
-
 	# "list unmerged"
 	lum = diff --name-only --diff-filter=UX
-
 	# "new branch"
 	nb = switch --no-track origin/main --create
-
 	p = pull
 	pa = p --autostash
 	pushf = push --force-with-lease
 	st = status
 	subs = submodule update --init --recursive
 	unstage = reset HEAD
+
+[bitmapPseudoMerge "all"]
+	pattern = refs/(heads|tags)/
+	threshold = now
+	stableThreshold = never
 
 [branch]
 	sort = -committerdate
@@ -65,29 +62,39 @@
 
 [diff]
 	algorithm = histogram
-	renames = copy
-	colorMoved = default
-	srcPrefix = before/
-	dstPrefix = after/
+	renames = true
+	colorMoved = plain
+	mnemonicPrefix = true
 
 [difftool]
 	prompt = false
 
+[feature]
+	experimental = true
+
 [fetch]
 	prune = true
 	pruneTags = true
+	all = true
 
 [github]
 	user = sirreal
 
 [grep]
 	extendedregexp = true
+	patternType = perl
+
+[help]
+	autocorrect = prompt
 
 [init]
 	defaultBranch = main
 
 [interactive]
 #	diffFilter = delta --color-only --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
+
+[log]
+	date = local
 
 [maintenance "gc"]
 	enabled = true
@@ -117,20 +124,22 @@
 
 [rebase]
 	autosquash = true
+	autostash = true
 	rebaseMerges = true
 	stat = true
 	updateRefs = true
 
 [rerere]
 	enabled = true
+	autoupdate = true
+
+[tag]
+	sort = version:refname
 
 [user]
 	email = sirreal@users.noreply.github.com
 	name = Jon Surrell
 	useConfigOnly = true
-
-[include]
-	path = ~/.gitconfig.local
 
 # Non-standard options for delta diff viewer
 [delta]
@@ -144,9 +153,7 @@
 	light = false
 	syntax-theme = 1337
 
-[bitmapPseudoMerge "all"]
-	pattern = refs/(heads|tags)/
-	threshold = now
-	stableThreshold = never
-[log]
-	date = local
+[include]
+	path = ~/.gitconfig.local
+
+; vi: ts=4 sw=4 sts=4 noet
