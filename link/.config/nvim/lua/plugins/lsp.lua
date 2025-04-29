@@ -35,19 +35,6 @@ vim.diagnostic.config({
 	-- virtual_text = true,
 })
 
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
--- 	local config = {
--- 		virtual_text = {
--- 			prefix = "",
--- 			spacing = 0,
--- 		},
--- 		signs = true,
--- 		underline = true,
--- 		update_in_insert = false,
--- 	}
--- 	vim.diagnostic.config(config, vim.lsp.diagnostic.get_namespace(ctx.client_id))
--- end
-
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -175,18 +162,36 @@ lspconfig.yamlls.setup({
 	on_attach = on_attach,
 })
 
--- DO NOT USE - conflicts with rust-tools
 -- requires brew:rust-analyzer
--- lspconfig.rust_analyzer.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach_module.on_attach,
--- })
+local rust_analyzer_handlers = {}
+for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
+	rust_analyzer_handlers[method] = function(err, result, context)
+		if err ~= nil and err.code == -32802 then
+			return
+		end
+		return vim.lsp.handlers[method](err, result, context)
+	end
+end
 
--- lspconfig.biome.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach_module.on_attach,
--- 	-- root_dir = util.root_pattern("biome.json"),
--- })
+lspconfig.rust_analyzer.setup({
+	debug = true,
+	capabilities = capabilities,
+	on_attach = on_attach,
+	handlers = rust_analyzer_handlers,
+	settings = {
+		["rust-analyzer"] = {
+			check = {
+				command = { "clippy", "--keep-going" },
+			},
+		},
+	},
+})
+
+lspconfig.biome.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	-- root_dir = util.root_pattern("biome.json"),
+})
 
 -- lspconfig.oxc.setup({
 -- 	capabilities = capabilities,
@@ -362,6 +367,14 @@ lspconfig.lua_ls.setup({
 	},
 })
 
+-- lspconfig.phpactor.setup({
+-- 	on_attach = on_attach_without_formatting,
+-- 	init_options = {
+-- 		["language_server_phpstan.enabled"] = true,
+-- 		["language_server_psalm.enabled"] = false,
+-- 	},
+-- })
+
 local efm_languages = {
 	lua = {
 		require("efmls-configs.formatters.stylua"),
@@ -375,10 +388,17 @@ local phpcbf_executable = efm_fs_util.executable("phpcbf", efm_fs_util.Scope.COM
 if phpcbf_executable ~= "phpcbf" then
 	vim.list_extend(efm_languages.php, {
 		{
-			formatCommand = string.format("%s -q --stdin-path='${INPUT}' - | cat", phpcbf_executable),
+			formatCommand = string.format("%s -q --stdin-path='${INPUT}' -", phpcbf_executable),
 			formatStdin = true,
 			formatIgnoreExitCode = true,
 		},
+	})
+end
+
+local phpstan_executable = efm_fs_util.executable("phpstan", efm_fs_util.Scope.COMPOSER)
+if phpstan_executable ~= "phpstan" then
+	vim.list_extend(efm_languages.php, {
+		require("efmls-configs.linters.phpstan"),
 	})
 end
 
@@ -433,12 +453,15 @@ lspconfig.gopls.setup({
 	},
 })
 
---requires cargo:harper-ls
-lspconfig.harper_ls.setup({
-	settings = {
-		["harper-ls"] = {
-			userDictPath = "~/.config/harper-user-dict.txt",
-			fileDictPath = "~/.config/harper/",
-		},
-	},
-})
+-- requires cargo:harper-ls
+-- lspconfig.harper_ls.setup({
+-- 	settings = {
+-- 		["harper-ls"] = {
+-- 			userDictPath = "~/.config/harper-user-dict.txt",
+-- 			fileDictPath = "~/.config/harper/",
+-- 		},
+-- 	},
+-- })
+
+-- requires brew:zls
+lspconfig.zls.setup({})
