@@ -1,7 +1,7 @@
 local lsp_format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
 
 local function on_attach_formatting(client, bufnr)
-	if client.supports_method("textDocument/formatting") then
+	if client:supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = lsp_format_augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = lsp_format_augroup,
@@ -56,8 +56,8 @@ local function on_attach(client, bufnr)
 
 	vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
 	vim.cmd("command! LspDiagnosticLine lua vim.diagnostic.open_float()")
-	vim.cmd("command! LspDiagnosticNext lua vim.diagnostic.goto_next()")
-	vim.cmd("command! LspDiagnosticPrev lua vim.diagnostic.goto_prev()")
+	vim.cmd("command! LspDiagnosticNext lua vim.diagnostic.jump({ count = 1 })")
+	vim.cmd("command! LspDiagnosticPrev lua vim.diagnostic.jump({ count = -1 })")
 	vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
 	vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
 
@@ -91,7 +91,7 @@ local function on_attach(client, bufnr)
 
 	-- vim.notify("LSP " .. client.name .. " started.", vim.log.levels.INFO)
 
-	if client.supports_method("textDocument/inlayHint") then
+	if client:supports_method("textDocument/inlayHint") then
 		vim.lsp.inlay_hint.enable(true, { bufnr })
 	end
 end

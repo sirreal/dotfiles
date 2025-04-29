@@ -7,33 +7,46 @@ local on_attach = on_attach_module.on_attach
 local on_attach_formatting = on_attach_module.on_attach_formatting
 local on_attach_without_formatting = on_attach_module.on_attach_without_formatting
 
-local signs = {
-	Error = "",
-	Warn = "",
-	Hint = "󰋼",
-	Info = "󰋼",
-}
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
+	virtual_lines = { current_line = true },
+	underline = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.HINT] = "󰋼",
+			[vim.diagnostic.severity.INFO] = "󰋼",
+		},
+		linehl = {
+			[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+			[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+			[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+			[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+		},
+		numhl = {
+			[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+			[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+			[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+			[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+		},
+	},
+	-- virtual_text = true,
 })
 
-local on_publish_diagnostics = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = {
-		prefix = "",
-		spacing = 0,
-	},
-	signs = true,
-	underline = true,
-	update_in_insert = false,
-})
-vim.lsp.handlers["textDocument/publishDiagnostics"] = on_publish_diagnostics
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx)
+-- 	local config = {
+-- 		virtual_text = {
+-- 			prefix = "",
+-- 			spacing = 0,
+-- 		},
+-- 		signs = true,
+-- 		underline = true,
+-- 		update_in_insert = false,
+-- 	}
+-- 	vim.diagnostic.config(config, vim.lsp.diagnostic.get_namespace(ctx.client_id))
+-- end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -74,7 +87,7 @@ lspconfig.jsonls.setup({
 		provideFormatter = false,
 	},
 	handlers = {
-		["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+		["textDocument/publishDiagnostics"] = function(err, result, ctx)
 			-- jsonls doesn't really support json5
 			-- remove some annoying errors
 			if string.match(result.uri, "%.json5$", -6) and result.diagnostics ~= nil then
@@ -88,7 +101,7 @@ lspconfig.jsonls.setup({
 					end
 				end
 			end
-			on_publish_diagnostics(err, result, ctx, config)
+			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
 		end,
 	},
 	capabilities = capabilities,
@@ -124,7 +137,7 @@ lspconfig.ts_ls.setup({
 					end
 				end
 			end
-			on_publish_diagnostics(err, result, ctx, config)
+			vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx)
 		end,
 	},
 	on_attach = on_attach_without_formatting,

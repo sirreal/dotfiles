@@ -19,10 +19,8 @@ endif
 " No ex mode
 nnoremap Q <nop>
 
-" autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-" autocmd BufWritePost treesitter.lua source <afile> | TSUpdate
-autocmd TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=150, on_visual=true}
-
+" Highlight yanked text
+autocmd TextYankPost * lua vim.hl.on_yank({ higroup="IncSearch", timeout=150, on_visual=true })
 
 nnoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
 inoremap <C-p> <cmd>lua require('telescope.builtin').git_files()<CR>
