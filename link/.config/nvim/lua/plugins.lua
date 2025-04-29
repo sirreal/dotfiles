@@ -22,33 +22,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.rustaceanvim = function()
-	-- Update this path
-	local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
-	local codelldb_path = extension_path .. "adapter/codelldb"
-	local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-	local cfg = require("rustaceanvim.config")
-
-	return {
-		-- Plugin configuration
-		tools = {
-			enable_clippy = true,
-		},
-		-- LSP configuration
-		server = {
-			on_attach = require("plugins.lsp-attach"),
-			-- default_settings = {
-			-- 	-- rust-analyzer language server configuration
-			-- 	["rust-analyzer"] = {},
-			-- },
-		},
-		-- DAP configuration
-		dap = {
-			adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-		},
-	}
-end
-
 require("lazy").setup({
 	{
 		"catppuccin/nvim",
@@ -102,11 +75,6 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter-refactor",
-		dependencies = "nvim-treesitter/nvim-treesitter",
-	},
-
-	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
@@ -114,10 +82,13 @@ require("lazy").setup({
 		end,
 	},
 
-	--
-	-- Copilot
-	--
-	-- { "github/copilot.vim", git_branch = "release" },
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("treesitter-context")
+		end,
+	},
 
 	--
 	-- LSP
@@ -128,20 +99,11 @@ require("lazy").setup({
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"hrsh7th/cmp-nvim-lsp",
-			"ray-x/lsp_signature.nvim",
+			-- "ray-x/lsp_signature.nvim",
 		},
 		config = function()
 			require("plugins.lsp")
 		end,
-	},
-
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
-		lazy = false, -- This plugin is already lazy
-		dependencies = {
-			"mfussenegger/nvim-dap",
-		},
 	},
 
 	{
@@ -160,54 +122,81 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 	},
 
-	{
-		"saecki/crates.nvim",
-		version = "v0.4.0",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = function()
-			require("crates").setup({
-				-- src = {
-				-- 	cmp = {
-				-- 		enabled = true,
-				-- 	},
-				-- },
-				null_ls = {
-					enabled = true,
-					name = "crates.nvim",
-				},
-			})
-		end,
-	},
-
-	{
-		"vuki656/package-info.nvim",
-		dependencies = "MunifTanjim/nui.nvim",
-		config = function()
-			require("package-info").setup({})
-		end,
-	},
-
 	--
 	-- Completion
+	--
+
+	{
+		"github/copilot.vim",
+		branch = "release",
+		cmd = "Copilot",
+		config = function()
+			vim.keymap.set("i", "<Leader><Tab>", 'copilot#Accept("\\<CR>")', {
+				expr = true,
+				replace_keycodes = false,
+			})
+			vim.g.copilot_no_tab_map = true
+			-- vim.g.copilot_filetypes = {
+			--       \ '*': v:false,
+			--       \ 'python': v:true,
+			--       \ }
+		end,
+		ft = {
+			"javascript",
+			"php",
+			"typescript",
+			"typescriptreact",
+		},
+	},
+
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			suggestion = { enabled = false },
+	-- 			panel = { enabled = false },
+	-- 		})
+	-- 	end,
+	-- },
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	dependencies = {
+	-- 		"zbirenbaum/copilot.lua",
+	-- 	},
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
+
+	-- {
+	-- 	"supermaven-inc/supermaven-nvim",
+	-- 	config = function()
+	-- 		require("supermaven-nvim").setup({
+	-- 			keymaps = {
+	-- 				accept_suggestion = "<Leader><Tab>",
+	-- 				-- clear_suggestion = "<C-]>",
+	-- 				-- accept_word = "<C-j>",
+	-- 			},
+	-- 			disable_inline_completion = false, -- disables inline completion for use with cmp
+	-- 			disable_keymaps = false, -- disables built in keymaps for more manual control
+	-- 		})
+	-- 	end,
+	-- },
 	--
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
+			-- "zbirenbaum/copilot-cmp",
 			"nvim-telescope/telescope.nvim",
 			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
 			"neovim/nvim-lspconfig",
 			"onsails/lspkind-nvim",
-			"saadparwaiz1/cmp_luasnip",
 		},
 		config = function()
 			require("plugins.cmp")
 		end,
 	},
 
-	--
-	-- Finding stuff
-	--
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
@@ -223,20 +212,14 @@ require("lazy").setup({
 	--
 	-- Git
 	--
-
 	{
 		"lewis6991/gitsigns.nvim",
+		branch = "main",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("gitsigns").setup()
 		end,
 	},
-
-	-- {
-	--   "TimUntersberger/neogit",
-	--   cmd = "Neogit",
-	--   disable = true,
-	-- },
 
 	{
 		"nvim-lualine/lualine.nvim",
@@ -247,9 +230,17 @@ require("lazy").setup({
 					theme = "catppuccin",
 				},
 				sections = {
-					lualine_c = {
-						{ "filename", path = 1 },
+					lualine_a = { "mode" },
+					lualine_b = { --[["branch",]]
+						"diff",
+						"diagnostics",
 					},
+					lualine_c = { "filename" },
+					lualine_x = { --[["encoding", "fileformat",]]
+						"filetype",
+					},
+					lualine_y = { "progress" },
+					lualine_z = { "location" },
 				},
 			})
 		end,

@@ -152,11 +152,6 @@ set secure
 
 let g:node_host_prog = system('volta which neovim-node-host | tr -d "\n"')
 
-"
-" Rust
-"
-let g:rustfmt_autosave = 1
-
 " EditorConfig play well with others
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
