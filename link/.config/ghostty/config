@@ -2,21 +2,61 @@ font-family             = ""
 font-family-bold        = ""
 font-family-italic      = ""
 font-family-bold-italic = ""
-font-family             = "MonaspiceNe NFM"
-font-family-bold        = "MonaspiceNe NFM Bold"
-font-family-italic      = "MonaspiceRn NFM Regular"
-font-family-bold-italic = "MonaspiceRn NFM Medium"
+
+# Nerd Fonts now included
+# font-family             = "MonaspiceNe NFM"
+# font-family-bold        = "MonaspiceNe NFM Bold"
+# font-family-italic      = "MonaspiceRn NFM Regular"
+# font-family-bold-italic = "MonaspiceRn NFM Medium"
+
+font-family             = "Monaspace Neon Var"
+font-family-bold        = "Monaspace Neon Var"
+font-family-italic      = "Monaspace Radon Var"
+font-family-bold-italic = "Monaspace Radon Var"
+
+font-style = Regular
+font-style-bold = Bold
+font-style-italic = Regular
+font-style-bold-italic = SemiBold
+
 font-size = 17.0
 
-font-feature = ""
-# font-feature = ss01
-# font-feature = ss02
-# font-feature = ss03
-# font-feature = ss04
-# font-feature = ss05
-# font-feature = ss07
-# font-feature = calt
-# font-feature = dlig
+
+font-feature = calt # Texture healing
+font-feature = liga # Ligatures: ... /// // !! || ;;
+
+font-feature = ss01 # ligatures related to the equals glyph like `!=` and `===`.
+font-feature = ss02 # ligatures for greater/less or equal (`<=`, `>=`).
+font-feature = ss03 # ligatures related to arrows like `->` and `~>`.
+font-feature = ss04 # ligatures related to markup, like `</` and `/>`. 
+font-feature = ss05 # ligatures related to the F# programming language, like `|>`.
+font-feature = ss06 # ligatures related to repeated uses of `#`, `+`, and `&`.
+font-feature = ss07 # ligatures related to colons like `::` or `=:=`.
+font-feature = ss08 # ligatures related to combinations of periods with other glyphs like `..=` or `.-`.
+font-feature = ss09 # ligatures related to combinations of the greater/less than and equals signs, like  `<=>`,`>>`, and `=<<`.
+font-feature = ss10 # other tags, like `#[` and `#(`
+
+#### cv01-cv09: figure variants
+# - `cv01`: `0` alternates
+#   - 1: plain
+#   - 2: slash
+#   - 3: reverse slash
+#   - 4: cut-out slash
+# - `cv02`: `1` alternate (no serif)
+
+#### cv10-cv29: letter variants
+# - `cv10`: `l` `i` alternates (Neon, Argon, Xenon, Radon)
+# - `cv11`: `j` `f` `r` `t` alternates (Neon, Argon)
+
+#### cv30-cv59: symbol variants
+# - `cv30`: `*` vertically aligned closer to the top of the space, similar to how the asterisk was in Monaspace 1.0
+# - `cv31`: `*` 6-pointed asterisk
+# - `cv32`: `≥` `≤` angled lower line
+
+#### cv60-cv79: optional ligatures
+# - `cv60`: forces the `<=` pair to render in a fashion that matches `=>` instead of swapping for `≤`.
+# - `cv61`: enables the optional closed square ligature for `[]`. This can be distracting when authoring arrays in many editors, because they automatically insert the closing bracket, which immediately produces the closed square ligature upon typing the open bracket.
+# - `cv62`: `@_` ligature
 
 adjust-cell-height = 20%
 
