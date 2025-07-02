@@ -140,7 +140,7 @@ lspconfig.html.setup({
 -- requires npm:vscode-langservers-extracted
 lspconfig.cssls.setup({
 	capabilities = capabilities,
-	on_attach = on_attach,
+	on_attach = on_attach_without_formatting,
 })
 
 -- requires npm:cssmodules-language-server
