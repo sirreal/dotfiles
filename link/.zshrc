@@ -207,10 +207,6 @@ export CHROMEDRIVER_SKIP_DOWNLOAD=true
 export PUPPETEER_SKIP_DOWNLOAD=true
 
 
-# Source local shell config file
-if [[ -f ~/.zshrc.local ]]; then
-  . ~/.zshrc.local
-fi
 
 function serveitphp {
   php -S localhost:9090
@@ -248,6 +244,11 @@ function update-wp-stubs {
   unset _DIR
 }
 
-# vi et sw=4 ts=4 sts=4
-
 export APPLE_SSH_ADD_BEHAVIOR=macos
+
+# Source local shell config file
+if [[ -f ~/.zshrc.local ]]; then
+  . ~/.zshrc.local
+fi
+
+# vi et sw=4 ts=4 sts=4
