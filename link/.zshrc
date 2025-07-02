@@ -29,7 +29,7 @@ fi
 if type brew &> /dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 
-  alias brewup='brew update && brew upgrade --greedy && brew upgrade --cask'
+  alias brewup='brew update --quiet && brew outdated && brew upgrade --quiet --greedy && brew upgrade --quiet --cask'
 
   _target="$(brew --prefix)/opt/coreutils"
   if [[ -d $_target ]]; then
