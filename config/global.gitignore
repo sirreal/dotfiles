@@ -40,3 +40,6 @@ Session.vim
 
 # haskell stack
 .stack-work
+
+# Claude Code local settings
+.claude/settings.local.json
