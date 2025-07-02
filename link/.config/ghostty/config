@@ -19,7 +19,7 @@ font-style-bold = Bold
 font-style-italic = Regular
 font-style-bold-italic = SemiBold
 
-font-size = 17.0
+font-size = 16.0
 
 
 font-feature = calt # Texture healing
@@ -60,7 +60,20 @@ font-feature = ss10 # other tags, like `#[` and `#(`
 
 adjust-cell-height = 20%
 
+# Treat option as option so e.g. ⌥-. produces "…"
+macos-option-as-alt = false
+
+macos-window-shadow = false
+
+# official - Use the official Ghostty icon.
+# blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
+# custom-style - Use the official Ghostty icon but with custom styles applied to various layers.
+macos-icon = official
+
 theme = dark:catppuccin-frappe,light:catppuccin-latte
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
+
+# Type newline in Claude code
+keybind = shift+enter=text:\n
