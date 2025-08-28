@@ -96,7 +96,7 @@ lspconfig.jsonls.setup({
 })
 
 -- requires npm:typescript
-lspconfig.ts_ls.setup({
+vim.lsp.config("ts_ls", {
 	-- init_options = {
 	-- 	preferences = {
 	-- 		-- https://github.com/microsoft/TypeScript/blob/79a851426c514a12a75b342e8dd2460ee6615f73/tests/cases/fourslash/fourslash.ts#L683
@@ -130,27 +130,29 @@ lspconfig.ts_ls.setup({
 	on_attach = on_attach_without_formatting,
 	capabilities = capabilities,
 })
+vim.lsp.enable("ts_ls")
 
 -- requires npm:vscode-langservers-extracted
-lspconfig.html.setup({
+vim.lsp.config("html", {
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+vim.lsp.enable("html")
 
 -- requires npm:vscode-langservers-extracted
-lspconfig.cssls.setup({
+vim.lsp.config("cssls", {
 	capabilities = capabilities,
 	on_attach = on_attach_without_formatting,
 })
 
 -- requires npm:cssmodules-language-server
--- lspconfig.cssmodules_ls.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- })
+vim.lsp.config("cssmodules_ls", {
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
 
 -- requires npm:yaml-language-server
-lspconfig.yamlls.setup({
+vim.lsp.config("yamlls", {
 	settings = {
 		yaml = {
 			schemas = {
@@ -161,6 +163,7 @@ lspconfig.yamlls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+vim.lsp.enable("yamlls")
 
 -- requires brew:rust-analyzer
 local rust_analyzer_handlers = {}
@@ -173,8 +176,8 @@ for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) d
 	end
 end
 
-lspconfig.rust_analyzer.setup({
-	debug = true,
+vim.lsp.config("rust_analyzer", {
+	debug = false,
 	capabilities = capabilities,
 	on_attach = on_attach,
 	handlers = rust_analyzer_handlers,
@@ -186,26 +189,105 @@ lspconfig.rust_analyzer.setup({
 		},
 	},
 })
+vim.lsp.enable("rust_analyzer")
 
-lspconfig.biome.setup({
+vim.lsp.config("biome", {
+	debug = false,
+	capabilities = capabilities,
+	on_attach = on_attach_formatting,
+	-- root_dir = util.root_pattern("biome.json"),
+})
+vim.lsp.enable("biome")
+
+vim.lsp.config("oxc", {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	-- root_dir = util.root_pattern("biome.json"),
 })
-
--- lspconfig.oxc.setup({
--- 	capabilities = capabilities,
--- 	on_attach = on_attach,
--- 	-- root_dir = util.root_pattern("biome.json"),
--- })
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
+-- requires npm:devsense-php-ls
+vim.lsp.config("phptools", {
+	debug = false,
+	on_attach = on_attach_without_formatting,
+	php = {
+		version = "7.2",
+		["workspace.shortOpenTag"] = false,
+		["inlayHints.parameters.enabled"] = true,
+		stubs = {
+			"bcmath",
+			"bz2",
+			"Core",
+			"ctype",
+			"curl",
+			"date",
+			"dba",
+			"dom",
+			"exif",
+			"FFI",
+			"fileinfo",
+			"filter",
+			"ftp",
+			"gd",
+			"gettext",
+			"gmp",
+			"hash",
+			"iconv",
+			"intl",
+			"json",
+			"ldap",
+			"libxml",
+			"mbstring",
+			"meta",
+			"mysqli",
+			"odbc",
+			"openssl",
+			"pcntl",
+			"pcre",
+			"Phar",
+			"posix",
+			"pspell",
+			"readline",
+			"Reflection",
+			"session",
+			"shmop",
+			"SimpleXML",
+			"sockets",
+			"sodium",
+			"SPL",
+			"sqlite3",
+			"standard",
+			"superglobals",
+			"sysvmsg",
+			"sysvsem",
+			"sysvshm",
+			"tidy",
+			"tokenizer",
+			"xml",
+			"xmlreader",
+			"xmlrpc",
+			"xmlwriter",
+			"xsl",
+			"Zend OPcache",
+			"zip",
+			"zlib",
+
+			"wordpress",
+			-- "xdebug",
+		},
+	},
+	init_options = {
+		["0"] = require("plugins.phptools-key"),
+	},
+})
+vim.lsp.enable("phptools")
+
 -- requires npm:intelephense
-lspconfig.intelephense.setup({
+vim.lsp.config("intelephense", {
 	on_attach = on_attach_without_formatting,
 	capabilities = capabilities,
 	settings = {
@@ -324,7 +406,7 @@ lspconfig.intelephense.setup({
 				--
 
 				-- "wordpress",
-				"xdebug",
+				-- "xdebug",
 			},
 			format = {
 				enable = false,
@@ -335,9 +417,10 @@ lspconfig.intelephense.setup({
 		},
 	},
 })
+-- vim.lsp.enable("intelephense")
 
 -- requires brew:lua-language-server
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -366,14 +449,15 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
+vim.lsp.enable("lua_ls")
 
--- lspconfig.phpactor.setup({
--- 	on_attach = on_attach_without_formatting,
--- 	init_options = {
--- 		["language_server_phpstan.enabled"] = true,
--- 		["language_server_psalm.enabled"] = false,
--- 	},
--- })
+vim.lsp.config("phpactor", {
+	on_attach = on_attach_without_formatting,
+	init_options = {
+		["language_server_phpstan.enabled"] = true,
+		["language_server_psalm.enabled"] = false,
+	},
+})
 
 local efm_languages = {
 	lua = {
@@ -402,13 +486,15 @@ if phpstan_executable ~= "phpstan" then
 	})
 end
 
-local has_prettier = string.sub(efm_fs_util.executable("prettier", efm_fs_util.Scope.NODE), -27)
-	== "/node_modules/.bin/prettier"
+local has_prettier = string.sub(
+	efm_fs_util.executable("prettier", efm_fs_util.Scope.NODE),
+	-string.len("/node_modules/.bin/prettier")
+) == "/node_modules/.bin/prettier"
 if has_prettier then
 	efm_languages = vim.tbl_extend("force", efm_languages, {
 		javascript = { require("efmls-configs.formatters.prettier") },
 		typescript = { require("efmls-configs.formatters.prettier") },
-		typescriptreact = { require("efmls-configs.formatters.prettier") },
+		typescriptreact = { require("efms-configs.formatters.prettier") },
 
 		css = { require("efmls-configs.formatters.prettier") },
 		sass = { require("efmls-configs.formatters.prettier") },
@@ -425,7 +511,8 @@ if has_prettier then
 end
 
 -- requires brew:efm-langserver
-lspconfig.efm.setup({
+vim.lsp.config("efm", {
+	cmd = { "/Users/jonsurrell/jon/efm-langserver/efm-langserver" },
 	filetypes = vim.tbl_keys(efm_languages),
 	settings = {
 		languages = efm_languages,
@@ -441,9 +528,10 @@ lspconfig.efm.setup({
 	capabilities = capabilities,
 	on_attach = on_attach_formatting,
 })
+vim.lsp.enable("efm")
 
 -- requires brew:gopls
-lspconfig.gopls.setup({
+vim.lsp.config("gopls", {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
@@ -452,6 +540,7 @@ lspconfig.gopls.setup({
 		},
 	},
 })
+vim.lsp.enable("gopls")
 
 -- requires cargo:harper-ls
 -- lspconfig.harper_ls.setup({
@@ -464,4 +553,4 @@ lspconfig.gopls.setup({
 -- })
 
 -- requires brew:zls
-lspconfig.zls.setup({})
+vim.lsp.enable("zls")
