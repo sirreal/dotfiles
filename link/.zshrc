@@ -157,7 +157,7 @@ servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
   nvim.command("set background='"'"'dark'"'"'")
-  nvim.command("colorscheme catppuccin")
+  # nvim.command("colorscheme catppuccin")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
@@ -167,7 +167,7 @@ servers = sys.stdin.read().splitlines()
 def set_theme(s):
   nvim = n.attach("socket", path=s)
   nvim.command("set background='"'"'light'"'"'")
-  nvim.command("colorscheme catppuccin")
+  # nvim.command("colorscheme catppuccin")
   nvim.close()
 list(map(set_theme, servers))'"'"') &|'
 
@@ -206,7 +206,9 @@ export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export CHROMEDRIVER_SKIP_DOWNLOAD=true
 export PUPPETEER_SKIP_DOWNLOAD=true
 
-
+function svn-delta-diff {
+  svn diff -x -w "$@" | delta | less -R
+}
 
 function serveitphp {
   php -S localhost:9090
@@ -218,7 +220,9 @@ function volta-install {
     @wordpress/env               \
     @wp-now/wp-now               \
     @anthropic-ai/claude-code    \
+    @biomejs/biome               \
     cssmodules-language-server   \
+    devsense-php-ls              \
     intelephense                 \
     neovim                       \
     node@lts                     \
