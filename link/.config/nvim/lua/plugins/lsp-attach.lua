@@ -1,16 +1,21 @@
-local lsp_format_augroup = vim.api.nvim_create_augroup("LspFormat", {})
-
 local function on_attach_formatting(client, bufnr)
-	if client:supports_method("textDocument/formatting") then
-		vim.api.nvim_clear_autocmds({ group = lsp_format_augroup, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = lsp_format_augroup,
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
-			end,
-		})
-	end
+	local client_augroup = vim.api.nvim_create_augroup("LspFormat_" .. client.name, {})
+	vim.api.nvim_clear_autocmds({ group = client_augroup, buffer = bufnr })
+
+	-- Always set up the autocmd, but check capabilities at format time
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = client_augroup,
+		buffer = bufnr,
+		callback = function()
+			vim.lsp.buf.format({
+				bufnr = bufnr,
+				timeout_ms = 3000,
+				filter = function(c)
+					return c.name == client.name and c:supports_method("textDocument/formatting")
+				end,
+			})
+		end,
+	})
 end
 
 local function on_attach(client, bufnr)
