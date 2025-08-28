@@ -24,45 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
-		{
-			"catppuccin/nvim",
-			name = "catppuccin",
-			config = function()
-				require("catppuccin").setup({
-					background = {
-						light = "latte",
-						dark = "frappe",
-					},
-					integrations = {
-						cmp = true,
-						gitsigns = true,
-						lsp_trouble = true,
-						native_lsp = {
-							enabled = true,
-							virtual_text = {
-								errors = { "italic" },
-								hints = { "italic" },
-								warnings = { "italic" },
-								information = { "italic" },
-							},
-							underlines = {
-								errors = { "undercurl" },
-								hints = { "underdotted" },
-								warnings = { "undercurl" },
-								information = { "underdotted" },
-							},
-							inlay_hints = {
-								background = true,
-							},
-						},
-						telescope = { enabled = true },
-						treesitter = true,
-					},
-				})
-				vim.cmd([[colorscheme catppuccin]])
-				-- end
-			end,
-		},
+		{ "miikanissi/modus-themes.nvim", priority = 1000 },
 
 		"subnut/nvim-ghost.nvim",
 
@@ -229,7 +191,7 @@ require("lazy").setup({
 			config = function()
 				require("lualine").setup({
 					options = {
-						theme = "catppuccin",
+						theme = "modus-vivendi",
 					},
 					sections = {
 						lualine_a = { "mode" },

@@ -494,7 +494,7 @@ if has_prettier then
 	efm_languages = vim.tbl_extend("force", efm_languages, {
 		javascript = { require("efmls-configs.formatters.prettier") },
 		typescript = { require("efmls-configs.formatters.prettier") },
-		typescriptreact = { require("efms-configs.formatters.prettier") },
+		typescriptreact = { require("efmls-configs.formatters.prettier") },
 
 		css = { require("efmls-configs.formatters.prettier") },
 		sass = { require("efmls-configs.formatters.prettier") },
