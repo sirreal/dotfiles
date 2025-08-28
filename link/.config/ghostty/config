@@ -63,7 +63,7 @@ adjust-cell-height = 20%
 # Treat option as option so e.g. ⌥-. produces "…"
 macos-option-as-alt = false
 
-macos-window-shadow = false
+macos-window-shadow = true
 
 # official - Use the official Ghostty icon.
 # blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray
