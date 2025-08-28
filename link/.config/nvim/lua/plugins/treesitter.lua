@@ -22,6 +22,7 @@ require("nvim-treesitter.configs").setup({
 		"markdown",
 		"markdown_inline",
 		"php",
+		"phpdoc",
 		"python",
 		"rust",
 		"toml",
