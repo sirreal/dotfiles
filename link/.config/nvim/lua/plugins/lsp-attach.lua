@@ -7,13 +7,12 @@ local function on_attach_formatting(client, bufnr)
 		group = client_augroup,
 		buffer = bufnr,
 		callback = function()
-			vim.lsp.buf.format({
-				bufnr = bufnr,
-				timeout_ms = 3000,
-				filter = function(c)
-					return c.name == client.name and c:supports_method("textDocument/formatting")
-				end,
-			})
+			if client:supports_method("textDocument/formatting") then
+				vim.lsp.buf.format({
+					bufnr = bufnr,
+					timeout_ms = 3000,
+				})
+			end
 		end,
 	})
 end
