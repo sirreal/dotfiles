@@ -58,11 +58,10 @@ require("lazy").setup({
 		--
 
 		{
-			"creativenull/efmls-configs-nvim",
+			"neovim/nvim-lspconfig",
 			dependencies = {
-				"neovim/nvim-lspconfig",
+				"creativenull/efmls-configs-nvim",
 				"hrsh7th/cmp-nvim-lsp",
-				-- "ray-x/lsp_signature.nvim",
 			},
 			config = function()
 				require("plugins.lsp")
@@ -153,8 +152,8 @@ require("lazy").setup({
 				-- "zbirenbaum/copilot-cmp",
 				"nvim-telescope/telescope.nvim",
 				"hrsh7th/cmp-nvim-lsp",
-				"neovim/nvim-lspconfig",
 				"onsails/lspkind-nvim",
+				-- "hrsh7th/cmp-nvim-lsp-signature-help",
 			},
 			config = function()
 				require("plugins.cmp")

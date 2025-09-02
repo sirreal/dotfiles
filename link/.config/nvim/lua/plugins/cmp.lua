@@ -20,6 +20,7 @@ cmp.setup({
 	},
 	sources = {
 		{ group_index = 10, name = "nvim_lsp" },
+		-- { name = "nvim_lsp_signature_help" },
 		-- { group_index = 20, name = "copilot" },
 		-- { group_index = 20, name = "supermaven" },
 	},
