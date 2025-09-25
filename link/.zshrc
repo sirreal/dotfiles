@@ -15,6 +15,10 @@ if [[ -d "$HOME/.bin" ]]; then
   PATH="$HOME/.bin:$PATH"
 fi
 
+if [[ -d "$HOME/.local/bin" ]]; then
+  PATH="$HOME/.local/bin:$PATH"
+fi
+
 if [[ -d "$HOME/.volta" ]]; then
   PATH="$HOME/.volta/bin:$PATH"
 else
@@ -25,9 +29,13 @@ if [[ -d "$HOME/.composer/vendor/bin" ]]; then
   PATH="$PATH:$HOME/.composer/vendor/bin"
 fi
 
+if [[ -d "$HOME/.docker/cli-plugins" ]]; then
+  PATH="$PATH:$HOME/.docker/cli-plugins"
+fi
+
 # Brew stuff (macOS-specific)
 if type brew &> /dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  FPATH="$HOME/.local/share/zsh_completions":"$(brew --prefix)/share/zsh-completions":"$FPATH"
 
   alias brewup='brew update --quiet && brew outdated && brew upgrade --quiet --greedy && brew upgrade --quiet --cask'
 
