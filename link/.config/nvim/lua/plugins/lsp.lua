@@ -1,5 +1,4 @@
 local efm_fs_util = require("efmls-configs.fs")
-local lspconfig = require("lspconfig")
 local util = require("lspconfig.util")
 
 local on_attach_module = require("plugins.lsp-attach")
@@ -45,7 +44,7 @@ local ignored_ts_diagnostic_codes = {
 }
 
 -- requires npm:vscode-langservers-extracted
-lspconfig.eslint.setup({
+vim.lsp.config("eslint", {
 	settings = {
 		format = false,
 		packageManager = "yarn",
@@ -53,9 +52,10 @@ lspconfig.eslint.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+vim.lsp.enable("eslint")
 
 -- requires npm:stylelint-lsp
-lspconfig.stylelint_lsp.setup({
+vim.lsp.config("stylelint_lsp", {
 	settings = {
 		reportDescriptionlessDisables = true,
 		reportInvalidScopeDisables = true,
@@ -68,7 +68,7 @@ lspconfig.stylelint_lsp.setup({
 })
 
 -- requires npm:vscode-langservers-extracted
-lspconfig.jsonls.setup({
+vim.lsp.config("jsonls", {
 	filetypes = { "json", "jsonc", "json5" },
 	init_options = {
 		provideFormatter = false,
@@ -94,6 +94,7 @@ lspconfig.jsonls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+vim.lsp.enable("jsonls")
 
 -- requires npm:typescript
 vim.lsp.config("ts_ls", {
@@ -204,6 +205,7 @@ vim.lsp.config("oxc", {
 	on_attach = on_attach,
 	-- root_dir = util.root_pattern("biome.json"),
 })
+-- vim.lsp.enable("oxc")
 
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ";")
