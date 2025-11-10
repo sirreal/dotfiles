@@ -70,10 +70,13 @@ macos-window-shadow = true
 # custom-style - Use the official Ghostty icon but with custom styles applied to various layers.
 macos-icon = official
 
-theme = dark:catppuccin-frappe,light:catppuccin-latte
+theme = "dark:Catppuccin Frappe,light:Catppuccin Latte"
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
 
 # Type newline in Claude code
 keybind = shift+enter=text:\n
+
+# Quick terminal
+keybind = global:shift+ctrl+alt+super+grave_accent=toggle_quick_terminal
