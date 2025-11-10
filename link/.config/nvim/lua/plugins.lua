@@ -77,10 +77,9 @@ require("lazy").setup({
 
 		{
 			"folke/trouble.nvim",
+			branch = "main",
+			opts = {},
 			cmd = "Trouble",
-			config = function()
-				require("trouble").setup({})
-			end,
 			dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
 		},
 
