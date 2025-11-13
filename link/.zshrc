@@ -240,6 +240,7 @@ function volta-install {
     stylelint                    \
     stylelint-lsp                \
     typescript                   \
+    @typescript/native-preview   \
     typescript-language-server   \
     vscode-langservers-extracted \
     yaml-language-server         \

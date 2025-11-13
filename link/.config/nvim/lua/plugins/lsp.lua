@@ -96,8 +96,8 @@ vim.lsp.config("jsonls", {
 })
 vim.lsp.enable("jsonls")
 
--- requires npm:typescript
-vim.lsp.config("ts_ls", {
+-- requires npm:typescript, npm:typescript-language-server
+local ts_config = {
 	-- init_options = {
 	-- 	preferences = {
 	-- 		-- https://github.com/microsoft/TypeScript/blob/79a851426c514a12a75b342e8dd2460ee6615f73/tests/cases/fourslash/fourslash.ts#L683
@@ -130,8 +130,12 @@ vim.lsp.config("ts_ls", {
 	},
 	on_attach = on_attach_without_formatting,
 	capabilities = capabilities,
-})
-vim.lsp.enable("ts_ls")
+}
+
+vim.lsp.config("ts_ls", ts_config)
+--vim.lsp.enable("ts_ls")
+vim.lsp.config("tsgo", ts_config)
+vim.lsp.enable("tsgo")
 
 -- requires npm:vscode-langservers-extracted
 vim.lsp.config("html", {
