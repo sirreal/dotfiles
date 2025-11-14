@@ -470,7 +470,12 @@ local efm_languages = {
 		require("efmls-configs.formatters.stylua"),
 	},
 	php = {
-		require("efmls-configs.linters.phpcs"),
+		vim.tbl_extend("force", require("efmls-configs.linters.phpcs"), {
+			lintCommand = string.format(
+				'%s --no-colors --tab-width=1 --report=emacs --stdin-path="${INPUT}" -',
+				efm_fs_util.executable("phpcs", efm_fs_util.Scope.COMPOSER)
+			),
+		}),
 	},
 }
 
