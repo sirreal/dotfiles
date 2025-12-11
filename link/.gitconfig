@@ -88,6 +88,7 @@
 
 [init]
 	defaultBranch = main
+	defaultRefFormat = reftable
 
 [interactive]
 #	diffFilter = delta --color-only --features "$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
