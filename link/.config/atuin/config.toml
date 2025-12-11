@@ -3,3 +3,33 @@ ctrl_n_shortcuts = true
 
 # Turn on workspaces / segment command search by versioned directory
 workspaces = true
+
+# Disable automatic sync
+auto_sync = false
+
+# Use fuzzy search
+search_mode = "fuzzy"
+
+# Difault filter search results by workspace
+filter_mode = "workspace"
+
+# Up-arrow searches within current session only
+filter_mode_shell_up_key_binding = "session"
+
+# Filter out noise commands from history
+history_filter = [
+  "^fg$",
+  "^bg$",
+  "^ls$",
+  "^cd$",
+  "^cd ",
+  "^pwd$",
+  "^clear$",
+  "^reset$",
+  "^exit$",
+  "^nvim$",
+  "^git p$",
+  "^git f$",
+  "^git st$",
+  "^:", # Not in neovim :D
+]
