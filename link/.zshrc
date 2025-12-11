@@ -79,7 +79,12 @@ zstyle ':completion:*' completer _expand _complete # _ignored _correct _approxim
 zstyle :compinstall filename '/Users/jonsurrell/.zshrc'
 
 autoload -Uz compinit
-compinit
+# Cache compinit for faster shell startup (rebuild cache once per day)
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 # End of lines added by compinstall
 
 
