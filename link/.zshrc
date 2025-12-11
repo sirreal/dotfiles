@@ -35,11 +35,12 @@ fi
 
 # Brew stuff (macOS-specific)
 if type brew &> /dev/null; then
-  FPATH="$HOME/.local/share/zsh_completions":"$(brew --prefix)/share/zsh-completions":"$FPATH"
+  _BREW_PREFIX="$(brew --prefix)"
+  FPATH="$HOME/.local/share/zsh_completions":"$_BREW_PREFIX/share/zsh-completions":"$FPATH"
 
   alias brewup='brew update --quiet && brew outdated && brew upgrade --quiet --greedy && brew upgrade --quiet --cask'
 
-  _target="$(brew --prefix)/opt/coreutils"
+  _target="$_BREW_PREFIX/opt/coreutils"
   if [[ -d $_target ]]; then
     PATH="$_target/libexec/gnubin:$PATH"
     MANPATH="$_target/libexec/gnuman:$MANPATH"
@@ -47,7 +48,7 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install coreutils`.'
   fi
 
-  _target="$(brew --prefix)/opt/grep"
+  _target="$_BREW_PREFIX/opt/grep"
   if [[ -d $_target ]]; then
     PATH="$_target/libexec/gnubin:$PATH"
     MANPATH="$_target/libexec/gnuman:$MANPATH"
@@ -55,7 +56,7 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install grep`.'
   fi
 
-  _target="$(brew --prefix)/opt/gnu-sed"
+  _target="$_BREW_PREFIX/opt/gnu-sed"
   if [[ -d $_target ]]; then
     PATH="$_target/libexec/gnubin:$PATH"
     MANPATH="$_target/libexec/gnuman:$MANPATH"
@@ -63,7 +64,7 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install gnu-sed`.'
   fi
 
-  _target="$(brew --prefix)/opt/curl"
+  _target="$_BREW_PREFIX/opt/curl"
   if [[ -d $_target ]]; then
     PATH="$_target/bin:$PATH"
     MANPATH="$_target/share/man:$MANPATH"
@@ -71,7 +72,7 @@ if type brew &> /dev/null; then
     echo 'You may want to `brew install curl`.'
   fi
 
-  unset _target
+  unset _target _BREW_PREFIX
 fi
 
 # The following lines were added by compinstall
