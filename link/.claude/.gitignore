@@ -1,3 +1,7 @@
-*
+/*
 !/.gitignore
 !/CLAUDE.md
+
+!/agents/
+!/commands/
+!/skills/
