@@ -221,7 +221,8 @@ export CHROMEDRIVER_SKIP_DOWNLOAD=true
 export PUPPETEER_SKIP_DOWNLOAD=true
 
 function svn-delta-diff {
-  svn diff -x -w "$@" | delta | less -R
+  _mode="$(defaults read -globalDomain AppleInterfaceStyle 1> /dev/null 2> /dev/null && echo dark-mode || echo light-mode)"
+  svn diff -x -w "$@" | delta --features "$_mode" | less -R
 }
 
 function serveitphp {

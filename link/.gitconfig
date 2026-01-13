@@ -64,9 +64,7 @@
 	renames = true
 	colorMoved = plain
 	mnemonicPrefix = true
-
-[difftool]
-	prompt = false
+	tool = delta
 
 [feature]
 	experimental = true
@@ -155,5 +153,9 @@
 
 [include]
 	path = ~/.gitconfig.local
+
+[difftool "delta"]
+	cmd = delta --color-only \"$LOCAL\" \"$REMOTE\"
+	prompt = false
 
 ; vi: ts=4 sw=4 sts=4 noet

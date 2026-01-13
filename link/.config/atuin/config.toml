@@ -28,8 +28,17 @@ history_filter = [
   "^reset$",
   "^exit$",
   "^nvim$",
+
   "^git p$",
   "^git f$",
   "^git st$",
   "^:", # Not in neovim :D
+
+  # I can't type
+  "^gi ", # like "gi tp"
+  "^gitp$",
+  "^gitst$",
+  "^gitf$",
+
+  "\\bGT_ROOT=",
 ]
