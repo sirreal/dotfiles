@@ -2,6 +2,7 @@
 description: Generate a WordPress core commit message from a GitHub PR
 allowed-tools:
   - Bash(~/.claude/scripts/wp-trac-ticket.php:*)
+  - Bash(~/.claude/scripts/wp-trac-changeset.php:*)
   - Bash(gh pr view:*)
   - Skill(wp-commit-format)
 argument-hint: [pr-number]
@@ -48,14 +49,33 @@ You _must_ use the `wp-commit-format` skill to ensure the commit message adheres
    - Fetch those related tickets using `~/.claude/scripts/wp-trac-ticket.php <ticket-number>` to understand how they're related
    - Include related tickets as `See #...` references in the commit message
    - Reference related tickets in the description if appropriate to explain context
+   - Note any changeset references found (see step 4)
 
-4. **Get props from PR comments:**
+4. **Discover referenced changesets:**
+
+   Changesets may appear as `r12345` or `[12345]` (e.g., "reverts r58123", "follow-up to [58123]").
+
+   Collect changeset references from:
+   - The PR description
+   - The linked Trac ticket
+   - Related tickets discovered in step 3
+
+5. **Explore discovered changesets:**
+
+   For each changeset found, look it up using: `~/.claude/scripts/wp-trac-changeset.php <changeset-number>`
+
+   Use changeset information to understand relationships:
+   - What the original change did (for reverts or follow-ups)
+   - Related tickets that may need `See #...` references
+   - Context that should be mentioned in the commit message description
+
+6. **Get props from PR comments:**
 
    - Fetch the props comment from the PR using:
      `gh pr view [pr-number] --comments | rg "Use this line as a base for the props" -A3`
    - Extract the props list from the line starting with `Props `
 
-5. **Generate the commit message:**
+7. **Generate the commit message:**
 
    - Follow the WordPress commit message format guidelines above
 
