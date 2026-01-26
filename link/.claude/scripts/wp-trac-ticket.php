@@ -30,6 +30,7 @@ curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_USERAGENT, 'wp-trac-ticket/1.0');
 curl_exec($ch);
 $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+unset($ch);
 
 if ($http_code < 200 || $http_code >= 300) {
     fwrite(STDERR, "Error: Could not fetch ticket #{$ticket_num}\n");
