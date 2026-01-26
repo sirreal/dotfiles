@@ -158,4 +158,9 @@
 	cmd = delta --color-only \"$LOCAL\" \"$REMOTE\"
 	prompt = false
 
+[difftool "kdiff3"]
+	cmd = kdiff3 \"$LOCAL\" \"$REMOTE\"
+[mergetool "kdiff3"]
+	trustExitCode = false
+
 ; vi: ts=4 sw=4 sts=4 noet
