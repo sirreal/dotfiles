@@ -29,6 +29,7 @@ Fixes #12345. See #67890.
 - Must be one line, no line breaks
 - Aim for ~50 characters, max 70
 - Prefix with component/focus of the change (from Trac ticket component, unless it's "General")
+- The list of valid components is at the end of this document
 - Use imperative mood: "Add feature" not "Adds feature" or "Added feature"
 - Must end with a period
 
@@ -76,6 +77,57 @@ Fixes #12345. See #67890.
 - `Fixes #12345.` - closes the ticket
 - `See #12345.` - references without closing
 - Multiple tickets: `Fixes #123, #456. See #789.`
+
+## Valid Components
+
+The following components are the **only** valid component WordPress core commit messages (from Trac).
+
+- Administration
+- AI
+- Bootstrap/Load
+- Build/Test Tools
+- Bundled Theme
+- Cache API
+- Comments
+- Cron API
+- Customize
+- Database
+- Date/Time
+- Editor
+- Export
+- External Libraries
+- Feeds
+- Filesystem API
+- Formatting
+- General
+- Help/About
+- HTML API
+- HTTP API
+- I18N
+- Import
+- Interactivity API
+- Mail
+- Media
+- Networks and Sites
+- Options, Meta APIs
+- Permalinks
+- Plugins
+- Posts, Post Types
+- Privacy
+- Query
+- REST API
+- Script Loader
+- Security
+- Site Health
+- Sitemaps
+- Taxonomy
+- Themes
+- Toolbar
+- Upgrade/Install
+- Users
+- XML-RPC
+
+**Note:** "General" is listed for reference but should not be used as a prefix (see below).
 
 ## Things to Avoid
 
