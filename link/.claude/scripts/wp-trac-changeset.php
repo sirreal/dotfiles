@@ -48,82 +48,77 @@ if (!$overview) {
 
 // Extract fields from the overview using CSS selectors
 $timestamp_el = $overview->querySelector('dd.time');
-$timestamp = $timestamp_el ? preg_replace('/\s+/', ' ', trim($timestamp_el->textContent)) : '';
+$timestamp = $timestamp_el ? preg_replace( '/\s+/', ' ', trim( $timestamp_el->textContent, " \t\n\r\f"  ) ) : '';
 
 $author_el = $overview->querySelector('dd.author');
 $author = $author_el ? trim($author_el->textContent) : '';
 
 $message_el = $overview->querySelector('dd.message');
-$message = $message_el ? convertHtmlToMarkdown($message_el) : '';
+$message = convertHTML( $message_el );
 
 // Location dd has class "searchable" but not "message"
 $location_el = $overview->querySelector('dt.location + dd a');
 $location = $location_el ? trim($location_el->textContent) : '';
 
-/**
- * Convert HTML content to markdown.
- */
-function convertHtmlToMarkdown(Dom\Node $node): string {
+function convertHTML(Dom\Element $node): string {
     $result = '';
 
     foreach ($node->childNodes as $child) {
         if ($child->nodeType === XML_TEXT_NODE) {
             $result .= $child->textContent;
         } elseif ($child->nodeType === XML_ELEMENT_NODE) {
-            $tagName = strtolower($child->nodeName);
-
-            switch ($tagName) {
-                case 'br':
+            switch ( $child->tagName ) {
+                case 'BR':
                     $result .= "\n";
                     break;
-                case 'p':
-                    $result .= "\n\n" . convertHtmlToMarkdown($child) . "\n\n";
+                case 'P':
+                    $result .= "\n\n" . convertHTML($child) . "\n\n";
                     break;
-                case 'code':
-                    $result .= '`' . $child->textContent . '`';
+                case 'CODE':
+                    $result .= "`{$child->textContent}`";
                     break;
-                case 'a':
-                    $href = $child->getAttribute('href');
+                case 'A':
+                    $href = $child->getAttribute( 'href' );
                     $text = trim($child->textContent);
                     // Make relative URLs absolute
-                    if ($href && str_starts_with($href, '/')) {
-                        $href = 'https://core.trac.wordpress.org' . $href;
+                    if ( $href && str_starts_with( $href, '/' ) ) {
+                        $href = "https://core.trac.wordpress.org{$href}";
                     }
-                    if ($href && $text) {
+                    if ( ! empty( $href ) && ! empty( $text ) ) {
                         $result .= "[{$text}]({$href})";
                     } else {
                         $result .= $text;
                     }
                     break;
-                case 'strong':
-                case 'b':
-                    $result .= '**' . convertHtmlToMarkdown($child) . '**';
+                case 'STRONG':
+                case 'B':
+                    $result .= '**' . convertHTML($child) . '**';
                     break;
-                case 'em':
-                case 'i':
-                    $result .= '*' . convertHtmlToMarkdown($child) . '*';
+                case 'EM':
+                case 'I':
+                    $result .= '_' . convertHTML($child) . '_';
                     break;
                 default:
-                    $result .= convertHtmlToMarkdown($child);
+                    $result .= convertHTML($child);
                     break;
             }
         }
     }
 
     // Clean up excessive whitespace
-    $result = preg_replace('/\n{3,}/', "\n\n", $result);
-    return trim($result);
+    return preg_replace( '/\n{3,}/', "\n\n", trim( $result, " \t\n\r\f" ) );
 }
 
 // Output as markdown
-echo "# Trac Changeset r{$changeset_num}\n";
-echo "\n";
-echo "**Timestamp:** {$timestamp}\n";
-echo "**Author:** {$author}\n";
-if ($location) {
-    echo "**Location:** {$location}\n";
-}
-echo "\n";
-echo "## Message\n";
-echo "\n";
-echo "{$message}\n";
+echo
+	<<<MARKDOWN
+	# Trac Changeset [{$changeset_num}]
+
+	- Timestamp: {$timestamp}
+	- Author: {$author}
+	- Location: {$location}
+
+	## Message
+	{$message}
+	MARKDOWN;
+
