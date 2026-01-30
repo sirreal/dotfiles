@@ -1,5 +1,5 @@
 ---
-description: Look up a WordPress Trac ticket
+description: Look up a WordPress Trac ticket (#123 or https://core.trac.wordpress.org/ticket/123)
 allowed-tools:
   - Bash(~/.claude/scripts/wp-trac-ticket.php:*)
 argument-hint: <ticket-number>
