@@ -89,22 +89,46 @@ if (empty($display_cols)) {
     $display_cols = $headers;
 }
 
-// Output markdown table header
-$header_row = array_map(function($col) {
-    return ucfirst(escape_cell($col));
-}, $display_cols);
-echo '| ' . implode(' | ', $header_row) . " |\n";
-echo '|' . str_repeat('---|', count($display_cols)) . "\n";
+// Build table data and calculate column widths
+$table_headers = [];
+$table_rows = [];
+$col_widths = [];
 
-// Output rows
+foreach ($display_cols as $col) {
+    $header = ucfirst(escape_cell($col));
+    $table_headers[] = $header;
+    $col_widths[] = mb_strlen($header);
+}
+
 foreach ($rows as $row) {
     $cells = [];
-    foreach ($display_cols as $col) {
-        $value = $row[$col] ?? '';
-
-        $cells[] = escape_cell($value);
+    foreach ($display_cols as $i => $col) {
+        $value = escape_cell($row[$col] ?? '');
+        $cells[] = $value;
+        $col_widths[$i] = max($col_widths[$i], mb_strlen($value));
     }
-    echo '| ' . implode(' | ', $cells) . " |\n";
+    $table_rows[] = $cells;
+}
+
+// Output padded markdown table
+$padded = [];
+foreach ($table_headers as $i => $header) {
+    $padded[] = str_pad($header, $col_widths[$i]);
+}
+echo '| ' . implode(' | ', $padded) . " |\n";
+
+$separators = [];
+foreach ($col_widths as $width) {
+    $separators[] = str_repeat('-', $width);
+}
+echo '|-' . implode('-|-', $separators) . "-|\n";
+
+foreach ($table_rows as $cells) {
+    $padded = [];
+    foreach ($cells as $i => $cell) {
+        $padded[] = str_pad($cell, $col_widths[$i]);
+    }
+    echo '| ' . implode(' | ', $padded) . " |\n";
 }
 
 echo "\n" . count($rows) . " ticket(s) found.\n";
