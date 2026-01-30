@@ -3,20 +3,145 @@
 /**
  * Fetch WordPress Trac query results as markdown table.
  *
- * Usage: wp-trac-search.php <query-url>
+ * Usage: wp-trac-search.php [options]
  */
 
-if ($argc < 2) {
-    fwrite(STDERR, "Usage: wp-trac-search.php <query-url>\n");
-    exit(1);
+$help = <<<'HELP'
+wp-trac-search.php [options]
+
+Filter options (exact match):
+  --component=VALUE    Filter by component
+  --status=VALUE       Filter by status
+  --type=VALUE         Filter by type
+  --milestone=VALUE    Filter by milestone (e.g., "6.8", "Awaiting Review", "Future Release")
+  --owner=VALUE        Filter by owner username
+  --reporter=VALUE     Filter by reporter username
+  --focuses=VALUE      Filter by focus area
+  --priority=VALUE     Filter by priority
+  --resolution=VALUE   Filter by resolution (for closed tickets)
+
+Search options (contains match):
+  --summary=VALUE      Search in ticket summary
+  --description=VALUE  Search in ticket description
+  --keywords=VALUE     Search in keywords
+
+Sort options:
+  --order=FIELD        Sort by field (id, summary, status, priority, etc.)
+  --sort=asc|desc      Sort direction (default: asc)
+
+Other:
+  --url=URL            Use raw Trac query URL instead of building from args
+  --help               Show this help
+
+Repeat an option for AND logic: --status=new --status=assigned
+
+Recognized values:
+
+  Components: AI, Administration, Application Passwords, Autosave, Bootstrap/Load,
+    Build/Test Tools, Bundled Theme, Cache API, Canonical, Charset, Comments,
+    Cron API, Customize, Database, Date/Time, Editor, Embeds, Emoji, Export,
+    External Libraries, Feeds, Filesystem API, Formatting, Gallery, General,
+    HTML API, HTTP API, Help/About, I18N, Import, Interactivity API,
+    Login and Registration, Mail, Media, Menus, Networks and Sites, Notes,
+    Options, Meta APIs, Permalinks, Pings/Trackbacks, Plugins, Post Formats,
+    Post Thumbnails, Posts, Post Types, Privacy, Query, Quick/Bulk Edit,
+    REST API, Revisions, Rewrite Rules, Role/Capability, Script Loader,
+    Security, Shortcodes, Site Health, Sitemaps, Taxonomy, Text Changes,
+    Themes, TinyMCE, Toolbar, Upgrade/Install, Upload, Users, Widgets,
+    WordPress.org Site, XML-RPC
+
+  Focuses: ui, accessibility, javascript, css, tests, docs, rtl, administration,
+    template, multisite, rest-api, performance, privacy, sustainability, ui-copy,
+    coding-standards, php-compatibility
+
+  Status: new, assigned, accepted, closed, reopened, reviewing
+
+  Type: defect (bug), enhancement, feature request, task (blessed)
+
+  Priority: highest omg bbq, high, normal, low, lowest
+
+  Resolution: fixed, invalid, wontfix, duplicate, worksforme, maybelater,
+    reported-upstream
+HELP;
+
+// Parse command line options
+$longopts = [
+    'component:',
+    'status:',
+    'type:',
+    'milestone:',
+    'owner:',
+    'reporter:',
+    'focuses:',
+    'priority:',
+    'resolution:',
+    'summary:',
+    'description:',
+    'keywords:',
+    'order:',
+    'sort:',
+    'url:',
+    'help',
+];
+
+$options = getopt('', $longopts);
+
+// Show help if no args or --help
+if ($argc < 2 || isset($options['help'])) {
+    echo $help . "\n";
+    exit(0);
 }
 
-$url = $argv[1];
+// Build URL from options or use --url directly
+if (isset($options['url'])) {
+    $url = $options['url'];
+    // Validate URL starts with Trac query endpoint
+    if (strpos($url, 'https://core.trac.wordpress.org/query') !== 0) {
+        fwrite(STDERR, "Error: URL must start with https://core.trac.wordpress.org/query\n");
+        exit(1);
+    }
+} else {
+    // Build query parameters from CLI args
+    $params = [];
 
-// Validate URL starts with Trac query endpoint
-if (strpos($url, 'https://core.trac.wordpress.org/query') !== 0) {
-    fwrite(STDERR, "Error: URL must start with https://core.trac.wordpress.org/query\n");
-    exit(1);
+    // Exact match fields
+    $exact_fields = ['component', 'status', 'type', 'milestone', 'owner', 'reporter', 'focuses', 'priority', 'resolution'];
+    foreach ($exact_fields as $field) {
+        if (isset($options[$field])) {
+            $values = (array) $options[$field];
+            foreach ($values as $value) {
+                $params[] = [$field, $value];
+            }
+        }
+    }
+
+    // Contains match fields (prepend ~ for contains)
+    $contains_fields = ['summary', 'description', 'keywords'];
+    foreach ($contains_fields as $field) {
+        if (isset($options[$field])) {
+            $values = (array) $options[$field];
+            foreach ($values as $value) {
+                $params[] = [$field, '~' . $value];
+            }
+        }
+    }
+
+    // Sort options
+    if (isset($options['order'])) {
+        $params[] = ['order', $options['order']];
+    }
+    if (isset($options['sort']) && $options['sort'] === 'desc') {
+        $params[] = ['desc', '1'];
+    }
+
+    // Build query string (handle repeated params manually)
+    $query_parts = [];
+    foreach ($params as [$key, $value]) {
+        $query_parts[] = urlencode($key) . '=' . urlencode($value);
+    }
+    $query_string = implode('&', $query_parts);
+
+    $url = 'https://core.trac.wordpress.org/query' . ($query_string ? '?' . $query_string : '');
 }
 
 // Append &format=tab if missing
