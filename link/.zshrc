@@ -131,13 +131,7 @@ bindkey '^W' backward-kill-word
 
 export KEYTIMEOUT=1
 
-alias "cd.."='cd ..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
+alias gitp='git p'
 
 if [[ "$(\ls --version | head -n1)" =~ '^ls \(GNU coreutils\) 9\.' ]]; then
   alias ls="ls --classify=auto --color=auto --group-directories-first --hyperlink=auto"
