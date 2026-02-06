@@ -163,4 +163,4 @@
 [mergetool "kdiff3"]
 	trustExitCode = false
 
-; vi: ts=4 sw=4 sts=4 noet
+# vi: syntax=gitconfig ts=4 sw=4 sts=4 noet
