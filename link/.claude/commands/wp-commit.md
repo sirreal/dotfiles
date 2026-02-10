@@ -1,10 +1,13 @@
 ---
-description: Generate a WordPress core commit message from a GitHub PR
+description: Generate a WordPress Core subversion commit message.
+disable-model-invocation: true
+user-invocable: true
 allowed-tools:
-  - Bash(~/.claude/scripts/wp-trac-ticket.php:*)
-  - Bash(~/.claude/scripts/wp-trac-changeset.php:*)
   - Bash(gh pr view:*)
-  - Skill(wp-commit-format)
+  - Skill(wordpress-trac:search)
+  - Skill(wordpress-trac:timeline)
+  - Skill(wordpress-trac:ticket)
+  - Skill(wordpress-trac:changeset)
 argument-hint: [pr-number]
 ---
 
@@ -42,11 +45,13 @@ You _must_ use the `wp-commit-format` skill to ensure the commit message adheres
 
 3. **Fetch Trac ticket details:**
 
-   - Use the script: `~/.claude/scripts/wp-trac-ticket.php <ticket-number>` to look up the ticket details
+Always the `/wordpress-trac:ticket [--discussion] <number>` to fetch ticket details.
+
+   - Fetch the main ticket details with discussion.
    - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
    - Use the ticket summary and description to help form the commit message
    - Look for related ticket references (#12345) in the description
-   - Fetch those related tickets using `~/.claude/scripts/wp-trac-ticket.php <ticket-number>` to understand how they're related
+   - Fetch related tickets to understand the relationship
    - Include related tickets as `See #...` references in the commit message
    - Reference related tickets in the description if appropriate to explain context
    - Note any changeset references found (see step 4)
@@ -62,7 +67,7 @@ You _must_ use the `wp-commit-format` skill to ensure the commit message adheres
 
 5. **Explore discovered changesets:**
 
-   For each changeset found, look it up using: `~/.claude/scripts/wp-trac-changeset.php <changeset-number>`
+Always the `/wordpress-trac:changeset <number>` to fetch changeset details.
 
    Use changeset information to understand relationships:
    - What the original change did (for reverts or follow-ups)
@@ -82,3 +87,138 @@ You _must_ use the `wp-commit-format` skill to ensure the commit message adheres
 ## Output
 
 Output ONLY the commit message text, properly formatted and ready to copy. Do not include any other commentary or explanation. Use a markdown code block so it's easy to copy.
+
+
+# WordPress Core Commit Message Format
+
+This skill documents the official formatting guidelines for WordPress core commit messages.
+
+## Message Structure
+
+```
+Component: Brief summary.
+
+Longer description with more details, such as a `new_hook` being introduced with the context of a `$post` and a `$screen`.
+
+More paragraphs can be added as needed.
+
+Developed in {GitHub PR URL}.
+
+Follow-up to [12345], [67890].
+
+Props person, another.
+Fixes #12345. See #67890.
+```
+
+## Brief Summary (First Line)
+
+- Must be one line, no line breaks
+- Aim for ~50 characters, max 70
+- Prefix with component/focus of the change (from Trac ticket component, unless it's "General")
+- The list of valid components is at the end of this document
+- Use imperative mood: "Add feature" not "Adds feature" or "Added feature"
+- Must end with a period
+
+## Description
+
+- Keep brief - only include essential details
+- Separated from summary by a blank line
+- Describe the _what_ and _why_ (the diff shows _how_)
+- The description is an _overview_ - present relevant information but avoid excessive detail
+- Informed by both the PR and the Trac ticket
+- Can be multiple paragraphs separated by blank lines, but prefer fewer
+- Do NOT manually wrap lines
+- Code/hooks in backticks: `function_name()`, `hook_name`
+- Each sentence should begin with capital letter and end with period
+
+## Developed In Line
+
+- Add `Developed in {PR URL}.` at the end of the description
+- Must end with a period
+- Must be preceded by a blank line
+- Comes BEFORE Follow-up to line (if present)
+- Must be followed by a blank line
+
+## Follow-up To Line (Optional)
+
+- Add `Follow-up to [12345], [67890].` if this change relates to previous changesets
+- Format changeset numbers as `[123]` (square brackets)
+- Comes AFTER Developed in line
+- Must be preceded by a blank line
+- Must be followed by a blank line before Props
+
+## Props Line
+
+- Give props to all contributors: patches, code suggestions, design, testing, reporting
+- Format: `Props username1, username2.`
+- No `@` before usernames
+- No colon after "Props"
+- Separate usernames with comma + space
+- Must end with a period
+- Use WordPress.org usernames (check Trac for correct usernames)
+
+## Ticket References
+
+- On their own line below Props
+- `Fixes #12345.` - closes the ticket
+- `See #12345.` - references without closing
+- Multiple tickets: `Fixes #123, #456. See #789.`
+
+## Valid Components
+
+The following components are the **only** valid component WordPress core commit messages (from Trac).
+
+- Administration
+- AI
+- Bootstrap/Load
+- Build/Test Tools
+- Bundled Theme
+- Cache API
+- Comments
+- Cron API
+- Customize
+- Database
+- Date/Time
+- Editor
+- Export
+- External Libraries
+- Feeds
+- Filesystem API
+- Formatting
+- General
+- Help/About
+- HTML API
+- HTTP API
+- I18N
+- Import
+- Interactivity API
+- Mail
+- Media
+- Networks and Sites
+- Options, Meta APIs
+- Permalinks
+- Plugins
+- Posts, Post Types
+- Privacy
+- Query
+- REST API
+- Script Loader
+- Security
+- Site Health
+- Sitemaps
+- Taxonomy
+- Themes
+- Toolbar
+- Upgrade/Install
+- Users
+- XML-RPC
+
+**Note:** "General" is listed for reference but should not be used as a prefix (see below).
+
+## Things to Avoid
+
+- Don't use `props` anywhere except the Props line
+- Don't use hashtag + numbers except for Trac ticket references
+- Don't manually wrap description lines
+- Don't include time estimates or scheduling language
+- Don't use the component prefix if the Trac component is "General"
