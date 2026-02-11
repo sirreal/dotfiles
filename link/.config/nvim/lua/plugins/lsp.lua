@@ -220,11 +220,14 @@ table.insert(runtime_path, "lua/?/init.lua")
 vim.lsp.config("phptools", {
 	debug = false,
 	on_attach = on_attach_without_formatting,
-	php = {
-		version = "7.2",
-		["workspace.shortOpenTag"] = false,
-		["inlayHints.parameters.enabled"] = true,
-		stubs = {
+	settings = {
+		["php.problems.exclude"] = {
+			["**"] = "php_short_array_syntax",
+		},
+		["php.version"] = "7.4",
+		["php.workspace.shortOpenTag"] = false,
+		["php.inlayHints.parameters.enabled"] = false,
+		["php.stubs"] = {
 			"bcmath",
 			"bz2",
 			"Core",
@@ -282,7 +285,7 @@ vim.lsp.config("phptools", {
 			"zip",
 			"zlib",
 
-			"wordpress",
+			-- "wordpress",
 			-- "xdebug",
 		},
 	},
