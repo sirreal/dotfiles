@@ -74,11 +74,13 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
    - Related tickets that may need `See #...` references
    - Context that should be mentioned in the commit message description
 
-6. **Get props from PR comments:**
+6. **Build the props list:**
 
-   - Fetch the props comment from the PR using:
+   - Start with the PR's props comment:
      `gh pr view [pr-number] --comments | rg "Use this line as a base for the props" -A3`
    - Extract the props list from the line starting with `Props `
+   - Review the Trac ticket discussion (fetched in step 3 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
+   - Merge both sources, deduplicating usernames. Use WordPress.org usernames from Trac.
 
 7. **Generate the commit message:**
 
