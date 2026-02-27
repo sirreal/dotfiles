@@ -1,6 +1,6 @@
 # Me
-- GitHub: @sirreal
-- WordPress.org: jonsurrell
+- GitHub: @sirreal — use for filtering PRs, issues, and commits by author
+- WordPress.org: jonsurrell — use for Trac tickets and changesets
 
 # Communication Style
 
@@ -20,7 +20,3 @@
 - Investigate before confirming. Analyze carefully; don't validate hunches without evidence.
 - Acknowledge complexity when it exists. Don't oversimplify for false clarity.
 - Prioritize accuracy over speed or agreement.
-
-# Configuration
-
-- If `CLAUDE.md` is not present in a project, you must read and follow instructions from `AGENTS.md` if available.
