@@ -4,10 +4,10 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
-  - Skill(wordpress-trac:search)
-  - Skill(wordpress-trac:timeline)
-  - Skill(wordpress-trac:ticket)
-  - Skill(wordpress-trac:changeset)
+  - Skill(wordpress-trac:wp-trac-search)
+  - Skill(wordpress-trac:wp-trac-timeline)
+  - Skill(wordpress-trac:wp-trac-ticket)
+  - Skill(wordpress-trac:wp-trac-changeset)
 argument-hint: [pr-number]
 ---
 
@@ -15,7 +15,7 @@ argument-hint: [pr-number]
 
 Generate a WordPress core commit message from a GitHub PR and its linked Trac ticket.
 
-You _must_ use the `wp-commit-format` skill to ensure the commit message adheres to WordPress core standards!
+Follow the "WordPress Core Commit Message Format" section below when generating the commit message.
 
 ## Context
 
@@ -45,7 +45,7 @@ You _must_ use the `wp-commit-format` skill to ensure the commit message adheres
 
 3. **Fetch Trac ticket details:**
 
-Always the `/wordpress-trac:ticket [--discussion] <number>` to fetch ticket details.
+Always use the `/wordpress-trac:wp-trac-ticket [--discussion] <number>` skill to fetch ticket details.
 
    - Fetch the main ticket details with discussion.
    - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
@@ -67,7 +67,7 @@ Always the `/wordpress-trac:ticket [--discussion] <number>` to fetch ticket deta
 
 5. **Explore discovered changesets:**
 
-Always the `/wordpress-trac:changeset <number>` to fetch changeset details.
+Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch changeset details.
 
    Use changeset information to understand relationships:
    - What the original change did (for reverts or follow-ups)
@@ -82,7 +82,7 @@ Always the `/wordpress-trac:changeset <number>` to fetch changeset details.
 
 7. **Generate the commit message:**
 
-   - Follow the WordPress commit message format guidelines above
+   - Follow the WordPress commit message format guidelines below
 
 ## Output
 
