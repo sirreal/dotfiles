@@ -80,7 +80,7 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
      `gh pr view [pr-number] --comments | rg "Use this line as a base for the props" -A3`
    - Extract the props list from the line starting with `Props `
    - Review the Trac ticket discussion (fetched in step 3 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
-   - Merge both sources, deduplicating usernames. Use WordPress.org usernames from Trac.
+   - Merge both sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
 
 7. **Generate the commit message:**
 
@@ -168,7 +168,7 @@ Fixes #12345. See #67890.
 
 ## Valid Components
 
-The following components are the **only** valid component WordPress core commit messages (from Trac).
+The following components are the **only** valid component prefixes for WordPress core commit messages.
 
 - Administration
 - AI
@@ -214,8 +214,6 @@ The following components are the **only** valid component WordPress core commit 
 - Upgrade/Install
 - Users
 - XML-RPC
-
-**Note:** "General" is listed for reference but should not be used as a prefix (see below).
 
 ## Things to Avoid
 
