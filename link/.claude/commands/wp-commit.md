@@ -63,6 +63,7 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
    - What the original change did (for reverts or follow-ups)
    - Related tickets that may need `See #...` references
    - Context that should be mentioned in the commit message description
+   - Use "Follow-up to [nnnnn]" when this commit directly continues, reverts, or fixes a previous changeset. Use "See #nnnnn" for loosely related tickets.
 
 4. **Build the props list:**
 
