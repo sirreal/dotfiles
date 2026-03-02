@@ -23,7 +23,7 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 
 ## Instructions
 
-1. **Get the PR information:**
+1. **Get PR info and extract Trac ticket:**
 
    - Fetch PR details using:
      ```sh
@@ -35,17 +35,16 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
      {{.body}}'
      ```
    - The PR information should help inform the commit message.
-
-2. **Extract the Trac ticket:**
-
    - Look in the PR description for a line starting with `Trac ticket: `
    - The ticket URL may be a markdown link `[text](url)` or plain text URL
    - Extract the ticket number from the URL (e.g., `https://core.trac.wordpress.org/ticket/64419` → `64419`)
+   - If multiple Trac tickets are referenced, identify the primary ticket (the one being fixed). Additional tickets will become `See #...` references.
    - If no Trac ticket is found, ask the user for one
+   - Note any changeset references (`r12345` or `[12345]`) in the PR description for step 3.
 
-3. **Fetch Trac ticket details:**
+2. **Fetch Trac ticket details:**
 
-Always use the `/wordpress-trac:wp-trac-ticket [--discussion] <number>` skill to fetch ticket details.
+Always use the `/wordpress-trac:wp-trac-ticket --discussion <number>` skill to fetch ticket details.
 
    - Fetch the main ticket details with discussion.
    - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
@@ -54,18 +53,9 @@ Always use the `/wordpress-trac:wp-trac-ticket [--discussion] <number>` skill to
    - Fetch related tickets to understand the relationship
    - Include related tickets as `See #...` references in the commit message
    - Reference related tickets in the description if appropriate to explain context
-   - Note any changeset references found (see step 4)
+   - Collect any changeset references (`r12345` or `[12345]`, e.g., "reverts r58123", "follow-up to [58123]") from the ticket and its discussion, combining them with any found in the PR description from step 1.
 
-4. **Discover referenced changesets:**
-
-   Changesets may appear as `r12345` or `[12345]` (e.g., "reverts r58123", "follow-up to [58123]").
-
-   Collect changeset references from:
-   - The PR description
-   - The linked Trac ticket
-   - Related tickets discovered in step 3
-
-5. **Explore discovered changesets:**
+3. **Explore discovered changesets:**
 
 Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch changeset details.
 
@@ -74,15 +64,15 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
    - Related tickets that may need `See #...` references
    - Context that should be mentioned in the commit message description
 
-6. **Build the props list:**
+4. **Build the props list:**
 
    - Start with the PR's props comment:
      `gh pr view [pr-number] --comments | rg "Use this line as a base for the props" -A3`
    - Extract the props list from the line starting with `Props `
-   - Review the Trac ticket discussion (fetched in step 3 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
+   - Review the Trac ticket discussion (fetched in step 2 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
    - Merge both sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
 
-7. **Generate the commit message:**
+5. **Generate the commit message:**
 
    - Follow the WordPress commit message format guidelines below
 
