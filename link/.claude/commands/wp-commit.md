@@ -67,11 +67,14 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
 
 4. **Build the props list:**
 
-   - Start with the PR's props comment:
-     `gh pr view [pr-number] --comments | rg "Use this line as a base for the props" -A3`
+   - Fetch the PR's props comment:
+     ```sh
+     gh pr view [pr-number] --json comments --jq '.comments[] | select(.body | test("Use this line as a base for the props")) | .body'
+     ```
    - Extract the props list from the line starting with `Props `
+   - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
    - Review the Trac ticket discussion (fetched in step 2 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
-   - Merge both sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
+   - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
 
 5. **Generate the commit message:**
 
