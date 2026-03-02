@@ -63,7 +63,7 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
    - What the original change did (for reverts or follow-ups)
    - Related tickets that may need `See #...` references
    - Context that should be mentioned in the commit message description
-   - Use "Follow-up to [nnnnn]" when this commit directly continues, reverts, or fixes a previous changeset. Use "See #nnnnn" for loosely related tickets.
+   - Add a "Follow-up to [nnnnn]" line when this commit directly continues, reverts, or fixes a previous changeset.
 
 4. **Build the props list:**
 
@@ -117,13 +117,15 @@ Fixes #12345. See #67890.
 
 ## Description
 
-- Keep brief - only include essential details
+- One paragraph is typical, two is occasional, more can be used exceptionally.
+- If the summary line fully captures the change, the description may be omitted (keep only the Developed in, Props, and Fixes lines).
 - Separated from summary by a blank line
 - Describe the _what_ and _why_ (the diff shows _how_)
 - The description is an _overview_ - present relevant information but avoid excessive detail
 - Informed by both the PR and the Trac ticket
 - Can be multiple paragraphs separated by blank lines, but prefer fewer
 - Do NOT manually wrap lines
+- Don't include time estimates or scheduling language
 - Code/hooks in backticks: `function_name()`, `hook_name`
 - Each sentence should begin with capital letter and end with period
 
@@ -137,8 +139,8 @@ Fixes #12345. See #67890.
 
 ## Follow-up To Line (Optional)
 
-- Add `Follow-up to [12345], [67890].` if this change relates to previous changesets
-- Format changeset numbers as `[123]` (square brackets)
+- Add `Follow-up to [12345], [67890].` when this commit directly continues, reverts, or fixes a previous changeset
+- Format changeset numbers as `[123]` (square brackets) — these reference changesets, not tickets
 - Comes AFTER Developed in line
 - Must be preceded by a blank line
 - Must be followed by a blank line before Props
@@ -152,6 +154,7 @@ Fixes #12345. See #67890.
 - Separate usernames with comma + space
 - Must end with a period
 - Use WordPress.org usernames (check Trac for correct usernames)
+- Don't use `props` anywhere except the Props line
 
 ## Ticket References
 
@@ -208,11 +211,3 @@ The following components are the **only** valid component prefixes for WordPress
 - Upgrade/Install
 - Users
 - XML-RPC
-
-## Things to Avoid
-
-- Don't use `props` anywhere except the Props line
-- Don't use hashtag + numbers except for Trac ticket references
-- Don't manually wrap description lines
-- Don't include time estimates or scheduling language
-- Don't use the component prefix if the Trac component is "General"
