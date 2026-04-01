@@ -8,7 +8,7 @@ allowed-tools:
   - Skill(wordpress-trac:wp-trac-timeline)
   - Skill(wordpress-trac:wp-trac-ticket)
   - Skill(wordpress-trac:wp-trac-changeset)
-argument-hint: [pr-number]
+argument-hint: "[pr-number]"
 ---
 
 # WordPress Commit Message Generator
