@@ -77,8 +77,9 @@ set list
 
 "spaces not tabs
 set expandtab
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
 " Highlight searches
 set hlsearch
