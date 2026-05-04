@@ -71,6 +71,7 @@ macos-window-shadow = true
 macos-icon = official
 
 theme = "dark:Catppuccin Frappe,light:Catppuccin Latte"
+theme = "dark:Birds Of Paradise,light:iTerm2 Solarized Light"
 
 cursor-style-blink = false
 shell-integration-features = no-cursor
