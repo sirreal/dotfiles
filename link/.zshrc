@@ -224,27 +224,28 @@ function serveitphp {
 }
 
 function volta-install {
-  volta install                  \
-    @typescript/analyze-trace    \
-    @wordpress/env               \
-    @wp-now/wp-now               \
-    @anthropic-ai/claude-code    \
-    @biomejs/biome               \
-    cssmodules-language-server   \
-    devsense-php-ls              \
-    intelephense                 \
-    neovim                       \
-    node@lts                     \
-    npm                          \
-    oxlint                       \
-    pnpm                         \
-    stylelint                    \
-    stylelint-lsp                \
-    typescript                   \
-    @typescript/native-preview   \
-    typescript-language-server   \
-    vscode-langservers-extracted \
-    yaml-language-server         \
+  volta install                   \
+    @biomejs/biome                \
+    @mariozechner/pi-coding-agent \
+    @stylelint/language-server    \
+    @typescript/analyze-trace     \
+    @typescript/native-preview    \
+    @wordpress/env                \
+    @wp-now/wp-now                \
+    cssmodules-language-server    \
+    devsense-php-ls               \
+    intelephense                  \
+    neovim                        \
+    node@22                       \
+    npm                           \
+    opencode-ai                   \
+    oxlint                        \
+    pnpm                          \
+    stylelint                     \
+    typescript                    \
+    typescript-language-server    \
+    vscode-langservers-extracted  \
+    yaml-language-server          \
     yarn
 }
 
