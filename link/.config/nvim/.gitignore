@@ -1,3 +1,4 @@
 /plugin/
 /lazy-lock.json
 /lua/plugins/phptools-key.lua
+/nvim-pack-lock.json

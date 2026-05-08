@@ -9,212 +9,130 @@ else
 	vim.o.background = "light"
 end
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(ev)
+		if
+			ev.data.spec.name == "nvim-treesitter"
+			and (ev.data.kind == "install" or ev.data.kind == "update")
+		then
+			if not ev.data.active then
+				vim.cmd.packadd("nvim-treesitter")
+			end
+			vim.cmd("TSUpdate")
+		end
+	end,
+})
 
-require("lazy").setup({
-	spec = {
-		{ "miikanissi/modus-themes.nvim", priority = 1000 },
+vim.pack.add({
+	{ src = "https://github.com/rebelot/kanagawa.nvim" },
 
-		"subnut/nvim-ghost.nvim",
+	{ src = "https://github.com/subnut/nvim-ghost.nvim" },
 
-		-- Highlights
-		{
-			"nvim-treesitter/nvim-treesitter",
-			build = ":TSUpdate",
-			config = function()
-				require("plugins.treesitter")
-			end,
-		},
+	{ src = "https://github.com/creativenull/efmls-configs-nvim" },
+	{ src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
 
-		{
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			dependencies = "nvim-treesitter/nvim-treesitter",
-			config = function()
-				require("plugins.treesitter-textobjects")
-			end,
-		},
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 
-		{
-			"nvim-treesitter/nvim-treesitter-context",
-			dependencies = "nvim-treesitter/nvim-treesitter",
-			config = function()
-				require("treesitter-context")
-			end,
-		},
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+	{ src = "https://github.com/folke/trouble.nvim", version = "main" },
 
-		--
-		-- LSP
-		--
+	{ src = "https://github.com/onsails/lspkind-nvim" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/vuki656/package-info.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/hrsh7th/nvim-cmp" },
 
-		{
-			"neovim/nvim-lspconfig",
-			dependencies = {
-				"creativenull/efmls-configs-nvim",
-				"hrsh7th/cmp-nvim-lsp",
-			},
-			config = function()
-				require("plugins.lsp")
-			end,
-		},
+	{ src = "https://github.com/lewis6991/gitsigns.nvim", version = "main" },
 
-		{
-			"nvim-tree/nvim-web-devicons",
-			config = function()
-				require("nvim-web-devicons").setup({ default = true })
-			end,
-		},
+	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 
-		{
-			"folke/trouble.nvim",
-			branch = "main",
-			opts = {},
-			cmd = "Trouble",
-			dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
-		},
+	{ src = "https://github.com/godlygeek/tabular" },
+	{ src = "https://github.com/junegunn/vim-easy-align" },
+	{ src = "https://github.com/tpope/vim-fugitive" },
+	{ src = "https://github.com/tpope/vim-repeat" },
+	{ src = "https://github.com/tpope/vim-rsi" },
+	{ src = "https://github.com/tpope/vim-surround" },
+	{ src = "https://github.com/tpope/vim-eunuch" },
+})
 
-		--
-		-- Completion
-		--
+vim.pack.add({
+	{ src = "https://github.com/github/copilot.vim", version = "release" },
+}, { load = false })
 
-		{
-			"github/copilot.vim",
-			branch = "release",
-			cmd = "Copilot",
-			config = function()
-				vim.keymap.set("i", "<Leader><Tab>", 'copilot#Accept("\\<CR>")', {
-					expr = true,
-					replace_keycodes = false,
-				})
-				vim.g.copilot_no_tab_map = true
-				-- vim.g.copilot_filetypes = {
-				--       \ '*': v:false,
-				--       \ 'python': v:true,
-				--       \ }
-			end,
-			ft = {
-				"javascript",
-				"php",
-				"typescript",
-				"typescriptreact",
-				"markdown",
-			},
-		},
+vim.opt.rtp:prepend("/Users/jonsurrell/jon/wp-commit-msg")
 
-		-- {
-		-- 	"zbirenbaum/copilot.lua",
-		-- 	config = function()
-		-- 		require("copilot").setup({
-		-- 			suggestion = { enabled = false },
-		-- 			panel = { enabled = false },
-		-- 		})
-		-- 	end,
-		-- },
-		-- {
-		-- 	"zbirenbaum/copilot-cmp",
-		-- 	dependencies = {
-		-- 		"zbirenbaum/copilot.lua",
-		-- 	},
-		-- 	config = function()
-		-- 		require("copilot_cmp").setup()
-		-- 	end,
-		-- },
-
-		-- {
-		-- 	"supermaven-inc/supermaven-nvim",
-		-- 	config = function()
-		-- 		require("supermaven-nvim").setup({
-		-- 			keymaps = {
-		-- 				accept_suggestion = "<Leader><Tab>",
-		-- 				-- clear_suggestion = "<C-]>",
-		-- 				-- accept_word = "<C-j>",
-		-- 			},
-		-- 			disable_inline_completion = false, -- disables inline completion for use with cmp
-		-- 			disable_keymaps = false, -- disables built in keymaps for more manual control
-		-- 		})
-		-- 	end,
-		-- },
-		--
-		{
-			"hrsh7th/nvim-cmp",
-			dependencies = {
-				-- "zbirenbaum/copilot-cmp",
-				"nvim-telescope/telescope.nvim",
-				"hrsh7th/cmp-nvim-lsp",
-				"onsails/lspkind-nvim",
-				-- "hrsh7th/cmp-nvim-lsp-signature-help",
-			},
-			config = function()
-				require("plugins.cmp")
-			end,
-		},
-
-		{
-			"nvim-telescope/telescope.nvim",
-			dependencies = {
-				"nvim-lua/plenary.nvim",
-				"vuki656/package-info.nvim",
-			},
-			config = function()
-				require("plugins.telescope")
-			end,
-			cmd = "Telescope",
-		},
-
-		--
-		-- Git
-		--
-		{
-			"lewis6991/gitsigns.nvim",
-			branch = "main",
-			dependencies = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("gitsigns").setup()
-			end,
-		},
-
-		{
-			"nvim-lualine/lualine.nvim",
-			dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
-			config = function()
-				require("lualine").setup({
-					options = {
-						theme = "modus-vivendi",
-					},
-					sections = {
-						lualine_a = { "mode" },
-						lualine_b = { --[["branch",]]
-							"diff",
-							"diagnostics",
-						},
-						lualine_c = { "filename" },
-						lualine_x = { --[["encoding", "fileformat",]]
-							"filetype",
-						},
-						lualine_y = { "progress" },
-						lualine_z = { "location" },
-					},
-				})
-			end,
-		},
-
-		"godlygeek/tabular",
-		"junegunn/vim-easy-align",
-		"tpope/vim-fugitive",
-		"tpope/vim-repeat",
-		"tpope/vim-rsi",
-		"tpope/vim-surround",
-		"tpope/vim-eunuch",
+require("kanagawa").setup({
+	compile = false,
+	undercurl = true,
+	commentStyle = { italic = true },
+	functionStyle = {},
+	keywordStyle = { italic = true },
+	statementStyle = { bold = true },
+	typeStyle = {},
+	transparent = false,
+	dimInactive = false,
+	terminalColors = true,
+	colors = {
+		palette = {},
+		theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
 	},
-	rocks = { enabled = false },
+	overrides = function(colors)
+		return {}
+	end,
+	theme = "wave",
+	background = {
+		dark = "wave",
+		light = "lotus",
+	},
+})
+vim.cmd("colorscheme kanagawa-lotus")
+
+require("nvim-web-devicons").setup({ default = true })
+
+require("plugins.treesitter")
+require("plugins.treesitter-textobjects")
+require("treesitter-context")
+
+require("plugins.lsp")
+
+require("trouble").setup({})
+
+require("plugins.cmp")
+require("plugins.telescope")
+
+require("gitsigns").setup()
+
+require("lualine").setup({
+	options = {
+		theme = "modus-vivendi",
+	},
+	sections = {
+		lualine_a = { "mode" },
+		lualine_b = {
+			"diff",
+			"diagnostics",
+		},
+		lualine_c = { "filename" },
+		lualine_x = {
+			"filetype",
+		},
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
+	},
+})
+
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("i", "<Leader><Tab>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "javascript", "php", "typescript", "typescriptreact", "markdown" },
+	once = true,
+	callback = function()
+		vim.cmd.packadd("copilot.vim")
+	end,
 })
