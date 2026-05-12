@@ -1,0 +1,114 @@
+# Repro strategies (detailed)
+
+## phpunit
+
+The default and fastest WP test runner. Located at `vendor/bin/phpunit` after envlite init.
+
+### Running
+
+- All tests in a class: `vendor/bin/phpunit tests/phpunit/tests/dependencies/scripts.php`
+- Filter by test name: `vendor/bin/phpunit --filter METHOD_NAME`
+- By group: `vendor/bin/phpunit --group GROUP_NAME` (e.g. `dependencies`, `scripts`, `multisite`)
+- Multisite: `vendor/bin/phpunit -c tests/phpunit/multisite.xml`
+
+### Writing tests
+
+Conventions:
+- Class extends `WP_UnitTestCase`.
+- Method names start with `test_`.
+- Use `@ticket NNNNN` and `@covers ::function_name` PHPDoc tags.
+- Tests live in `tests/phpunit/tests/AREA/TOPIC.php`.
+
+### Output capture
+
+Use the `get_echo()` helper from `tests/phpunit/includes/utils.php`:
+
+```php
+$output = get_echo( 'wp_print_footer_scripts' );
+```
+
+`get_echo( $callable )` calls the function and captures its echoed output via output buffering.
+
+### WP_Scripts test isolation
+
+The `Tests_Dependencies_Scripts` class in `tests/phpunit/tests/dependencies/scripts.php` has a `set_up()` that:
+- Resets `$GLOBALS['wp_scripts']` to a fresh `WP_Scripts()` instance.
+- Removes the `wp_default_scripts` action (so default handles are NOT registered automatically).
+
+For tests that exercise script-loader behavior, place them in this class — and register handles explicitly:
+
+```php
+wp_register_script( 'jquery-ui-datepicker', '/handle.js', array(), '1.13.3', true );
+```
+
+The 5th argument `true` (or `array( 'in_footer' => true )`) places the handle in the footer group.
+
+## qunit
+
+WordPress JS test runner.
+
+### Running
+
+From the worktree root:
+
+```bash
+grunt qunit:compiled
+```
+
+For specific test files, consult `Gruntfile.js` qunit targets.
+
+In the browser (for interactive debugging): after `envlite up`, navigate via Playwright MCP to `http://127.0.0.1:PORT/tests/qunit/index.html`.
+
+qunit tests live in `tests/qunit/`. They use jQuery QUnit conventions: `QUnit.test(...)`, `QUnit.module(...)`.
+
+## Playwright MCP
+
+For browser-driven repro of UI behavior.
+
+### Setup
+
+1. Start envlite dev server backgrounded:
+
+```bash
+php ~/a8c/wordpress-develop/add-envlite-tool/tools/local-env/envlite.php up --force
+```
+
+Run via the Bash tool with `run_in_background: true`.
+
+2. Read the port:
+
+```bash
+cat .envlite/port
+```
+
+3. Navigate via `mcp__plugin_playwright_playwright__browser_navigate` to `http://127.0.0.1:PORT/`.
+4. Admin login (`admin` / `password`) at `/wp-login.php` when admin UI is needed.
+
+### Useful MCP tools
+
+- `mcp__plugin_playwright_playwright__browser_take_screenshot` — capture at decision points.
+- `mcp__plugin_playwright_playwright__browser_console_messages` — read browser console.
+- `mcp__plugin_playwright_playwright__browser_network_requests` — read network activity.
+- `mcp__plugin_playwright_playwright__browser_evaluate` — run JS in the page.
+
+When repro is complete via Playwright MCP, the captured manual recipe (URLs + click sequence + observed behavior) becomes the report's `verification` field.
+
+## Escalation
+
+Escalate from cheaper strategies only when the ticket signal is ambiguous:
+
+- phpunit returned no failure AND the ticket signal was ambiguous → try qunit (if JS-adjacent) or Playwright MCP (if UI-adjacent).
+- phpunit returned no failure AND the ticket signal pointed clearly at PHP → this is strong NOT-REPRODUCIBLE evidence; do not fishing-expedition. Add a probe to the codepath the ticket describes and confirm execution.
+
+## Probes (for NOT-REPRODUCIBLE evidence)
+
+To gather affirmative evidence the bug is absent, instrument the codepath the ticket describes:
+
+```php
+// Temporary, before committing — remove before commit.
+error_log( 'PROBE_50040: reached ' . __LINE__ . ' with $var=' . var_export( $var, true ) );
+```
+
+Then trigger the conditions in the ticket. Read `wp-content/debug.log` (after `define( 'WP_DEBUG', true )` and `define( 'WP_DEBUG_LOG', true )`) or the PHP error log. If the probe fires and the surrounding logic produced the expected output, NOT-REPRODUCIBLE is justified.
+
+Remove all probes before committing the fix branch.
