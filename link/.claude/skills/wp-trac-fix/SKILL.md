@@ -23,7 +23,7 @@ Create a per-ticket worktree forked from `upstream/trunk` and initialize envlite
 ```bash
 git fetch upstream
 git worktree add ~/a8c/wordpress-develop/agent-fixes/<ticket> \
-  -b fix/<ticket>-<slug> upstream/trunk
+  -b trac-<ticket>/<slug> upstream/trunk
 cd ~/a8c/wordpress-develop/agent-fixes/<ticket>
 php ~/a8c/wordpress-develop/add-envlite-tool/tools/local-env/envlite.php init --force
 ```
@@ -88,7 +88,7 @@ After the new test passes, run the broader test group it lives in (e.g. `vendor/
 
 ## Phase D — Commit and report
 
-Commit on the `fix/<ticket>-<slug>` branch with a WP-style message:
+Commit on the `trac-<ticket>/<slug>` branch with a WP-style message:
 
 ```
 <Component>: <imperative summary>.
@@ -105,7 +105,7 @@ Produce the final report as the last message of the conversation, 250 words max:
 ```
 classification:  <REPRODUCED+FIXED | REPRODUCED+UNFIXED | NOT-REPRODUCIBLE | INCONCLUSIVE>
 worktree:        <absolute path>
-branch:          fix/<ticket>-<slug>  (commit <sha>)
+branch:          trac-<ticket>/<slug>  (commit <sha>)
 root cause:      <one sentence | n/a>
 repro:           <exact command/URL/recipe>
 repro evidence:  <"Ticket reports X; repro produces Y; X ≈ Y because Z" | n/a>
