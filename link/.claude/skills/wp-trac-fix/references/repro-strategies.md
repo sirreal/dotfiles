@@ -84,14 +84,26 @@ cat .envlite/port
 3. Navigate via `mcp__plugin_playwright_playwright__browser_navigate` to `http://127.0.0.1:PORT/`.
 4. Admin login (`admin` / `password`) at `/wp-login.php` when admin UI is needed.
 
-### Useful MCP tools
+### Observe before inspecting
 
-- `mcp__plugin_playwright_playwright__browser_take_screenshot` — capture at decision points.
+The ticket's symptom is what a user sees. Reproduce that user-visible artifact first — the rendered text, layout, option list, focus state, or screenshot the ticket describes. Use `browser_snapshot` (accessibility tree) and `browser_take_screenshot` to capture it. Only after the symptom is reproduced should `browser_evaluate` or `browser_console_messages` be used, and then only to diagnose *why*.
+
+Reading internal framework state (e.g. `wp.data.select('core/editor').getEditorSettings().availableTemplates`, a Redux store) to argue what the user *would* see is not a substitute for observation. The repro-evidence rule is "X ≈ Y because Z," where X is the ticket's claim about user-visible behavior. If Y is internal state and Z is "source code says it renders unchanged," the chain has a hidden link — the rendering pipeline — that may transform the data in ways the source-skim missed.
+
+Concrete check: before any `browser_evaluate` against a framework store, confirm at least one snapshot or screenshot of the specific UI surface the ticket describes has been taken. If not, finish the UI interaction first. A failed attempt to find the right UI control (e.g. scanning `document.querySelectorAll('button')` and not finding the right text) is a signal to keep navigating — open the right panel, scroll, take an accessibility snapshot — not to pivot to data inspection.
+
+### MCP tools, ordered by purpose
+
+**Observation (use these first):**
+- `mcp__plugin_playwright_playwright__browser_snapshot` — accessibility tree; primary observation tool.
+- `mcp__plugin_playwright_playwright__browser_take_screenshot` — visual capture at decision points.
+
+**Diagnosis (after the symptom has been observed):**
 - `mcp__plugin_playwright_playwright__browser_console_messages` — read browser console.
 - `mcp__plugin_playwright_playwright__browser_network_requests` — read network activity.
-- `mcp__plugin_playwright_playwright__browser_evaluate` — run JS in the page.
+- `mcp__plugin_playwright_playwright__browser_evaluate` — run JS in the page; inspect framework state.
 
-When repro is complete via Playwright MCP, the captured manual recipe (URLs + click sequence + observed behavior) becomes the report's `verification` field.
+When repro is complete via Playwright MCP, the captured manual recipe (URLs + click sequence + observed behavior, with screenshot or accessibility-snapshot evidence) becomes the report's `verification` field.
 
 ## Reproducing from ticket snippets
 
