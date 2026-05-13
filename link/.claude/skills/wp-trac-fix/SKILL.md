@@ -48,13 +48,15 @@ Pick a strategy from the matrix and attempt once before escalating.
 | Ticket signal | Strategy |
 |---|---|
 | PHP API behavior | phpunit |
-| Admin UI / front-end rendering / browser-specific | Playwright MCP via `envlite up` |
-| Block editor / JS module / JS function correctness | qunit (CLI; open in browser via MCP for visual debugging) |
-| REST / Ajax endpoints | phpunit first; escalate to Playwright MCP only if PHP harness cannot reach the codepath |
+| Admin UI / front-end rendering / browser-specific | browser MCP via `envlite up` |
+| Block editor / JS module / JS function correctness | qunit (CLI; open in browser via a browser MCP for visual debugging) |
+| REST / Ajax endpoints | phpunit first; escalate to a browser MCP only if PHP harness cannot reach the codepath |
 | Multisite / cron / upgrade | phpunit (multisite group / cron tests / upgrade tests) |
-| Unclear, "looks wrong", "is slow" | Playwright MCP |
+| Unclear, "looks wrong", "is slow" | browser MCP |
 
-For browser-driven repro: run `envlite up --force` backgrounded, read port from `.envlite/port`, then drive `http://127.0.0.1:<port>/` via Playwright MCP. Admin login: `admin` / `password`.
+"Browser MCP" here means any MCP that drives a real browser (Playwright MCP being one such tool). Pick whichever is available in the session.
+
+For browser-driven repro: run `envlite up --force` backgrounded, read port from `.envlite/port`, then drive `http://127.0.0.1:<port>/` via the browser MCP. Admin login: `admin` / `password`.
 
 For phpunit: `vendor/bin/phpunit --filter <test_name>` from the worktree root.
 
@@ -79,7 +81,7 @@ Before declaring REPRODUCED, write a one-sentence comparison: "Ticket reports X 
 
 **Default: test-driven development.** Write a failing test in a standard WP test location (`tests/phpunit/tests/...` or `tests/qunit/tests/...`). Verify it fails. Implement the fix. Verify it passes.
 
-**TDD waiver** — only for genuine UI/visual bugs where the underlying logic cannot be isolated into a function-level test. If waived, replace the report's "verification" field with the exact manual recipe (Playwright steps or shell sequence) needed to re-verify the fix. Document the waiver reason in one sentence.
+**TDD waiver** — only for genuine UI/visual bugs where the underlying logic cannot be isolated into a function-level test. If waived, replace the report's "verification" field with the exact manual recipe (browser MCP steps or shell sequence) needed to re-verify the fix. Document the waiver reason in one sentence.
 
 ### Scope
 
@@ -93,7 +95,7 @@ Run, in this order:
 
 1. `vendor/bin/phpcs <changed-files>` — run as soon as the new test passes, on the modified source and test files only. WordPress core enforces phpcs cleanliness; failing it blocks merge. Run early so any style fixes happen before the broader checks.
 2. The broader test group the new test lives in (e.g. `vendor/bin/phpunit --group dependencies` for script-loader tests). Confirm zero regressions.
-3. For bugs that surface through a concrete admin URL or front-end page: end-to-end verify through that real entry point (browser via Playwright MCP + mu-plugin). A unit test that synthesizes the call sequence can pass while the real lifecycle still misbehaves.
+3. For bugs that surface through a concrete admin URL or front-end page: end-to-end verify through that real entry point (browser MCP + mu-plugin). A unit test that synthesizes the call sequence can pass while the real lifecycle still misbehaves.
 
 ### Critical review
 
@@ -139,5 +141,5 @@ notes:           <≤3 lines on edge cases, surprises, reviewer caveats>
 
 ## Additional resources
 
-- `references/repro-strategies.md` — detailed phpunit / qunit / Playwright MCP guidance, including WP test conventions, action-firing patterns, output capture via `get_echo`, ticket-snippet sanity checks (re-entrancy, broken samples), mu-plugin + browser end-to-end repro pattern, escalation rules, and probe technique for NOT-REPRODUCIBLE evidence.
+- `references/repro-strategies.md` — detailed phpunit / qunit / browser MCP guidance, including WP test conventions, action-firing patterns, output capture via `get_echo`, ticket-snippet sanity checks (re-entrancy, broken samples), mu-plugin + browser end-to-end repro pattern, escalation rules, and probe technique for NOT-REPRODUCIBLE evidence.
 - `references/worked-example.md` — full walkthrough of Trac #50040 (datepicker footer localization) from setup through report, including the critical-reading-of-comments lesson.
