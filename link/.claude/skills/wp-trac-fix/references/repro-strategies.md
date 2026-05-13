@@ -121,6 +121,7 @@ When the bug is surfaced through a concrete admin URL or front-end request:
 2. Force any required theme/state via `pre_option_*` filters in the same mu-plugin (e.g. `pre_option_stylesheet`, `pre_option_template`) to avoid navigating through admin screens.
 3. Drive the URL via the browser MCP. Observe the rendered UI through an accessibility snapshot or screenshot of the surface the ticket describes; querying specific elements / inline styles / network requests is fine for diagnosis but does not substitute for that observation. See "Observe before inspecting" above.
 4. Compare against the ticket's claim. This is the strongest form of `repro evidence` because it goes through the real codepath rather than a synthesized call sequence.
+5. **Delete the mu-plugin before running phpunit.** The test bootstrap loads from `src/`, so any filters or actions a repro mu-plugin registers will be active across the entire test suite — leaking into unrelated tests and producing failures that look like regressions from your fix. Remove `src/wp-content/mu-plugins/trac-<ticket>-repro.php` before any phpunit run, and re-create it if you need to return to the browser repro afterward.
 
 ## Escalation
 

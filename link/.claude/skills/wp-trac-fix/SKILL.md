@@ -75,7 +75,12 @@ After Phase B, classify the outcome:
 
 ### Repro evidence (mandatory)
 
-Before declaring REPRODUCED, write a one-sentence comparison: "Ticket reports X fails; my repro produces Y; X ≈ Y because Z." Include this verbatim in the final report. If X and Y diverge, the reproduction is not valid — keep working or classify INCONCLUSIVE.
+Before declaring REPRODUCED, write a one-sentence comparison: "Ticket reports X fails; my repro produces Y; X ≈ Y because Z." Include this verbatim in the final report. Two failure modes to guard against:
+
+- **Surface mismatch.** X must name the user-visible surface from the ticket (the specific dropdown, panel, screen, button). Y must be observed on that *same* surface, not an analogue. "Dropdown sorts wrong" vs "a helper function returns unsorted array" is NOT a match — the helper isn't a dropdown, even if they share code underneath. Shared code path is not sufficient; the bug must be observed where the OP says it lives.
+- **Synthetic-only repro.** If your evidence depends on a filter, mu-plugin, or fixture you authored to inject the trigger condition, you have isolated the mechanism, not reproduced. Reproduce first in a stock environment (real theme, real files, default settings) through the surface the OP named. Synthetic injection is a debugging tool that comes *after* stock repro, for isolating the mechanism — not a substitute. If a stock repro is genuinely impossible, state in the report what property of real-world input is load-bearing and why it cannot be elicited without injection.
+
+If either guard fails, keep working or classify INCONCLUSIVE.
 
 ## Phase C — Fix
 
@@ -102,7 +107,7 @@ Run, in this order:
 Before committing, review your own diff adversarially — as if reviewing a stranger's PR. Ask:
 
 - Does the change exceed the minimum needed to fix the ticket? Strip any drift.
-- Does the test fail without the fix and pass with it, *and* exercise the surface the bug actually occurs on (not a synthesized analogue)?
+- Does the test fail without the fix and pass with it, *and* exercise the surface the bug actually occurs on (not a synthesized analogue)? Trace the call chain from the user-visible surface to the code you changed; the test must sit on that chain. A red-then-green test on the *wrong layer* (e.g. a helper the user surface doesn't even call) proves nothing about the user-visible bug.
 - Are there assumptions in the fix that aren't load-bearing for the test? Are there callers/contexts that could rely on the prior behavior?
 - Did running phpcs / the regression group / end-to-end verification reveal anything you glossed over?
 - What would you push back on if a teammate sent this PR?
@@ -130,7 +135,7 @@ classification:  <REPRODUCED+FIXED | REPRODUCED+UNFIXED | NOT-REPRODUCIBLE | INC
 worktree:        <absolute path>
 branch:          trac-<ticket>/<slug>  (commit <sha>)
 root cause:      <one sentence | n/a>
-repro:           <exact command/URL/recipe>
+repro:           <exact command/URL/recipe — when the ticket's wording could plausibly refer to more than one UI surface, enumerate each with its state: broken / unaffected / not-checked. Do not declare REPRODUCED+FIXED with any plausible surface in not-checked state.>
 repro evidence:  <"Ticket reports X; repro produces Y; X ≈ Y because Z" | n/a>
 fix:             <one sentence | n/a>
 verification:    <command + observed result, OR manual recipe + observed result>
