@@ -34,7 +34,10 @@ envlite init runs `npm ci`, `npm run build:dev`, and `composer install` — minu
 
 Fetch description and comments. Use the `wp-trac-ticket` skill: basic mode for description, `--discussion` for comments, `--prs` to check for existing pull requests.
 
-Read critically. Recent comments labeled "reproduction report" may have tested the wrong scenario — confirm what the ticket actually claims is broken before accepting any commenter's conclusion. If the ticket's stated repro and a commenter's tested repro differ in a meaningful way (e.g. enqueue timing, action vs. event hook), note this discrepancy for the report's notes field.
+Read critically — the entire ticket, not only the comments. Descriptions, sample code, and commenter conclusions are all unreliable; they may be wrong, stale, or written without ever being run.
+
+- "Reproduction report" comments may have tested an adjacent scenario, not the actual claim. Confirm what the ticket claims is broken before accepting any commenter's conclusion. Note meaningful discrepancies in the report's notes field.
+- Sample code in the description may not run as written. If a transplanted snippet throws a fatal error or has no observable effect, the snippet is broken — that is NOT evidence the underlying bug is absent. Fix the snippet, retry, then decide. See `references/repro-strategies.md` for common snippet-failure modes.
 
 ## Phase B — Reproduce
 
@@ -82,9 +85,25 @@ Minimal but complete. The fix touches only the lines that must change. Variables
 
 **Hard cap: ~100 lines including the test.** If the fix grows past that, stop. Classify REPRODUCED+UNFIXED with notes describing what a fuller fix would entail. A small reviewable diff is worth more than a sprawling one.
 
-### Regression check
+### Verification
 
-After the new test passes, run the broader test group it lives in (e.g. `vendor/bin/phpunit --group dependencies` for script-loader tests). Confirm zero regressions before declaring complete.
+Run, in this order:
+
+1. `vendor/bin/phpcs <changed-files>` — run as soon as the new test passes, on the modified source and test files only. WordPress core enforces phpcs cleanliness; failing it blocks merge. Run early so any style fixes happen before the broader checks.
+2. The broader test group the new test lives in (e.g. `vendor/bin/phpunit --group dependencies` for script-loader tests). Confirm zero regressions.
+3. For bugs that surface through a concrete admin URL or front-end page: end-to-end verify through that real entry point (browser via Playwright MCP + mu-plugin). A unit test that synthesizes the call sequence can pass while the real lifecycle still misbehaves.
+
+### Critical review
+
+Before committing, review your own diff adversarially — as if reviewing a stranger's PR. Ask:
+
+- Does the change exceed the minimum needed to fix the ticket? Strip any drift.
+- Does the test fail without the fix and pass with it, *and* exercise the surface the bug actually occurs on (not a synthesized analogue)?
+- Are there assumptions in the fix that aren't load-bearing for the test? Are there callers/contexts that could rely on the prior behavior?
+- Did running phpcs / the regression group / end-to-end verification reveal anything you glossed over?
+- What would you push back on if a teammate sent this PR?
+
+Address what you find. If a concern can't be resolved within scope, capture it in the report's `notes` field rather than expanding the diff.
 
 ## Phase D — Commit and report
 
@@ -118,5 +137,5 @@ notes:           <≤3 lines on edge cases, surprises, reviewer caveats>
 
 ## Additional resources
 
-- `references/repro-strategies.md` — detailed phpunit / qunit / Playwright MCP guidance, including WP test conventions, action-firing patterns, output capture via `get_echo`, escalation rules, and probe technique for NOT-REPRODUCIBLE evidence.
+- `references/repro-strategies.md` — detailed phpunit / qunit / Playwright MCP guidance, including WP test conventions, action-firing patterns, output capture via `get_echo`, ticket-snippet sanity checks (re-entrancy, broken samples), mu-plugin + browser end-to-end repro pattern, escalation rules, and probe technique for NOT-REPRODUCIBLE evidence.
 - `references/worked-example.md` — full walkthrough of Trac #50040 (datepicker footer localization) from setup through report, including the critical-reading-of-comments lesson.

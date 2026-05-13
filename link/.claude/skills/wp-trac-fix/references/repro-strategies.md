@@ -93,6 +93,17 @@ cat .envlite/port
 
 When repro is complete via Playwright MCP, the captured manual recipe (URLs + click sequence + observed behavior) becomes the report's `verification` field.
 
+## Reproducing from ticket snippets
+
+When a ticket includes PHP code meant to reproduce the bug (typically to drop into a plugin or mu-plugin), treat it as suspect input, not a working recipe. If the snippet throws a fatal error or has no visible effect, fix it first. **A broken snippet is not evidence the bug is absent.** Only after the snippet runs cleanly can its output be compared against the ticket's claim.
+
+When the bug is surfaced through a concrete admin URL or front-end request:
+
+1. Drop the sanity-checked snippet into `src/wp-content/mu-plugins/trac-<ticket>-repro.php` (gitignored — won't be committed).
+2. Force any required theme/state via `pre_option_*` filters in the same mu-plugin (e.g. `pre_option_stylesheet`, `pre_option_template`) to avoid navigating through admin screens.
+3. Drive the URL via Playwright MCP. Read the rendered DOM through `browser_evaluate` — querying specific elements / inline styles / network requests is more reliable than dumping the full page source.
+4. Compare against the ticket's claim. This is the strongest form of `repro evidence` because it goes through the real codepath rather than a synthesized call sequence.
+
 ## Escalation
 
 Escalate from cheaper strategies only when the ticket signal is ambiguous:
