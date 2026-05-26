@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "docs-review-fix/cross-cutting.schema.json",
+  "title": "Gate output — cross-file patterns (reported only, not dispatched)",
+  "type": "object",
+  "required": ["patterns"],
+  "additionalProperties": false,
+  "properties": {
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pattern", "category", "affected_files", "evidence", "recommended_action"],
+        "additionalProperties": false,
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Short description of the cross-cutting issue."
+          },
+          "category": {
+            "enum": [
+              "stale-api",
+              "broken-example",
+              "broken-link",
+              "wrong-path",
+              "version-drift",
+              "missing-context",
+              "contradiction",
+              "auto-generated-readme",
+              "meta"
+            ]
+          },
+          "affected_files": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Repo-relative paths affected. May be empty for meta-patterns."
+          },
+          "evidence": {
+            "type": "string",
+            "description": "How the pattern was detected. Usually a grep command + sample output."
+          },
+          "recommended_action": {
+            "type": "string",
+            "description": "What a cross-cutting fixer (or human) should do."
+          }
+        }
+      }
+    }
+  }
+}

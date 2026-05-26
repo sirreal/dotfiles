@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "docs-review-fix/dispatch.schema.json",
+  "title": "Gate output — validated per-file findings to dispatch to fix agents",
+  "type": "object",
+  "required": ["files"],
+  "additionalProperties": false,
+  "properties": {
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "findings"],
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "Repo-relative path. Each file appears at most once in this array."
+          },
+          "findings": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "review-finding.schema.json#/$defs/finding" }
+          }
+        }
+      }
+    }
+  }
+}

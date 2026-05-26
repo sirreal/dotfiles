@@ -1,0 +1,5 @@
+{
+  "file": "packages/format-library/README.md",
+  "summary": "This doc covers installation and contribution guidance for the @wordpress/format-library package. No significant issues were found; all referenced paths and links appear valid. Overall health is clean.",
+  "findings": []
+}

@@ -1,0 +1,103 @@
+{
+  "files": [
+    {
+      "file": "docs/reference-guides/data/README.md",
+      "reason": "clean",
+      "invalidated_findings": []
+    },
+    {
+      "file": "packages/annotations/README.md",
+      "reason": "only low-severity (single stale /developers/ URL that 301-redirects; handled by cross-cutting pattern)",
+      "invalidated_findings": [
+        {
+          "category": "stale-api",
+          "severity": "low",
+          "confidence": "high",
+          "location": "line 21",
+          "evidence": "developer.wordpress.org/block-editor/developers/block-api/block-annotations redirects to /reference-guides/block-api/block-annotations/",
+          "note": "Real but low-severity; better handled as cross-cutting since several other READMEs share the pattern."
+        }
+      ]
+    },
+    {
+      "file": "packages/create-block-tutorial-template/README.md",
+      "reason": "clean",
+      "invalidated_findings": []
+    },
+    {
+      "file": "packages/format-library/README.md",
+      "reason": "clean",
+      "invalidated_findings": []
+    },
+    {
+      "file": "packages/notices/README.md",
+      "reason": "only low-severity (broken anchor fragment; link still resolves to readme)",
+      "invalidated_findings": [
+        {
+          "category": "broken-link",
+          "severity": "low",
+          "confidence": "high",
+          "location": "line 19",
+          "evidence": "Anchor '#data-access-and-manipulation' has no matching heading in packages/data/README.md. Verified via grep — no match.",
+          "note": "Valid finding but severity=low — link still lands on a useful page. Borderline; including here per gate threshold (only valid medium+/high get dispatched)."
+        }
+      ]
+    },
+    {
+      "file": "storybook/README.md",
+      "reason": "clean",
+      "invalidated_findings": []
+    },
+    {
+      "file": "tools/eslint/README.md",
+      "reason": "clean",
+      "invalidated_findings": []
+    },
+    {
+      "file": "packages/scripts/README.md (partial-skip — see dispatch for the contradiction finding)",
+      "reason": "Most findings on this file are low-severity broken-link redirects covered by cross-cutting, plus a low-severity webp typo and a low-severity missing-script-in-example.",
+      "invalidated_findings": [
+        {
+          "category": "stale-api",
+          "severity": "low",
+          "location": "line 726",
+          "evidence": "Typo 'wepb' should be 'webp'. Verified at packages/scripts/config/webpack.config.js: /(bmp|png|jpe?g|gif|webp)$/i. Real but cosmetic.",
+          "note": "Real typo; low severity; could be picked up by the scripts file fixer if dispatched."
+        },
+        {
+          "category": "broken-link",
+          "severity": "low",
+          "location": "lines 449, 453, 483, 636",
+          "evidence": "URLs 301-redirect (GoogleChrome/puppeteer, smooth-code/jest-puppeteer, developers.google.com/web/*).",
+          "note": "Real but redirects work; addressed by cross-cutting pattern."
+        },
+        {
+          "category": "missing-context",
+          "severity": "low",
+          "location": "line 473",
+          "evidence": "References 'test:e2e:watch' script not defined in adjacent example. Verified.",
+          "note": "Real but low severity."
+        }
+      ]
+    },
+    {
+      "file": "docs/reference-guides/slotfills/README.md — partial (one finding kept slightly demoted/promoted; see dispatch)",
+      "reason": "The wp.plugins-vs-wp.editor finding was reported as severity=low by the reviewer; it is factually correct and was promoted to medium in dispatch because it actively misleads.",
+      "invalidated_findings": []
+    },
+    {
+      "file": "packages/dataviews/README.md — isNotAll operator finding INVALIDATED",
+      "reason": "Reviewer suggested adding isNotAll to the operator table as a valid operator. Investigation shows isNotAll is in fact DEPRECATED since 7.0 (packages/dataviews/src/utils/filter-sort-and-paginate.ts lines 75-82 emit a deprecation warning and map it to isNone). The README's omission may be intentional. Documenting it as valid would regress the deprecation message.",
+      "invalidated_findings": [
+        {
+          "category": "missing-context",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "Operator table (~line 1994) and per-type lists (lines 2022-2035)",
+          "evidence": "isNotAll defined in types/field-api.ts and constants.ts.",
+          "note": "INVALIDATED — isNotAll is deprecated. Doc omission is consistent with deprecation. If anything, doc could note the deprecation, but adding it as a normal operator (as the finding sketches) is wrong."
+        }
+      ]
+    }
+  ]
+}

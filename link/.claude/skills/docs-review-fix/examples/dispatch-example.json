@@ -1,0 +1,389 @@
+{
+  "files": [
+    {
+      "file": "docs/getting-started/tutorial.md",
+      "findings": [
+        {
+          "category": "contradiction",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 623 (section 'Updating the block content')",
+          "evidence": "Lines 483 and 544 (earlier TextControl examples) include __next40pxDefaultSize. The 'final' Edit() at line 623 omits it. Verified via grep '__next40pxDefaultSize' docs/getting-started/tutorial.md — only lines 483, 544.",
+          "verification": "grep -n '__next40pxDefaultSize' docs/getting-started/tutorial.md",
+          "fix_sketch": "Add __next40pxDefaultSize as the first prop of <TextControl in the lines 622-633 code block to match the preceding examples.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "docs/how-to-guides/block-tutorial/README.md",
+      "findings": [
+        {
+          "category": "broken-link",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 9",
+          "evidence": "Link to /docs/how-to-guides/javascript/js-build-setup/ — directory docs/how-to-guides/javascript/ does not exist in the repo.",
+          "verification": "ls docs/how-to-guides/javascript/ returns 'No such file or directory'; find docs -name 'js-build-setup*' returns nothing",
+          "fix_sketch": "Replace link target with current equivalent: docs/getting-started/fundamentals/javascript-in-the-block-editor.md. Confirm the public-site canonical URL before updating.",
+          "risk": "Need to confirm the canonical replacement URL."
+        }
+      ]
+    },
+    {
+      "file": "docs/how-to-guides/themes/global-settings-and-styles.md",
+      "findings": [
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 776-782 (Gutenberg styles tab, dimensions block)",
+          "evidence": "JSON object missing commas between properties height/minHeight/minWidth/width.",
+          "verification": "Read lines 776-782",
+          "fix_sketch": "Add commas after height, minHeight, minWidth.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 238-244 (Gutenberg settings tab, dimensions block)",
+          "evidence": "Trailing comma after `\"width\": false,` then `}`.",
+          "verification": "Read lines 238-244",
+          "fix_sketch": "Remove trailing comma.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 702-707 (WordPress styles tab, spacing.margin block)",
+          "evidence": "Trailing comma after `\"left\": \"value\",`.",
+          "verification": "Read lines 702-707",
+          "fix_sketch": "Remove trailing comma.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 509-514 (preset output CSS, block-level classes)",
+          "evidence": "Block-level CSS classes use wrong color values: .has-black-color uses #a156b4 (top-level strong-magenta) and .has-white-color uses #444 (top-level very-dark-grey). Input defines black=#000000, white=#ffffff.",
+          "verification": "Read lines 385-465 for inputs and 509-514 for outputs.",
+          "fix_sketch": "Use #000000 for has-black-* and #ffffff for has-white-* classes.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 474 (output CSS, custom property for very-dark-grey)",
+          "evidence": "Input line 389 defines very-dark-grey as rgb(131, 12, 8). Output line 474 shows --wp--preset--color--very-dark-grey: #444.",
+          "verification": "Read line 389 and line 474.",
+          "fix_sketch": "Change output to rgb(131, 12, 8).",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 506 (output CSS .has-normal-font-size)",
+          "evidence": "Input fontSizes (lines 407-418) only define slugs `big` and `x-large`. Output includes `.has-normal-font-size { font-size: 16; }` — no `normal` slug exists in input.",
+          "verification": "Read lines 407-418 and line 506.",
+          "fix_sketch": "Remove the `.has-normal-font-size` rule from the output example.",
+          "risk": ""
+        },
+        {
+          "category": "version-drift",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 138-142 and 671-675",
+          "evidence": "Callouts say 'WordPress 5.8 supported settings/styles' but all examples use `\"version\": 3` (25 occurrences). version 3 requires WordPress 6.6+. A 5.8 install would not recognize version 3.",
+          "verification": "grep -c '\"version\": 3' docs/how-to-guides/themes/global-settings-and-styles.md (25)",
+          "fix_sketch": "Update callouts to reflect WP 6.6+ context for version 3 examples.",
+          "risk": "Confirm intended WP version baseline for the doc before editing prose."
+        },
+        {
+          "category": "version-drift",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 303-311 (appearanceTools opt-ins list)",
+          "evidence": "Doc lists only `color: link`. Code APPEARANCE_TOOLS_OPT_INS also includes color: heading, button, caption; background: backgroundImage, backgroundSize, gradient; typography: lineHeight, textColumns; dimensions: aspectRatio, height, minHeight, minWidth, width; position: sticky (and experimental fixed); spacing: blockGap, margin, padding.",
+          "verification": "grep -A 40 APPEARANCE_TOOLS_OPT_INS lib/class-wp-theme-json-gutenberg.php",
+          "fix_sketch": "Add: color: heading, button, caption; background: gradient; typography: textColumns. (background backgroundImage/backgroundSize already in list; verify others.)",
+          "risk": "Check stable-vs-experimental status of position: fixed."
+        }
+      ]
+    },
+    {
+      "file": "docs/reference-guides/interactivity-api/README.md",
+      "findings": [
+        {
+          "category": "broken-link",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 102",
+          "evidence": "Link to packages-interactivity-api-reference page — no such slug in docs/manifest.json (only packages-interactivity and packages-interactivity-router exist).",
+          "verification": "grep '\"slug\": \"packages-interactivity' docs/manifest.json — returns only packages-interactivity-router and packages-interactivity.",
+          "fix_sketch": "Replace URL with the canonical equivalent from line 110: https://developer.wordpress.org/block-editor/reference-guides/interactivity-api/directives-and-store/#wp-interactive",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "docs/reference-guides/slotfills/README.md",
+      "findings": [
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 281",
+          "evidence": "Doc shows `export const { Fill, Slot } = createSlotFill(...)` but actual source packages/editor/src/components/plugin-post-status-info/index.js line 10 has `const { Fill, Slot } = createSlotFill(...)` (no export).",
+          "verification": "grep -n 'Fill, Slot' packages/editor/src/components/plugin-post-status-info/index.js",
+          "fix_sketch": "Remove the `export` keyword from the example to match source.",
+          "risk": ""
+        },
+        {
+          "category": "version-drift",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 301-355 (PostSummary example)",
+          "evidence": "Doc shows PostSummary implementation with Stack, PostStickyPanel, TemplateAreas. Current packages/editor/src/components/sidebar/post-summary.js uses VStack, has PostTrash, PrivatePostLastRevision, DataFormPostSummary branching, and no PostStickyPanel/TemplateAreas.",
+          "verification": "Read packages/editor/src/components/sidebar/post-summary.js",
+          "fix_sketch": "Replace the example with a trimmed version of the current ClassicPostSummary that focuses on PluginPostStatusInfo.Slot consumption. Update the line-anchor link at line 299.",
+          "risk": "Full source may keep changing; a partial illustrative snippet is safer."
+        },
+        {
+          "category": "stale-api",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 267",
+          "evidence": "Doc says SlotFills 'exported on the wp.plugins global'. PluginPostStatusInfo is exported from @wordpress/editor (packages/editor/src/components/index.js line 33), which becomes wp.editor. The plugins package has wpScript:true but doesn't export PluginPostStatusInfo.",
+          "verification": "grep 'PluginPostStatusInfo' packages/editor/src/components/index.js",
+          "fix_sketch": "Change 'wp.plugins' to 'wp.editor' (or generalize to 'from @wordpress/editor').",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/customize-widgets/README.md",
+      "findings": [
+        {
+          "category": "wrong-path",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 23",
+          "evidence": "Doc says 'component/sidebar-block-editor/sidebar-adapter.js'. Actual directory is plural 'components'. Verified packages/customize-widgets/src/components/sidebar-block-editor/sidebar-adapter.js exists.",
+          "verification": "ls packages/customize-widgets/src/components/sidebar-block-editor/sidebar-adapter.js",
+          "fix_sketch": "Change 'component/' to 'components/' on line 23.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/dataviews/README.md",
+      "findings": [
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 168-170 (fields example, author render)",
+          "evidence": "Trailing comma after `return ... ?? item.author,` — invalid JS syntax in a return statement.",
+          "verification": "Read lines 163-175 of packages/dataviews/README.md",
+          "fix_sketch": "Remove the trailing comma after the return expression.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 1083, 1937, 1949, 1968, 1987 (and possibly others)",
+          "evidence": "Object literal properties end with semicolons instead of commas. Confirmed via grep — at least: line 1083 (label arrow returning expression), 1937 (filterBy: false;), 1949 (isPrimary: true;), 1968/1987 (operators: [...];). These are syntax errors in JS object literals.",
+          "verification": "grep -n 'filterBy: false;\\|isPrimary: true;\\|operators:.*];\\|label:.*);' packages/dataviews/README.md",
+          "fix_sketch": "Replace trailing semicolons with commas in the affected object-literal lines.",
+          "risk": "Some originally-cited line numbers (1111, 1149-1152, 1528, 1693) were not confirmed by grep — fixer should scan the file for any remaining `;` separators in JS object code blocks."
+        },
+        {
+          "category": "missing-context",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 2032 (valid operators per field type)",
+          "evidence": "Line 2032 lists `email` for a second time (duplicate of line 2027); `telephone` field type is missing from the per-type table. telephone is a valid FieldTypeName (src/types/field-api.ts) with src/field-types/telephone.tsx.",
+          "verification": "grep -n 'email\\|telephone' packages/dataviews/README.md (lines 2027 and 2032 both 'email')",
+          "fix_sketch": "Replace duplicate `email:` row at line 2032 with `telephone:` row using the operators from src/field-types/telephone.tsx (is, isNot, contains, notContains, startsWith, isAny, isNone, isAll).",
+          "risk": ""
+        },
+        {
+          "category": "missing-context",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "Free composition section (~lines 549-558)",
+          "evidence": "DataViews.Footer subcomponent (assigned at src/dataviews/index.tsx line 336) is missing from the documented subcomponent list.",
+          "verification": "grep -n 'Footer' packages/dataviews/src/dataviews/index.tsx",
+          "fix_sketch": "Add a DataViews.Footer entry to the free-composition subcomponents list.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/edit-site/README.md",
+      "findings": [
+        {
+          "category": "stale-api",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 19, 26",
+          "evidence": "Doc imports and calls `initialize` from '@wordpress/edit-site'. Actual export is `initializeEditor` (packages/edit-site/src/index.js line 35). No `initialize` export exists.",
+          "verification": "grep -n 'export.*initialize' packages/edit-site/src/index.js → only initializeEditor and reinitializeEditor.",
+          "fix_sketch": "Rename import and call from `initialize` to `initializeEditor`.",
+          "risk": ""
+        },
+        {
+          "category": "broken-example",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 26",
+          "evidence": "Doc passes '#editor-root' (CSS selector) as id. Implementation does document.getElementById(id) (packages/edit-site/src/index.js line 36) which requires a bare id without '#'.",
+          "verification": "grep -n 'getElementById' packages/edit-site/src/index.js",
+          "fix_sketch": "Change argument from '#editor-root' to 'editor-root'.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/env/README.md",
+      "findings": [
+        {
+          "category": "stale-api",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 422, 428-429 (wp-env run container choices)",
+          "evidence": "Doc lists choices including 'composer' for `wp-env run`. The composer container was removed (validate-run-container.js line 30 throws an error if requested). The actual RUN_CONTAINERS include mysql, tests-mysql, wordpress, tests-wordpress, cli, tests-cli, phpmyadmin.",
+          "verification": "grep -n 'RUN_CONTAINERS\\|composer' packages/env/lib/runtime/docker/validate-run-container.js",
+          "fix_sketch": "Update the choices list to match RUN_CONTAINERS; remove composer; update the surrounding prose about which tools are available inside containers.",
+          "risk": ""
+        },
+        {
+          "category": "stale-api",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 547 (wp-env logs choices)",
+          "evidence": "Doc shows `[choices: \"development\"]`. Actual cli.js line 211: `choices: [ 'development', 'tests', 'all' ]`.",
+          "verification": "grep -n 'logs\\|choices.*development' packages/env/lib/cli.js",
+          "fix_sketch": "Update choices to include tests and all.",
+          "risk": ""
+        },
+        {
+          "category": "wrong-path",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 138",
+          "evidence": "Doc says `docker ps` shows `wordpress` and `mariadb`. Actual Compose service name is `mysql` (image is `mariadb:lts`). Verified packages/env/lib/runtime/docker/build-docker-compose-config.js line 197.",
+          "verification": "grep -n 'mysql:\\|image:.*mariadb' packages/env/lib/runtime/docker/build-docker-compose-config.js",
+          "fix_sketch": "Change `mariadb` to `mysql` in the container/service reference.",
+          "risk": ""
+        },
+        {
+          "category": "version-drift",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "line 607 (testsEnvironment default)",
+          "evidence": "Doc shows default `false`. Actual load-config.js line 125: `testsEnvironment: config.testsEnvironment !== false` — undefined evaluates to true. So default behavior is enabled.",
+          "verification": "grep -n 'testsEnvironment' packages/env/lib/config/load-config.js",
+          "fix_sketch": "Change default column to `true`.",
+          "risk": "Sanity-check parse-config.js for explicit default values."
+        }
+      ]
+    },
+    {
+      "file": "packages/grid/README.md",
+      "findings": [
+        {
+          "category": "contradiction",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 120 and 279 (props tables)",
+          "evidence": "README says minColumnWidth is 'Mutually exclusive with columns.' But the JSDoc in packages/grid/src/dashboard-grid/types.ts explicitly documents 'Both together: columns caps the count, minColumnWidth enforces a per-tile width floor'. Implementation at dashboard-grid/index.tsx confirms via `columns !== undefined ? Math.min(columns, maxFit) : maxFit`.",
+          "verification": "grep -A 8 'Both together' packages/grid/src/dashboard-grid/types.ts",
+          "fix_sketch": "Replace 'Mutually exclusive with columns' with the composed-behavior description from the JSDoc.",
+          "risk": "Consumers miss a real feature otherwise."
+        },
+        {
+          "category": "missing-context",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "props tables (lines 115-128, 275-288)",
+          "evidence": "Both components accept `renderGridOverlay` (typed in types.ts, exported as GridOverlayRenderProps from index.ts) but it's absent from both props tables.",
+          "verification": "grep 'renderGridOverlay' packages/grid/src/dashboard-grid/types.ts packages/grid/src/dashboard-lanes/types.ts",
+          "fix_sketch": "Add a `renderGridOverlay` row to both tables documenting the override hook for the edit-mode overlay.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/scripts/README.md",
+      "findings": [
+        {
+          "category": "contradiction",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 247 and 253",
+          "evidence": "Line 247 claims .eslintrc.* is a fallback. Line 253 says that fallback is deprecated. Actual code (packages/scripts/scripts/lint-js.js): `hasLintConfig` only checks flat config; if not found, it warns about legacy .eslintrc.* and uses the wp-scripts default — never the project's legacy config.",
+          "verification": "Read packages/scripts/scripts/lint-js.js (hasLintConfig logic, lines 22-57)",
+          "fix_sketch": "Remove the fallback claim from line 247; clarify on line 253 that legacy .eslintrc.* files now trigger a warning and the project default is used.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/theme/README.md",
+      "findings": [
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "line 85",
+          "evidence": "Doc shows runtime import `import { ThemeProvider } from '@wordpress/theme'`. src/index.ts line 3 has `export { type ThemeProvider } from './theme-provider'` — type-only export. Runtime value would be undefined.",
+          "verification": "grep 'ThemeProvider' packages/theme/src/index.ts",
+          "fix_sketch": "Either change src/index.ts to export ThemeProvider as a value, or update README to reflect the actual (private) access path. Confirm intended public API.",
+          "risk": "If ThemeProvider is intentionally private, the README example itself is the wrong artifact. Fixer must verify intent."
+        },
+        {
+          "category": "missing-context",
+          "severity": "medium",
+          "confidence": "high",
+          "location": "lines 63-73 (Design Tokens structure table)",
+          "evidence": "Doc lists 6 token JSONs. Repo has 7 — cursor.json exists alongside color, dimension, typography, border, elevation, motion.",
+          "verification": "ls packages/theme/tokens/*.json",
+          "fix_sketch": "Add a row for cursor.json describing cursor style tokens.",
+          "risk": ""
+        }
+      ]
+    },
+    {
+      "file": "packages/wp-build/README.md",
+      "findings": [
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 126-139 (wpCopyFiles section)",
+          "evidence": "Doc shows wpCopyFiles as array of {from,to,transform} objects. Implementation packages/wp-build/lib/build.mjs:797 destructures `{ files, transforms = {} } = packageJson.wpCopyFiles` — expects an object with a `files` glob array and a `transforms` object. Confirmed via packages/block-library/package.json usage.",
+          "verification": "grep -n 'wpCopyFiles' packages/wp-build/lib/build.mjs",
+          "fix_sketch": "Replace example with the real { files: [...], transforms: { php: {...} } } shape; document files and transforms sub-fields.",
+          "risk": "Documented wrong shape would silently no-op."
+        },
+        {
+          "category": "broken-example",
+          "severity": "high",
+          "confidence": "high",
+          "location": "lines 114-124 (wpStyleEntryPoints section)",
+          "evidence": "Doc shows wpStyleEntryPoints as object map. Implementation packages/wp-build/lib/build.mjs:1522 treats it as an array of glob patterns (default ['src/*.scss']). Confirmed via packages/block-library/package.json.",
+          "verification": "grep -n 'wpStyleEntryPoints' packages/wp-build/lib/build.mjs",
+          "fix_sketch": "Replace with an array-of-glob-patterns example; update prose accordingly.",
+          "risk": "Wrong shape silently disables style entry-point discovery."
+        }
+      ]
+    }
+  ]
+}

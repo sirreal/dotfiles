@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "docs-review-fix/fix-report.schema.json",
+  "title": "Fix subagent report — what each Opus fix agent did",
+  "type": "object",
+  "required": ["file", "worktree", "branch", "commit", "findings"],
+  "additionalProperties": false,
+  "properties": {
+    "file": { "type": "string", "description": "Repo-relative path of the doc edited." },
+    "worktree": { "type": "string", "description": "Absolute path of the worktree the fix agent ran in." },
+    "branch": { "type": "string", "description": "Branch name committed to (`docs-fix/<slug>`)." },
+    "commit": {
+      "type": "string",
+      "description": "Full commit SHA. Empty string if nothing was committed (every finding failed)."
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "location", "status", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "category": {
+            "enum": [
+              "stale-api",
+              "broken-example",
+              "broken-link",
+              "wrong-path",
+              "version-drift",
+              "missing-context",
+              "contradiction"
+            ]
+          },
+          "location": { "type": "string" },
+          "status": {
+            "enum": ["fixed", "verification-failed", "requires-cross-file", "invalidated"]
+          },
+          "notes": {
+            "type": "string",
+            "description": "What the agent actually did. For verification-failed include the verification output. For requires-cross-file say which other file(s)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "docs-review-fix/review-finding.schema.json",
+  "title": "Review output from a single Sonnet review subagent",
+  "type": "object",
+  "required": ["file", "summary", "findings"],
+  "additionalProperties": false,
+  "properties": {
+    "file": {
+      "type": "string",
+      "description": "Repo-relative path of the reviewed doc."
+    },
+    "summary": {
+      "type": "string",
+      "description": "2-3 sentences describing the doc and overall health. Used by the gate and by humans to spot-check review quality."
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/finding" },
+      "description": "Zero or more findings. An empty array is a valid result."
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "required": ["category", "severity", "confidence", "location", "evidence", "verification", "fix_sketch", "risk"],
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "stale-api",
+            "broken-example",
+            "broken-link",
+            "wrong-path",
+            "version-drift",
+            "missing-context",
+            "contradiction"
+          ]
+        },
+        "severity": { "enum": ["high", "medium", "low"] },
+        "confidence": { "enum": ["high", "medium", "low"] },
+        "location": {
+          "type": "string",
+          "description": "Human-readable location, e.g. 'line 42' or 'section: Working method' or 'lines 100-110'."
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Doc claims X; reality (verified via Y) is Z."
+        },
+        "verification": {
+          "type": "string",
+          "description": "Shell command or file-read instruction the fix agent can re-run to confirm the issue and (after fix) confirm resolution."
+        },
+        "fix_sketch": {
+          "type": "string",
+          "description": "What to change, in terms a fix agent can execute against the current source."
+        },
+        "risk": {
+          "type": "string",
+          "description": "What could go wrong if applied without care. Empty string if trivial."
+        }
+      }
+    }
+  }
+}

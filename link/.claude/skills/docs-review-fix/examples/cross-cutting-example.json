@@ -1,0 +1,51 @@
+{
+  "patterns": [
+    {
+      "pattern": "Stale developer.wordpress.org URLs using the old /developers/ hierarchy (now redirected to /reference-guides/ or /how-to-guides/)",
+      "category": "broken-link",
+      "affected_files": [
+        "packages/annotations/README.md",
+        "packages/create-block/README.md",
+        "packages/i18n/README.md",
+        "docs/contributors/code/deprecations.md",
+        "docs/how-to-guides/block-tutorial/nested-blocks-inner-blocks.md"
+      ],
+      "evidence": "grep -rn 'developer.wordpress.org/block-editor/developers' packages/*/README.md docs/ — five hits in three package READMEs and two docs files. All currently 301-redirect; should be updated to canonical /reference-guides/ or /how-to-guides/ paths.",
+      "recommended_action": "Cross-cutting fixer should grep the whole repo for 'developer.wordpress.org/block-editor/developers/' and rewrite each occurrence to its current canonical equivalent (consult docs/manifest.json or follow each 301)."
+    },
+    {
+      "pattern": "Stale Google/Chrome and old-org Puppeteer URLs (GoogleChrome/puppeteer → puppeteer/puppeteer; smooth-code/jest-puppeteer → argos-ci/jest-puppeteer; developers.google.com/web/* → developer.chrome.com/*)",
+      "category": "broken-link",
+      "affected_files": [
+        "packages/scripts/README.md"
+      ],
+      "evidence": "grep -rn 'GoogleChrome/puppeteer\\|smooth-code/jest-puppeteer\\|developers.google.com/web/' packages/*/README.md docs/ — only packages/scripts/README.md has these (lines 449, 453, 483, 636).",
+      "recommended_action": "Fold into the scripts README fix; no other docs affected in the corpus."
+    },
+    {
+      "pattern": "theme.json examples with JSON syntax errors (missing commas / trailing commas) in WordPress vs Gutenberg codetabs",
+      "category": "broken-example",
+      "affected_files": [
+        "docs/how-to-guides/themes/global-settings-and-styles.md"
+      ],
+      "evidence": "Three distinct JSON syntax errors found in one file (lines 238-244 trailing comma, 702-707 trailing comma, 776-782 missing commas). Pattern: codetabs blocks with hand-written JSON that drifts.",
+      "recommended_action": "Add a CI check that lints fenced ```json blocks in docs/ against a JSON parser to catch this systematically. For now, scan the file for similar adjacent-property JSON blocks."
+    },
+    {
+      "pattern": "appearanceTools opt-in list drift between PHP source and docs",
+      "category": "version-drift",
+      "affected_files": [
+        "docs/how-to-guides/themes/global-settings-and-styles.md"
+      ],
+      "evidence": "Doc lists fewer entries than APPEARANCE_TOOLS_OPT_INS in lib/class-wp-theme-json-gutenberg.php. May also affect theme.json reference docs — fixer should also check docs/reference-guides/theme-json-reference/.",
+      "recommended_action": "Cross-check the appearanceTools list in docs/reference-guides/theme-json-reference/ and any other doc mentioning appearanceTools."
+    },
+    {
+      "pattern": "Auto-generated README markers",
+      "category": "meta",
+      "affected_files": [],
+      "evidence": "Checked all 12 package READMEs in the pilot for 'START TOKEN' / 'auto-generated' markers — none found. Safe to treat all pilot READMEs as hand-authored.",
+      "recommended_action": "No action required for the pilot. Future runs should still pre-screen for generation tokens before dispatching fixes."
+    }
+  ]
+}

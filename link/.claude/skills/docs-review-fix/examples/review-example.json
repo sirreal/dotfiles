@@ -1,0 +1,56 @@
+{
+  "file": "packages/dataviews/README.md",
+  "summary": "This doc covers the DataViews, DataViewsPicker, and DataForm components — their props, the Fields/Actions/Form Field APIs, layout config, operators, and utilities. The biggest issue is that the operator reference omits the valid (non-deprecated) `isNotAll` operator entirely, and many code examples throughout the file use semicolons as object property separators instead of commas, making them unparseable JS. Overall health: significant.",
+  "findings": [
+    {
+      "category": "broken-example",
+      "severity": "high",
+      "confidence": "high",
+      "location": "line 168-169 (fields example, `render` property of `author` field)",
+      "evidence": "doc has `return AUTHORS.find(...)?.label ?? item.author,` — trailing comma after a `return` expression is a syntax error in JS/JSX",
+      "verification": "Read lines 163-175 of packages/dataviews/README.md",
+      "fix_sketch": "Remove the trailing comma: `return AUTHORS.find( ( { value } ) => value === item.author )?.label ?? item.author`",
+      "risk": ""
+    },
+    {
+      "category": "broken-example",
+      "severity": "high",
+      "confidence": "high",
+      "location": "Multiple code blocks: lines 1083, 1111, 1149-1152, 1528, 1693, 1937, 1949, 1968, 1987",
+      "evidence": "Object literal properties use semicolons instead of commas as separators. Examples: `label: ( items ) => ...;` (line 1083), `isEligible: ( item ) => ...;` (line 1111), `callback: ( items, ... ) => { ... };` (line 1152), `render: ( { item, field, config } ) => { ... };` (line 1528), `sort: ( a, b, direction ) => { ... };` (line 1693), `filterBy: false;` (line 1937), `isPrimary: true;` (line 1949), `operators: [ ... ];` (lines 1968, 1987). All are syntax errors in JS object literals.",
+      "verification": "grep -n 'filterBy: false;\\|isPrimary: true;\\|operators:.*];\\|label:.*);\\|isEligible:.*);\\|callback:.*};\\|render:.*};\\|sort:.*};' packages/dataviews/README.md",
+      "fix_sketch": "Replace each trailing semicolon with a comma in the affected object properties. These appear in JS code blocks, not TypeScript with explicit type annotations.",
+      "risk": ""
+    },
+    {
+      "category": "missing-context",
+      "severity": "medium",
+      "confidence": "high",
+      "location": "Operator table (~line 1994) and per-type valid operators list (lines 2022-2035)",
+      "evidence": "The `isNotAll` operator is defined in `src/types/field-api.ts` (line 46), exported as `OPERATOR_IS_NOT_ALL` in `src/constants.ts`, and listed as a valid (non-deprecated) operator for array, text, email, url, telephone, integer, and number field types in their respective `fieldTypes/*.tsx` files. The README operator table (lines 1994-2016) and per-type summary (lines 2022-2035) omit `isNotAll` entirely. The deprecated notice in `src/utils/filter-sort-and-paginate.ts` (since '7.0') applies only to the old `isNotAll` operator name when used as an alias — the type still exists. Additionally, line 2018 lists multi-selection operators as `isAny, isNone, isAll` without `isNotAll`.",
+      "verification": "grep -n 'isNotAll\\|OPERATOR_IS_NOT_ALL' packages/dataviews/src/field-types/text.tsx packages/dataviews/src/field-types/email.tsx packages/dataviews/src/field-types/array.tsx packages/dataviews/src/types/field-api.ts",
+      "fix_sketch": "Add `isNotAll` to the operator table with description (e.g., 'The result does not include all values in the list'). Add it to the per-type lists for array, text, email, url, telephone, integer, number. Add it to the multi-selection operators list at line 2018. Confirm the deprecation situation — if fully deprecated, document that instead.",
+      "risk": "The deprecation comment in filter-sort-and-paginate.ts (since 7.0) should be checked: if `isNotAll` is deprecated and being removed, the fix should document the deprecation rather than add it as a valid operator. Verify current deprecation status before deciding direction."
+    },
+    {
+      "category": "missing-context",
+      "severity": "medium",
+      "confidence": "high",
+      "location": "lines 2022-2035 (valid operators per field type)",
+      "evidence": "The `telephone` field type is listed as a valid `FieldTypeName` in `src/types/field-api.ts` and has a full operator list in `src/field-types/telephone.tsx` (`is, isNot, contains, notContains, startsWith, isAny, isNone, isAll, isNotAll`), but is absent from the per-type operators summary. Instead, `email` appears twice (lines 2027 and 2032).",
+      "verification": "grep -n 'telephone\\|email' packages/dataviews/README.md | grep -E 'line 20[2-3]'; cat packages/dataviews/src/field-types/telephone.tsx",
+      "fix_sketch": "Replace the duplicate `email` entry at line 2032 with `telephone: is, isNot, contains, notContains, startsWith, isAny, isNone, isAll` (adjust for `isNotAll` per finding above).",
+      "risk": ""
+    },
+    {
+      "category": "missing-context",
+      "severity": "low",
+      "confidence": "high",
+      "location": "section 'Free composition' subcomponent list (~line 549-558)",
+      "evidence": "The list of `DataViews` subcomponents in the free composition section omits `DataViews.Footer`. In `src/dataviews/index.tsx` (lines 324, 336), `Footer` is assigned as `DataViewsSubComponents.Footer = DataViewsFooter` and typed in the subcomponent interface.",
+      "verification": "grep -n 'Footer' packages/dataviews/src/dataviews/index.tsx",
+      "fix_sketch": "Add `DataViews.Footer` to the list of available subcomponents in the Free composition section. Confirm what DataViewsFooter renders before writing the description.",
+      "risk": ""
+    }
+  ]
+}

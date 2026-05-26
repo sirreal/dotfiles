@@ -1,0 +1,32 @@
+{
+  "file": "packages/dataviews/README.md",
+  "worktree": "/Users/jonsurrell/.claude/jobs/a659f86c/worktrees/dataviews-readme",
+  "branch": "docs-fix/dataviews-readme",
+  "commit": "d50d773783d964a4fee76450d706538b23815476",
+  "findings": [
+    {
+      "category": "broken-example",
+      "location": "lines 168-170 (author render)",
+      "status": "fixed",
+      "notes": "Replaced invalid trailing comma after the return expression with a semicolon (return ... ?? item.author;)."
+    },
+    {
+      "category": "broken-example",
+      "location": "object literals with `;` separators (multiple)",
+      "status": "fixed",
+      "notes": "Replaced `;` with `,` on lines 755, 1083, 1219, 1236, 1937, 1949, 1968, 1987, 2135. Scanned entire file with regex to confirm no remaining cases."
+    },
+    {
+      "category": "missing-context",
+      "location": "line 2032 (operators per field type)",
+      "status": "fixed",
+      "notes": "Duplicate `email:` row replaced with `telephone:` row using operators from src/field-types/telephone.tsx."
+    },
+    {
+      "category": "missing-context",
+      "location": "Free composition subcomponent list (~line 558)",
+      "status": "fixed",
+      "notes": "Added `DataViews.Footer` entry, matching src/dataviews/index.tsx line 336."
+    }
+  ]
+}
