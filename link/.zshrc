@@ -47,37 +47,20 @@ if type brew &> /dev/null; then
 
   alias brewup='brew update --quiet && brew outdated && brew upgrade --quiet --greedy && brew upgrade --quiet --cask'
 
-  _target="$_BREW_PREFIX/opt/coreutils"
-  if [[ -d $_target ]]; then
-    PATH="$_target/libexec/gnubin:$PATH"
-    MANPATH="$_target/libexec/gnuman:$MANPATH"
-  else
-    echo 'You may want to `brew install coreutils`.'
-  fi
-
-  _target="$_BREW_PREFIX/opt/grep"
-  if [[ -d $_target ]]; then
-    PATH="$_target/libexec/gnubin:$PATH"
-    MANPATH="$_target/libexec/gnuman:$MANPATH"
-  else
-    echo 'You may want to `brew install grep`.'
-  fi
-
-  _target="$_BREW_PREFIX/opt/gnu-sed"
-  if [[ -d $_target ]]; then
-    PATH="$_target/libexec/gnubin:$PATH"
-    MANPATH="$_target/libexec/gnuman:$MANPATH"
-  else
-    echo 'You may want to `brew install gnu-sed`.'
-  fi
-
-  _target="$_BREW_PREFIX/opt/curl"
-  if [[ -d $_target ]]; then
-    PATH="$_target/bin:$PATH"
-    MANPATH="$_target/share/man:$MANPATH"
-  else
-    echo 'You may want to `brew install curl`.'
-  fi
+  for entry in coreutils:libexec/gnubin:libexec/gnuman \
+               grep:libexec/gnubin:libexec/gnuman \
+               gnu-sed:libexec/gnubin:libexec/gnuman \
+               curl:bin:share/man; do
+    IFS=: read -r pkg bin man <<<"$entry"
+    _target="$_BREW_PREFIX/opt/$pkg"
+    if [[ -d $_target ]]; then
+      PATH="$_target/$bin:$PATH"
+      MANPATH="$_target/$man:$MANPATH"
+    else
+      echo "You may want to \`brew install $pkg\`."
+    fi
+  done
+  unset entry pkg bin man
 
   unset _target _BREW_PREFIX
 fi
