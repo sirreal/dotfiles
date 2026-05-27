@@ -25,6 +25,13 @@ else
   echo "Couldn't find volta. You may want to install."
 fi
 
+#
+# MISE — https://mise.jdx.dev/
+#
+if [[ -x /opt/homebrew/bin/mise ]]; then
+  eval "$(/opt/homebrew/bin/mise activate zsh --shims)"
+fi
+
 if [[ -d "$HOME/.composer/vendor/bin" ]]; then
   PATH="$PATH:$HOME/.composer/vendor/bin"
 fi
