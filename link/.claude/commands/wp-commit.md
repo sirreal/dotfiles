@@ -44,9 +44,9 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 
 2. **Fetch Trac ticket details:**
 
-Always use the `/wordpress-trac:wp-trac-ticket --discussion <number>` skill to fetch ticket details.
+Always use the `/wordpress-trac:wp-trac-ticket <number>` skill to fetch ticket details.
 
-   - Fetch the main ticket details with discussion.
+   - Fetch the main ticket.
    - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
    - Use the ticket summary and description to help form the commit message
    - Look for related ticket references (#12345) in the description
@@ -73,7 +73,7 @@ Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch chang
      ```
    - Extract the props list from the line starting with `Props `
    - If no props comment is found (new PRs or bot failure), build the props list from the PR author, reviewers, and Trac ticket participants instead.
-   - Review the Trac ticket discussion (fetched in step 2 with `--discussion`). Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
+   - Review the Trac ticket discussion. Add the profile name of any participant who contributed. Skip trivial contributions or obvious spam, but include folks when in doubt.
    - Merge all sources, deduplicating usernames. The PR bot already uses WordPress.org usernames. For Trac participants, use their WordPress.org profile name as shown on Trac.
 
 5. **Generate the commit message:**
