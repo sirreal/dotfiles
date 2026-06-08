@@ -17,7 +17,7 @@ _paths=(
 
 _newpath="$PATH"
 for _p in ${_paths[@]}; do
-  if [[ -d $_p ]] && [[ ":$_newpath:" != "*:$_p:*" ]]; then
+  if [[ -d $_p ]] && [[ ":$_newpath:" != *":$_p:"* ]]; then
     _newpath="$_p:$_newpath"
   fi
 done
