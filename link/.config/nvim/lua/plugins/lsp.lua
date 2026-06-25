@@ -527,7 +527,6 @@ end
 
 -- requires brew:efm-langserver
 vim.lsp.config("efm", {
-	cmd = { "/Users/jonsurrell/jon/efm-langserver/efm-langserver" },
 	filetypes = vim.tbl_keys(efm_languages),
 	settings = {
 		languages = efm_languages,
