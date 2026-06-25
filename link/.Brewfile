@@ -66,3 +66,22 @@ cask "codex"
 cask "ghostty"
 cask "orbstack"
 cask "rectangle"
+cask "font-monaspace"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-dejavu-sans-mono-nerd-font"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"
+# Open-source keystroke visualiser
+cask "keycastr"
+# Multimedia player
+cask "vlc"
+# Utility for comparing and merging files and directories
+cask "kdiff3"
+# PAM module for reattaching to the user's GUI (Aqua) session
+brew "pam-reattach"
+# PNG file optimizer
+brew "optipng"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
+# Incredibly fast JavaScript runtime, bundler, test runner, and package manager
+brew "bun"
