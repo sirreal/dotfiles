@@ -87,3 +87,15 @@ brew "git-filter-repo"
 brew "bun"
 # Instant messaging application focusing on security
 cask "signal"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
+# Easiest, most secure way to use WireGuard and 2FA
+brew "tailscale"
+# Matrix collaboration client
+cask "element"
+# Client for the Dropbox cloud storage service
+cask "dropbox"
+# Emulator for x86 with DOS
+cask "dosbox"
+# Voice and text chat software
+cask "discord"
