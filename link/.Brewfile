@@ -85,3 +85,5 @@ brew "optipng"
 brew "git-filter-repo"
 # Incredibly fast JavaScript runtime, bundler, test runner, and package manager
 brew "bun"
+# Instant messaging application focusing on security
+cask "signal"
