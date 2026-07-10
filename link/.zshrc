@@ -164,7 +164,7 @@ _set-theme() {
       setopt NO_NOTIFY NO_MONITOR
       lsof -p $(pgrep nvim | tr "\n" ",") \
         | awk '$5 == "unix" && $8 ~ /nvim/ { print $8 }' \
-        | python -c "
+        | pynvim-python -c "
 import sys
 import neovim as n
 for sock in sys.stdin.read().splitlines():
