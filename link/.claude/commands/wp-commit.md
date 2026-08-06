@@ -117,14 +117,16 @@ Fixes #12345. See #67890.
 
 ## Description
 
-- One paragraph is typical, two is occasional, more can be used exceptionally.
-- If the summary line fully captures the change, the description may be omitted (keep only the Developed in, Props, and Fixes lines).
+- **Be brief. Default to the shortest description that conveys the _what_ and _why_ — usually two to four sentences.** When in doubt, cut. A short, correct description is better than a thorough one.
+- Do NOT restate the diff or explain implementation mechanics (which methods, modes, or algorithms changed). That's the _how_; the diff already shows it.
+- One short paragraph is typical. A second paragraph is the exception, not the norm — add one only when context genuinely requires it (e.g. explaining a related ticket or a non-obvious motivation).
+- If the summary line fully captures the change, omit the description entirely (keep only the Developed in, Props, and Fixes lines).
 - Separated from summary by a blank line
-- Describe the _what_ and _why_ (the diff shows _how_)
-- The description is an _overview_ - present relevant information but avoid excessive detail
-- Informed by both the PR and the Trac ticket
-- Can be multiple paragraphs separated by blank lines, but prefer fewer
+- Informed by both the PR and the Trac ticket, but summarize — do not absorb their length. The PR description's detail, test output, and links are context for _you_, not content to copy.
 - Do NOT manually wrap lines
+- Don't include time estimates or scheduling language
+- Code/hooks in backticks: `function_name()`, `hook_name`
+- Each sentence should begin with a capital letter and end with a period
 - Don't include time estimates or scheduling language
 - Code/hooks in backticks: `function_name()`, `hook_name`
 - Each sentence should begin with capital letter and end with period
