@@ -554,7 +554,7 @@ vim.lsp.config("gopls", {
 		},
 	},
 })
-vim.lsp.enable("gopls")
+-- vim.lsp.enable("gopls")
 
 -- requires cargo:harper-ls
 -- lspconfig.harper_ls.setup({
@@ -567,4 +567,4 @@ vim.lsp.enable("gopls")
 -- })
 
 -- requires brew:zls
-vim.lsp.enable("zls")
+-- vim.lsp.enable("zls")
