@@ -1,6 +1,8 @@
 ---
 name: docs-review-fix
 description: Use when the user wants to review and fix documentation correctness/staleness across a set of files — broken code examples, stale APIs, wrong file paths, dead links, version drift, contradictions. Operates on READMEs and docs/ markdown. Output is a local branch plus a report. Never opens PRs or issues; never edits prose for grammar/style/voice.
+disable-model-invocation: true
+user-invocable: true
 ---
 
 # docs-review-fix

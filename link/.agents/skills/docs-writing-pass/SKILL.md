@@ -1,6 +1,8 @@
 ---
 name: docs-writing-pass
 description: Run a parallel-agent (Haiku) writing-quality pass over markdown docs in a repo — fixes spelling, grammar, punctuation, and markdown syntax only. Use when the user wants to fan out agents to review or fix typos across documentation, do a writing pass over all docs, or improve doc quality across a codebase.
+disable-model-invocation: true
+user-invocable: true
 ---
 
 # Docs writing-quality pass
