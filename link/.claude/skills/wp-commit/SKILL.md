@@ -1,5 +1,6 @@
 ---
-description: Generate a WordPress Core subversion commit message.
+name: wp-commit
+description: Generate a WordPress Core Subversion commit message from a GitHub pull request and its linked Trac ticket.
 disable-model-invocation: true
 user-invocable: true
 allowed-tools:
@@ -43,24 +44,25 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 
 Always use the WordPress Trac MCP tools to fetch ticket details, including enough comments to review the full discussion when possible.
 
-   - Fetch the main ticket.
-   - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
-   - Use the ticket summary and description to help form the commit message
-   - Look for related ticket references (#12345) in the description
-   - Fetch related tickets to understand the relationship
-   - Include related tickets as `See #...` references in the commit message
-   - Reference related tickets in the description if appropriate to explain context
-   - Collect any changeset references (`r12345` or `[12345]`, e.g., "reverts r58123", "follow-up to [58123]") from the ticket and its discussion, combining them with any found in the PR description from step 1.
+- Fetch the main ticket.
+- Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
+- Use the ticket summary and description to help form the commit message
+- Look for related ticket references (#12345) in the description
+- Fetch related tickets to understand the relationship
+- Include related tickets as `See #...` references in the commit message
+- Reference related tickets in the description if appropriate to explain context
+- Collect any changeset references (`r12345` or `[12345]`, e.g., "reverts r58123", "follow-up to [58123]") from the ticket and its discussion, combining them with any found in the PR description from step 1.
 
 3. **Explore discovered changesets:**
 
 Always use the WordPress Trac MCP tools to fetch changeset details, including the diff when it helps explain the relationship.
 
-   Use changeset information to understand relationships:
-   - What the original change did (for reverts or follow-ups)
-   - Related tickets that may need `See #...` references
-   - Context that should be mentioned in the commit message description
-   - Add a "Follow-up to [nnnnn]" line when this commit directly continues, reverts, or fixes a previous changeset.
+Use changeset information to understand relationships:
+
+- What the original change did (for reverts or follow-ups)
+- Related tickets that may need `See #...` references
+- Context that should be mentioned in the commit message description
+- Add a "Follow-up to [nnnnn]" line when this commit directly continues, reverts, or fixes a previous changeset.
 
 4. **Build the props list:**
 
@@ -80,7 +82,6 @@ Always use the WordPress Trac MCP tools to fetch changeset details, including th
 ## Output
 
 Output ONLY the commit message text, properly formatted and ready to copy. Do not include any other commentary or explanation. Use a markdown code block so it's easy to copy.
-
 
 # WordPress Core Commit Message Format
 
