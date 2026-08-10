@@ -1,8 +1,4 @@
 /*
 !/.gitignore
 !/CLAUDE.md
-
-!/agents/
-!/commands/
-!/scripts/
-!/skills/
+!/skills
