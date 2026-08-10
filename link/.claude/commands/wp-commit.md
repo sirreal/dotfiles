@@ -4,10 +4,7 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
-  - Skill(wordpress-trac:wp-trac-search)
-  - Skill(wordpress-trac:wp-trac-timeline)
-  - Skill(wordpress-trac:wp-trac-ticket)
-  - Skill(wordpress-trac:wp-trac-changeset)
+  - mcp__wp_trac
 argument-hint: "[pr-number]"
 ---
 
@@ -44,7 +41,7 @@ Follow the "WordPress Core Commit Message Format" section below when generating 
 
 2. **Fetch Trac ticket details:**
 
-Always use the `/wordpress-trac:wp-trac-ticket <number>` skill to fetch ticket details.
+Always use the WordPress Trac MCP tools to fetch ticket details, including enough comments to review the full discussion when possible.
 
    - Fetch the main ticket.
    - Use `component` for the commit message prefix, but NOT if it's "General" (omit the prefix in that case)
@@ -57,7 +54,7 @@ Always use the `/wordpress-trac:wp-trac-ticket <number>` skill to fetch ticket d
 
 3. **Explore discovered changesets:**
 
-Always use the `/wordpress-trac:wp-trac-changeset <number>` skill to fetch changeset details.
+Always use the WordPress Trac MCP tools to fetch changeset details, including the diff when it helps explain the relationship.
 
    Use changeset information to understand relationships:
    - What the original change did (for reverts or follow-ups)
