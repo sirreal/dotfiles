@@ -227,7 +227,6 @@ function volta-install {
     @mariozechner/pi-coding-agent \
     @stylelint/language-server    \
     @typescript/analyze-trace     \
-    @typescript/native-preview    \
     @wordpress/env                \
     @wp-now/wp-now                \
     cssmodules-language-server    \
@@ -241,7 +240,6 @@ function volta-install {
     pnpm                          \
     stylelint                     \
     typescript                    \
-    typescript-language-server    \
     vscode-langservers-extracted  \
     yaml-language-server          \
     yarn
