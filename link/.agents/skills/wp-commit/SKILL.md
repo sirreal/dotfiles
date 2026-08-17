@@ -5,7 +5,7 @@ disable-model-invocation: true
 user-invocable: true
 allowed-tools:
   - Bash(gh pr view:*)
-  - mcp__wp_trac
+  - mcp__wordpress-trac__*
 argument-hint: "[pr-number]"
 ---
 
@@ -125,9 +125,6 @@ Fixes #12345. See #67890.
 - Don't include time estimates or scheduling language
 - Code/hooks in backticks: `function_name()`, `hook_name`
 - Each sentence should begin with a capital letter and end with a period
-- Don't include time estimates or scheduling language
-- Code/hooks in backticks: `function_name()`, `hook_name`
-- Each sentence should begin with capital letter and end with period
 
 ## Developed In Line
 
