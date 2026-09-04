@@ -99,3 +99,15 @@ cask "dropbox"
 cask "dosbox"
 # Voice and text chat software
 cask "discord"
+# Offline voice-to-text dictation app with AI enhancement
+cask "fluidvoice"
+# Free and open-source OpenVPN client
+cask "tunnelblick"
+# IRC client
+cask "halloy"
+# Powerful free data recovery utility
+brew "testdisk"
+# Fast PHP language server written in Rust
+brew "phpantom-lsp"
+# TOML formatter, linter and language server
+brew "tombi"
