@@ -31,4 +31,4 @@ Never use mannered prose: metaphor, flourish, or stock phrasing in place of a di
 
 Never write: em dashes (—), "load-bearing", "where it bites".
 
-@~/hq/.hq/now-global.md
+Read ~/hq/.hq/now-global.md.
