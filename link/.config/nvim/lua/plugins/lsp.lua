@@ -347,6 +347,12 @@ vim.lsp.config("phptools", {
 	},
 	init_options = {
 		["0"] = require("plugins.phptools-key"),
+		-- In `settings`, files.exclude can arrive mid-index and leave excluded files in go-to-definition.
+		["files.exclude"] = {
+			["**/.claude"] = true,
+			["build"] = true,
+			["gutenberg/build"] = true,
+		},
 	},
 })
 vim.lsp.enable("phptools")

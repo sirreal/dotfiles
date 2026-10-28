@@ -58,6 +58,8 @@ vim.pack.add({
 	{ src = "https://github.com/tpope/vim-eunuch" },
 })
 
+-- Disable copilot `npx` and use embedded version
+vim.g.copilot_version = false
 vim.pack.add({
 	{ src = "https://github.com/github/copilot.vim", version = "release" },
 }, { load = false })
